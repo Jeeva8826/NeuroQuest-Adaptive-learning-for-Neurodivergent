@@ -384,3 +384,54 @@ async def seed_database_content():
         )
     logger.info("Successfully seeded 3 Hackathon Demo Learner Profiles (Learner A, B, C).")
 
+    # Seed NCERT Knowledge Graph Concepts & Questions
+    try:
+        import os, json
+        kg_path = os.path.join(os.path.dirname(__file__), "..", "..", "data", "curriculum", "ncert_knowledge_graph.json")
+        if os.path.exists(kg_path):
+            with open(kg_path, "r", encoding="utf-8") as f:
+                kg = json.load(f)
+            for sub in kg.get("subjects", []):
+                for ch in sub.get("chapters", []):
+                    for top in ch.get("topics", []):
+                        for con in top.get("concepts", []):
+                            await db["concepts"].update_one(
+                                {"concept_id": con["concept_id"]},
+                                {"$set": {
+                                    "concept_id": con["concept_id"],
+                                    "subject": sub["subject_name"],
+                                    "grade": sub.get("grade", 7),
+                                    "chapter": ch["title"],
+                                    "name": con["concept_name"],
+                                    "learning_objectives": con.get("learning_objectives", []),
+                                    "prerequisites": con.get("prerequisites", []),
+                                    "explanation": con.get("explanation", {}),
+                                    "misconceptions": con.get("common_misconceptions", [])
+                                }},
+                                upsert=True
+                            )
+                            for q in con.get("questions", []):
+                                await db["tasks"].update_one(
+                                    {"id": q["question_id"]},
+                                    {"$set": {
+                                        "id": q["question_id"],
+                                        "concept_id": con["concept_id"],
+                                        "title": f"{con['concept_name']} ({q.get('cognitive_level', 'RECALL')})",
+                                        "subject": sub["subject_name"],
+                                        "difficulty": q.get("difficulty", 1),
+                                        "question": q["prompt"],
+                                        "options": q.get("options", []),
+                                        "correct_answer": q["correct_answer"],
+                                        "explanation": q.get("explanation", ""),
+                                        "hints": q.get("hints", []),
+                                        "scaffold_steps": q.get("scaffold_steps", []),
+                                        "cognitive_level": q.get("cognitive_level", "RECALL"),
+                                        "supported_learning_modes": ["Seeing", "Doing"],
+                                        "theme_tags": ["general", "space", "animals"]
+                                    }},
+                                    upsert=True
+                                )
+            logger.info("Successfully synced NCERT Knowledge Graph concepts & tasks into MongoDB.")
+    except Exception as e:
+        logger.warning(f"Notice syncing knowledge graph: {e}")
+

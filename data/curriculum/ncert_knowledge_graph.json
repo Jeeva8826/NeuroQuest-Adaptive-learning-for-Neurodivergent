@@ -1,0 +1,359 @@
+{
+  "board": "NCERT",
+  "target_age_group": "10-15",
+  "version": "1.0",
+  "license": "NCERT Educational Open Metadata",
+  "subjects": [
+    {
+      "subject_id": "SUB_SCIENCE",
+      "subject_name": "Science",
+      "grade": 7,
+      "chapters": [
+        {
+          "chapter_id": "SCI_CH01",
+          "chapter_number": 1,
+          "title": "Nutrition in Plants",
+          "topics": [
+            {
+              "topic_id": "TOPIC_SCI_01_01",
+              "title": "Modes of Nutrition & Autotrophs",
+              "concepts": [
+                {
+                  "concept_id": "CON_AUTOTROPH_01",
+                  "concept_name": "Autotrophic vs Heterotrophic Nutrition",
+                  "difficulty": 1.0,
+                  "learning_objectives": [
+                    "Distinguish between organisms that make their own food and those dependent on others",
+                    "Identify plants as primary autotrophic producers"
+                  ],
+                  "prerequisites": ["Living organisms need food for energy"],
+                  "explanation": {
+                    "standard": "Autotrophic nutrition is a mode where organisms synthesize food from simple inorganic substances like carbon dioxide and water using light energy. Heterotrophs depend on other organisms for nourishment.",
+                    "simplified": "Autotrophs make their own food using sunlight, like plants. Heterotrophs eat other living things, like animals and humans.",
+                    "interest_analogies": {
+                      "space": "Think of autotrophs like solar-powered space stations generating their own power, while astronaut capsules need resupply food crates from Earth.",
+                      "coding": "Autotrophs are like self-executing generator functions that create their own output from scratch, while heterotrophs consume external API data.",
+                      "animals": "A tree makes its own lunch using sunlight (autotroph), while a rabbit has to munch grass to get its fuel (heterotroph)."
+                    }
+                  },
+                  "concrete_examples": [
+                    "Green moss and mango trees are autotrophs.",
+                    "Lions, cows, and mushrooms are heterotrophs."
+                  ],
+                  "common_misconceptions": [
+                    {
+                      "misconception": "Plants take in organic food directly from the soil.",
+                      "scientific_truth": "Plants absorb water and mineral salts from the soil, but synthesize actual organic carbohydrates inside leaves through photosynthesis."
+                    }
+                  ],
+                  "questions": [
+                    {
+                      "question_id": "Q_AUTO_01",
+                      "cognitive_level": "RECALL",
+                      "difficulty": 1,
+                      "question_type": "multiple_choice",
+                      "prompt": "Organisms that can prepare their own food from simple substances are called:",
+                      "options": ["Heterotrophs", "Autotrophs", "Saprotrophs", "Parasites"],
+                      "correct_answer": "Autotrophs",
+                      "explanation": "The term 'auto' means self and 'trophos' means nourishment. Plants are autotrophs because they synthesize their own food.",
+                      "hints": [
+                        "The prefix 'Auto' means self, like an automated machine.",
+                        "Think of organisms that don't need to hunt or forage for meals."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Look at the word prefix: 'Auto-' means self.",
+                        "Step 2: 'Troph' refers to feeding or nourishment.",
+                        "Step 3: Combine 'self' + 'nourishment' to find the answer."
+                      ]
+                    },
+                    {
+                      "question_id": "Q_AUTO_02",
+                      "cognitive_level": "APPLICATION",
+                      "difficulty": 2,
+                      "question_type": "multiple_choice",
+                      "prompt": "A deer grazes on prairie grass, while the grass uses sunlight to grow. Which statement accurately describes their nutritional modes?",
+                      "options": [
+                        "Both the deer and the grass are autotrophs",
+                        "The grass is an autotroph, and the deer is a heterotroph",
+                        "The deer is an autotroph, and the grass is a saprotroph",
+                        "Both are heterotrophs because they live outdoors"
+                      ],
+                      "correct_answer": "The grass is an autotroph, and the deer is a heterotroph",
+                      "explanation": "Green grass creates its own food via photosynthesis (autotroph). The deer cannot make its own food and must consume grass (heterotroph).",
+                      "hints": [
+                        "Which one can harness sunlight directly to create carbohydrates?",
+                        "The deer must eat other organisms to survive."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Check how the grass gets food (makes it using sun -> autotroph).",
+                        "Step 2: Check how the deer gets food (eats grass -> heterotroph).",
+                        "Step 3: Select the option matching Grass=Autotroph, Deer=Heterotroph."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "concept_id": "CON_PHOTOSYNTH_02",
+                  "concept_name": "Photosynthesis Biochemical Process",
+                  "difficulty": 2.0,
+                  "learning_objectives": [
+                    "Recall the key reactants and products of photosynthesis",
+                    "Understand the essential role of chlorophyll and sunlight"
+                  ],
+                  "prerequisites": ["CON_AUTOTROPH_01"],
+                  "explanation": {
+                    "standard": "Photosynthesis is the synthesis of organic carbohydrates from carbon dioxide and water in the presence of sunlight and chlorophyll, releasing oxygen as a byproduct.",
+                    "simplified": "Leaves take water from roots and air (carbon dioxide) from the sky. Sunlight powers the leaf kitchen to cook glucose food and release fresh oxygen!",
+                    "interest_analogies": {
+                      "space": "Photosynthesis is nature's atmospheric scrubber: taking in CO2 like a spacecraft life-support filter and pumping out fresh oxygen for the crew!",
+                      "coding": "It's a transformation function: input(CO2, H2O, lightEnergy) => output(Glucose, O2).",
+                      "animals": "Forest leaves work together like an oxygen factory, giving animal habitats clean air to breathe."
+                    }
+                  },
+                  "concrete_examples": [
+                    "Carbon dioxide + Water in presence of Sunlight & Chlorophyll -> Carbohydrate + Oxygen."
+                  ],
+                  "common_misconceptions": [
+                    {
+                      "misconception": "Plants only perform photosynthesis and never respire.",
+                      "scientific_truth": "Plants respire continuously day and night, taking in oxygen to release energy from glucose, but produce surplus oxygen during daytime photosynthesis."
+                    }
+                  ],
+                  "questions": [
+                    {
+                      "question_id": "Q_PHOTO_01",
+                      "cognitive_level": "UNDERSTANDING",
+                      "difficulty": 2,
+                      "question_type": "multiple_choice",
+                      "prompt": "During photosynthesis in plant leaves, which gas is released into the atmosphere?",
+                      "options": ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+                      "correct_answer": "Oxygen",
+                      "explanation": "Water molecules are split using sunlight energy, producing carbohydrates and releasing vital oxygen gas into the air.",
+                      "hints": [
+                        "It is the vital gas that humans and animals need to breathe.",
+                        "Plants take in carbon dioxide and release this fresh gas."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: What gas enters the leaf? Carbon dioxide.",
+                        "Step 2: What gas exits the leaf as a helpful byproduct? Oxygen."
+                      ]
+                    },
+                    {
+                      "question_id": "Q_PHOTO_02",
+                      "cognitive_level": "ANALYSIS",
+                      "difficulty": 3,
+                      "question_type": "multiple_choice",
+                      "prompt": "If a healthy green potted plant is kept inside a completely dark closet for two weeks with regular watering, what will happen and why?",
+                      "options": [
+                        "It grows faster because darkness protects the leaves",
+                        "It cannot synthesize new glucose because light energy is absent",
+                        "It converts soil water directly into chlorophyll without light",
+                        "It begins absorbing carbon monoxide instead of carbon dioxide"
+                      ],
+                      "correct_answer": "It cannot synthesize new glucose because light energy is absent",
+                      "explanation": "Light is an indispensable energy requirement to drive the photosynthetic reaction. Without light, chlorophyll cannot energize electron transfer to create glucose.",
+                      "hints": [
+                        "Remember 'photo' means light &mdash; can the food kitchen run without power?",
+                        "Water alone cannot provide the energy required to make carbohydrates."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Identify what is missing in the closet: Sunlight.",
+                        "Step 2: Can photosynthesis take place without sunlight? No.",
+                        "Step 3: Therefore, the plant cannot synthesize new food."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "concept_id": "CON_STOMATA_03",
+                  "concept_name": "Stomata and Gas Exchange",
+                  "difficulty": 2.5,
+                  "learning_objectives": [
+                    "Locate microscopic stomatal pores on leaf surfaces",
+                    "Explain the opening and closing action of guard cells"
+                  ],
+                  "prerequisites": ["CON_PHOTOSYNTH_02"],
+                  "explanation": {
+                    "standard": "Stomata are microscopic pores located primarily on the lower epidermis of leaves, flanked by kidney-shaped guard cells that regulate transpiration and gas exchange.",
+                    "simplified": "Stomata are microscopic breathing windows on leaves. Two guard cells act like automatic sliding doors, opening to let air in and closing to save water.",
+                    "interest_analogies": {
+                      "space": "Guard cells are like airlock doors on a space station, carefully opening to exchange atmospheric gases without letting precious moisture escape.",
+                      "coding": "Stomata operate like an event-driven valve: if (moisture_low) closePore() else openForGasExchange()."
+                    }
+                  },
+                  "concrete_examples": [
+                    "When stomata open, CO2 diffuses in for photosynthesis and water vapor escapes in transpiration."
+                  ],
+                  "common_misconceptions": [
+                    {
+                      "misconception": "Stomata remain open permanently.",
+                      "scientific_truth": "Guard cells swell and close during hot or dry conditions to conserve water."
+                    }
+                  ],
+                  "questions": [
+                    {
+                      "question_id": "Q_STOM_01",
+                      "cognitive_level": "RECALL",
+                      "difficulty": 1,
+                      "question_type": "multiple_choice",
+                      "prompt": "The tiny breathing pores present on the surface of plant leaves are called:",
+                      "options": ["Stomata", "Chlorophyll", "Veins", "Tendrils"],
+                      "correct_answer": "Stomata",
+                      "explanation": "Stomata are small pore openings that allow carbon dioxide to enter and oxygen/water vapor to exit.",
+                      "hints": [
+                        "They are flanked by specialized kidney-shaped guard cells.",
+                        "The name begins with 'S'."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Chlorophyll is the green pigment, veins carry fluid.",
+                        "Step 2: The actual pore openings are called Stomata."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject_id": "SUB_MATH",
+      "subject_name": "Mathematics",
+      "grade": 7,
+      "chapters": [
+        {
+          "chapter_id": "MATH_CH01",
+          "chapter_number": 1,
+          "title": "Integers",
+          "topics": [
+            {
+              "topic_id": "TOPIC_MATH_01_01",
+              "title": "Number Line and Integer Operations",
+              "concepts": [
+                {
+                  "concept_id": "CON_NUM_LINE_01",
+                  "concept_name": "Integers on the Number Line",
+                  "difficulty": 1.0,
+                  "learning_objectives": [
+                    "Locate negative and positive integers relative to origin zero",
+                    "Understand directional movement: right is addition/greater, left is subtraction/less"
+                  ],
+                  "prerequisites": ["Whole numbers and basic addition"],
+                  "explanation": {
+                    "standard": "Integers form a collection containing positive natural numbers, zero, and negative numbers. On a horizontal number line, values increase towards the right and decrease towards the left.",
+                    "simplified": "Think of a straight walking path where 0 is your home. Walking forward takes you to positive numbers (+1, +2, +3). Walking backward in reverse takes you to negative numbers (-1, -2, -3).",
+                    "interest_analogies": {
+                      "space": "Zero is the launch pad. Rocket altitude is positive (+100m, +500m), while submarine depth under sea level is negative (-50m, -200m).",
+                      "coding": "Array index offsets or coordinate axes where 0 is center, positive is rightward, and negative is leftward.",
+                      "animals": "A bird flying 5 meters above sea level is at +5. A fish swimming 5 meters below the surface is at -5."
+                    }
+                  },
+                  "concrete_examples": [
+                    "-5 is to the left of -2, so -5 is smaller than -2.",
+                    "0 is greater than every negative integer."
+                  ],
+                  "common_misconceptions": [
+                    {
+                      "misconception": "-10 is greater than -2 because 10 is bigger than 2.",
+                      "scientific_truth": "In negative numbers, the value further to the left on the number line is smaller. Owing 10 coins (-10) is less wealth than owing 2 coins (-2)."
+                    }
+                  ],
+                  "questions": [
+                    {
+                      "question_id": "Q_INT_01",
+                      "cognitive_level": "RECALL",
+                      "difficulty": 1,
+                      "question_type": "multiple_choice",
+                      "prompt": "Which of the following integers has the greatest value?",
+                      "options": ["-8", "-15", "-1", "-20"],
+                      "correct_answer": "-1",
+                      "explanation": "On a number line, -1 is closest to zero and furthest to the right compared to -8, -15, and -20. Therefore, -1 has the highest value.",
+                      "hints": [
+                        "Which number is furthest to the right on a number line?",
+                        "Think of temperature: which is least cold?"
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Plot the numbers: ... -20 ... -15 ... -8 ... -1 ... 0",
+                        "Step 2: The number furthest to the right has the highest value.",
+                        "Step 3: -1 is immediately next to 0, so it is the largest."
+                      ]
+                    },
+                    {
+                      "question_id": "Q_INT_02",
+                      "cognitive_level": "APPLICATION",
+                      "difficulty": 2,
+                      "question_type": "multiple_choice",
+                      "prompt": "At midnight, the temperature in Dras was -7°C. By morning, it rose by 4°C. What was the morning temperature?",
+                      "options": ["-11°C", "-3°C", "+3°C", "+11°C"],
+                      "correct_answer": "-3°C",
+                      "explanation": "Starting at -7 and rising (adding) 4 gives: -7 + 4 = -3°C.",
+                      "hints": [
+                        "A rise in temperature means moving to the right on the number line.",
+                        "Start at -7 and take 4 steps towards positive numbers."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Starting point = -7.",
+                        "Step 2: 'Rose by 4' means add +4.",
+                        "Step 3: -7 + 4 = -3."
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "concept_id": "CON_INT_MULT_02",
+                  "concept_name": "Multiplication of Negative Integers",
+                  "difficulty": 2.5,
+                  "learning_objectives": [
+                    "Apply sign rules: (+) x (-) = (-), and (-) x (-) = (+)",
+                    "Solve multi-step integer multiplication problems"
+                  ],
+                  "prerequisites": ["CON_NUM_LINE_01"],
+                  "explanation": {
+                    "standard": "The product of two positive integers is positive. The product of a positive and a negative integer is negative. The product of two negative integers is positive.",
+                    "simplified": "If signs are different, the result is negative (-). If signs are identical (both plus or both minus), the result is positive (+)!",
+                    "interest_analogies": {
+                      "space": "Reversing thrust (-1) while already traveling in reverse (-1) accelerates you forward (+1) into orbit!",
+                      "coding": "Two logical NOT operators cancel out: !(!true) === true."
+                    }
+                  },
+                  "concrete_examples": [
+                    "(-3) x 4 = -12",
+                    "(-5) x (-6) = +30"
+                  ],
+                  "common_misconceptions": [
+                    {
+                      "misconception": "Adding negative numbers makes them positive.",
+                      "scientific_truth": "Adding negatives stays negative: (-3) + (-4) = -7. It is multiplication where two negative signs yield a positive: (-3) x (-4) = +12."
+                    }
+                  ],
+                  "questions": [
+                    {
+                      "question_id": "Q_INT_03",
+                      "cognitive_level": "UNDERSTANDING",
+                      "difficulty": 2,
+                      "question_type": "multiple_choice",
+                      "prompt": "Calculate the product: (-6) × (-7)",
+                      "options": ["-42", "+42", "-13", "+13"],
+                      "correct_answer": "+42",
+                      "explanation": "Multiplying two negative numbers produces a positive result: 6 × 7 = 42, with matching signs giving +42.",
+                      "hints": [
+                        "When both factors share the same sign (negative times negative), the answer is positive.",
+                        "6 times 7 is 42."
+                      ],
+                      "scaffold_steps": [
+                        "Step 1: Check the signs: negative × negative = positive.",
+                        "Step 2: Multiply the values: 6 × 7 = 42.",
+                        "Step 3: Combine sign and value: +42."
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

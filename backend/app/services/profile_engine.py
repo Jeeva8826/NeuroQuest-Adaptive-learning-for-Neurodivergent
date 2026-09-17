@@ -107,8 +107,22 @@ def process_questionnaire_to_profile(
         palette_type = "soft"
         
     # Font style
-    font_family = "rounded" if palette_type == "soft" else "sans"
+    # Check accommodations from 20-question assessment
+    accommodations = getattr(questionnaire, "q20_accommodations", []) or []
+    has_dyslexic_font = any("dyslexic" in str(a).lower() for a in accommodations)
+    has_reduced_motion = any("reduced motion" in str(a).lower() or "motion" in str(a).lower() for a in accommodations)
     
+    font_family = "OpenDyslexic" if has_dyslexic_font else ("rounded" if palette_type == "soft" else "sans")
+    
+    # 9. Content density & text tolerance
+    density_pref = getattr(questionnaire, "q9_content_density", "") or ""
+    if "single-concept" in density_pref.lower() or "minimal" in density_pref.lower():
+        visual_density = "minimal"
+    elif "dual-card" in density_pref.lower() or questionnaire.q12_prefer_calm_screen:
+        visual_density = "spacious"
+    else:
+        visual_density = "balanced"
+
     visual_prefs = VisualPreferences(
         favorite_colors=[questionnaire.q6_favorite_color],
         avoided_colors=questionnaire.q7_disliked_colors,
@@ -122,51 +136,60 @@ def process_questionnaire_to_profile(
     )
     
     # 2. Sensory Preferences
-    anim_raw = questionnaire.q10_animation_effect.lower()
-    if "distract" in anim_raw:
-        anim_intensity = "low" if questionnaire.q12_prefer_calm_screen else "none"
-    elif "help" in anim_raw:
-        anim_intensity = "normal"
-    else:
+    anim_raw = (getattr(questionnaire, "q8_distraction_sensitivity", "") or questionnaire.q10_animation_effect).lower()
+    if has_reduced_motion or "high" in anim_raw or "distract" in anim_raw:
+        anim_intensity = "none"
+    elif "moderate" in anim_raw:
         anim_intensity = "low"
+    else:
+        anim_intensity = "normal"
         
-    sound_raw = questionnaire.q11_sound_effect.lower()
-    sound_enabled = "help" in sound_raw or questionnaire.q13_prefer_movement
+    audio_pref = getattr(questionnaire, "q5_audio_support", "").lower()
+    sound_enabled = "automatic" in audio_pref or "on-demand" in audio_pref or "help" in questionnaire.q11_sound_effect.lower()
     
     sensory_prefs = SensoryPreferences(
         sound_enabled=sound_enabled,
         sound_preference="calm_chimes" if sound_enabled else "quiet",
         animation_intensity=anim_intensity,
-        visual_density="spacious" if questionnaire.q12_prefer_calm_screen else "balanced",
-        calm_mode=questionnaire.q12_prefer_calm_screen
+        visual_density=visual_density,
+        calm_mode=questionnaire.q12_prefer_calm_screen or "high" in anim_raw
     )
     
     # 3. Motivation
+    reinforce_pref = getattr(questionnaire, "q18_reinforcement_style", "")
+    reward_types = questionnaire.q21_reward_types.copy()
+    if reinforce_pref:
+        reward_types.append(reinforce_pref)
+        
     motivation_prefs = MotivationPreferences(
-        preferred_rewards=questionnaire.q21_reward_types,
-        reward_style="badges_unlocks" if "Unlocking something" in questionnaire.q21_reward_types else "collectables"
+        preferred_rewards=reward_types,
+        reward_style="badges_unlocks" if any("unlock" in str(r).lower() for r in reward_types) else "collectables"
     )
     
     # 4. Interaction Preferences
-    task_struct = questionnaire.q16_task_structure.lower()
-    task_size = "small" if "small" in task_struct or "step" in task_struct else "medium"
-    guidance = "high" if "step" in task_struct or "guidance" in task_struct else "moderate"
+    chunking_pref = getattr(questionnaire, "q10_task_chunking", "").lower()
+    guidance_pref = getattr(questionnaire, "q16_step_guidance", "").lower()
+    break_pref = getattr(questionnaire, "q17_break_frequency", "").lower()
+    
+    task_size = "small" if ("micro" in chunking_pref or "short" in chunking_pref or "small" in questionnaire.q16_task_structure.lower()) else "medium"
+    guidance = "high" if ("always" in guidance_pref or "high" in guidance_pref or "step" in questionnaire.q16_task_structure.lower()) else "moderate"
+    break_frequency = 6 if ("5 to 7" in break_pref or "every 3" in break_pref) else 10
     
     interaction_prefs = InteractionPreferences(
         task_size=task_size,
         feedback_style=questionnaire.q19_feedback_style,
         guidance_level=guidance,
-        break_frequency_mins=10 if "needs_break" in questionnaire.q17_difficulty_reaction else 15
+        break_frequency_mins=break_frequency
     )
     
     # 5. Extract interests list
-    interests = questionnaire.q3_themes.copy()
+    interests = (questionnaire.q3_themes or ["Space", "Animals"]).copy()
     if questionnaire.q1_enjoyed_topics:
         interests.append(questionnaire.q1_enjoyed_topics)
     if questionnaire.q5_voluntary_subjects:
         interests.append(questionnaire.q5_voluntary_subjects)
         
-    hobbies = [h.strip() for h in questionnaire.q4_hobbies.split(",") if h.strip()]
+    hobbies = [h.strip() for h in questionnaire.q4_hobbies.split(",") if h.strip()] if questionnaire.q4_hobbies else []
     
     return LearnerProfile(
         learner_id=learner_id,
@@ -179,6 +202,6 @@ def process_questionnaire_to_profile(
         sensory_preferences=sensory_prefs,
         motivation=motivation_prefs,
         interaction_preferences=interaction_prefs,
-        avoidance_keywords=[w.strip() for w in questionnaire.q24_platform_avoidances.split(",") if w.strip()],
-        calming_strategies=[c.strip() for c in questionnaire.q23_calming_methods.split(",") if c.strip()]
+        avoidance_keywords=[w.strip() for w in questionnaire.q24_platform_avoidances.split(",") if w.strip()] if questionnaire.q24_platform_avoidances else [],
+        calming_strategies=[c.strip() for c in questionnaire.q23_calming_methods.split(",") if c.strip()] if questionnaire.q23_calming_methods else ["Gentle breathing", "Sensory pause"]
     )

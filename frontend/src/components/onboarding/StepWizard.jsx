@@ -1,101 +1,384 @@
 import React, { useState } from 'react';
 import { 
-  Heart, Sparkles, Palette, Volume2, BookOpen, Gift, ShieldAlert,
-  ArrowRight, ArrowLeft, Check, HelpCircle
+  Sparkles, Palette, Volume2, BookOpen, Gift, ShieldAlert,
+  ArrowRight, ArrowLeft, Check, HelpCircle, Eye, Clock, Layers,
+  Compass, Heart, Zap, Sliders
 } from 'lucide-react';
 import AudioButton from '../common/AudioButton';
 
-const THEME_OPTIONS = [
-  { id: 'Space', label: '🚀 Space', color: 'bg-indigo-50 border-indigo-200 text-indigo-800' },
-  { id: 'Animals', label: '🐾 Animals', color: 'bg-emerald-50 border-emerald-200 text-emerald-800' },
-  { id: 'Cars', label: '🏎️ Cars & Vehicles', color: 'bg-amber-50 border-amber-200 text-amber-800' },
-  { id: 'Sports', label: '⚽ Sports', color: 'bg-blue-50 border-blue-200 text-blue-800' },
-  { id: 'Art', label: '🎨 Art & Drawing', color: 'bg-pink-50 border-pink-200 text-pink-800' },
-  { id: 'Music', label: '🎵 Music & Sound', color: 'bg-purple-50 border-purple-200 text-purple-800' },
-  { id: 'Coding/Technology', label: '💻 Coding & Tech', color: 'bg-sky-50 border-sky-200 text-sky-800' },
-  { id: 'Nature', label: '🌿 Nature & Plants', color: 'bg-green-50 border-green-200 text-green-800' },
-  { id: 'Fantasy', label: '🧙 Magic & Fantasy', color: 'bg-rose-50 border-rose-200 text-rose-800' },
-  { id: 'Games', label: '🎮 Video Games', color: 'bg-teal-50 border-teal-200 text-teal-800' },
-  { id: 'Stories', label: '📚 Stories', color: 'bg-violet-50 border-violet-200 text-violet-800' },
-  { id: 'Other', label: '✨ Other Topics', color: 'bg-slate-50 border-slate-200 text-slate-800' }
+export const CAREGIVER_20_QUESTIONS = [
+  // SECTION 1: LEARNING ENVIRONMENT & MODALITIES (Q1 - Q5)
+  {
+    id: 'q1_learning_environment',
+    section: 0,
+    number: 1,
+    title: 'Preferred Learning Environment',
+    subtitle: 'Where does the learner feel most comfortable and attentive during learning activities?',
+    options: [
+      'Quiet, distraction-minimized space with soft ambient lighting',
+      'Gentle background music or calming white noise',
+      'Interactive room with freedom for physical movement',
+      'Co-learning space alongside a supporting parent or educator'
+    ]
+  },
+  {
+    id: 'q2_content_format',
+    section: 0,
+    number: 2,
+    title: 'Preferred Content Format',
+    subtitle: 'Which format helps the learner grasp new educational ideas most naturally?',
+    options: [
+      'Visual diagrams, infographics & structured charts',
+      'Spoken audio explanations & read-aloud storytelling',
+      'Hands-on interactive simulations & manipulative widgets',
+      'Bite-sized concise text cards with bullet points'
+    ]
+  },
+  {
+    id: 'q3_text_tolerance',
+    section: 0,
+    number: 3,
+    title: 'Text Tolerance',
+    subtitle: 'What amount of continuous reading text is most comfortable per screen?',
+    options: [
+      'Bite-sized sentences (1 to 2 short lines per card)',
+      'Short paragraphs (3 to 4 lines with generous line spacing)',
+      'Bullet-point summaries & visual cue cards',
+      'Standard multi-paragraph descriptive passages'
+    ]
+  },
+  {
+    id: 'q4_visual_support',
+    section: 0,
+    number: 4,
+    title: 'Visual Support Preference',
+    subtitle: 'How much visual framing assists the learner in retaining concepts?',
+    options: [
+      'High visual support (icons, color-coded clues, diagrams on every concept)',
+      'Moderate visual support (supporting illustrations for key anchor ideas)',
+      'Clean minimal visual layout (plain text to prevent visual clutter)',
+      'Custom thematic artwork based on learner special interests (e.g. Space, Animals)'
+    ]
+  },
+  {
+    id: 'q5_audio_support',
+    section: 0,
+    number: 5,
+    title: 'Audio Support Preference',
+    subtitle: 'How should spoken speech and auditory cues be used during lessons?',
+    options: [
+      'Automatic read-aloud narration for all lesson prompts',
+      'On-demand audio button (learner taps to listen when helpful)',
+      'Subtle pleasant chime cues for milestone completions',
+      'Quiet mode only (no automatic audio or sound effects)'
+    ]
+  },
+
+  // SECTION 2: PACING, DISTRACTION & CONTENT DENSITY (Q6 - Q10)
+  {
+    id: 'q6_pace_preference',
+    section: 1,
+    number: 6,
+    title: 'Pace Preference',
+    subtitle: 'What rhythm of pacing best supports the learner without causing anxiety?',
+    options: [
+      'Completely untimed, relaxed exploration with zero clock pressure',
+      'Structured, steady step-by-step tempo',
+      'Brisk pace with short rapid check-ins',
+      'Learner-driven pace with pause-and-resume anytime'
+    ]
+  },
+  {
+    id: 'q7_response_time',
+    section: 1,
+    number: 7,
+    title: 'Response Time & Processing',
+    subtitle: 'How does the learner typically approach thinking through a question?',
+    options: [
+      'Needs extended time to reflect before selecting an answer',
+      'Standard response duration',
+      'Tends to answer very quickly; benefits from a gentle "double check" pause',
+      'Variable response time depending on energy and interest level'
+    ]
+  },
+  {
+    id: 'q8_distraction_sensitivity',
+    section: 1,
+    number: 8,
+    title: 'Distraction Sensitivity',
+    subtitle: 'How do visual motions or background elements affect concentration?',
+    options: [
+      'High sensitivity — moving elements, flashing or sliding animations break focus',
+      'Moderate sensitivity — unexpected popups or side banners cause distraction',
+      'Low sensitivity — comfortably filters out secondary interface elements',
+      'Benefits from dedicated Focus Mode hiding headers and navigation bars'
+    ]
+  },
+  {
+    id: 'q9_content_density',
+    section: 1,
+    number: 9,
+    title: 'Content Density on Screen',
+    subtitle: 'How much information should be displayed simultaneously?',
+    options: [
+      'Single-concept focus (exactly one idea and one action per screen)',
+      'Dual-card view (concept explanation alongside one example)',
+      'Balanced lesson view with gradual progressive disclosure',
+      'Comprehensive layout with side-by-side reference notes'
+    ]
+  },
+  {
+    id: 'q10_task_chunking',
+    section: 1,
+    number: 10,
+    title: 'Task Chunking & Milestone Size',
+    subtitle: 'What challenge size creates the most satisfying sense of completion?',
+    options: [
+      'Micro-challenges (1 to 2 minutes each)',
+      'Short missions (3 to 5 minutes each)',
+      'Standard learning blocks (8 to 12 minutes each)',
+      'Modular checkpoints with learner-controlled progress'
+    ]
+  },
+
+  // SECTION 3: INSTRUCTION, REPETITION & FRUSTRATION RECOVERY (Q11 - Q15)
+  {
+    id: 'q11_repetition_preference',
+    section: 2,
+    number: 11,
+    title: 'Repetition & Spiral Review',
+    subtitle: 'How should learned concepts be revisited over time for solid retention?',
+    options: [
+      'Spiral review (concept revisited with new fresh analogies and themes)',
+      'Direct immediate reinforcement with similar practice questions',
+      'Gentle reminder cards only after a break or new session',
+      'No repetition needed if the concept was solved correctly on first try'
+    ]
+  },
+  {
+    id: 'q12_instruction_complexity',
+    section: 2,
+    number: 12,
+    title: 'Instruction Complexity',
+    subtitle: 'What style of instruction prompt is easiest to follow?',
+    options: [
+      'Single-clause direct action ("Select the plant organ that absorbs sunlight")',
+      'Numbered 2-step checklists ("1. Observe the chart, 2. Pick the matching answer")',
+      'Visual flowcards or picture-supported instruction cards',
+      'Conversational guided dialogue from the AI mentor companion'
+    ]
+  },
+  {
+    id: 'q13_difficulty_tolerance',
+    section: 2,
+    number: 13,
+    title: 'Difficulty Progression & Challenge Ramp',
+    subtitle: 'How does the learner respond as questions become more challenging?',
+    options: [
+      'Prefers high early success with very gradual challenge ramps',
+      'Comfortable with gentle challenge provided hints are free and non-penalized',
+      'Enjoys tricky puzzle challenges with no penalty for retrying',
+      'Sensitive to sudden difficulty spikes; needs a reliable safety net'
+    ]
+  },
+  {
+    id: 'q14_frustration_recovery',
+    section: 2,
+    number: 14,
+    title: 'Frustration Recovery During Repeated Errors',
+    subtitle: 'When an answer is missed multiple times, what intervention helps most?',
+    options: [
+      'Offer a 1-minute calming sensory break or breathing visual exercise',
+      'Provide an immediate step-by-step worked example demonstrating the concept',
+      'Pivot gently to a simpler related concept to rebuild confidence',
+      'Present a gentle guiding clue without displaying red error banners'
+    ]
+  },
+  {
+    id: 'q15_example_preference',
+    section: 2,
+    number: 15,
+    title: 'Preference for Examples & Analogies',
+    subtitle: 'What types of examples make abstract academic principles click?',
+    options: [
+      'Concrete step-by-step worked example shown before attempting questions',
+      'Real-world analogy tied to child\'s special interest (e.g. Space, Animals, Coding)',
+      'Interactive sandbox where child can manipulate inputs and observe results',
+      'Side-by-side comparison contrasting the correct approach with a common misconception'
+    ]
+  },
+
+  // SECTION 4: GUIDANCE, BREAKS, REINFORCEMENT & ACCOMMODATIONS (Q16 - Q20)
+  {
+    id: 'q16_step_guidance',
+    section: 3,
+    number: 16,
+    title: 'Step-by-Step Scaffolding Guidance',
+    subtitle: 'How proactive should the AI learning scaffold be during problem solving?',
+    options: [
+      'Always scaffolded (automatically break complex questions into smaller mini-steps)',
+      'Guided upon request (learner taps for step-by-step assistance when needed)',
+      'Try independently first, offer graduated scaffolding after hesitation',
+      'Summary steps provided at the conclusion of each lesson'
+    ]
+  },
+  {
+    id: 'q17_break_frequency',
+    section: 3,
+    number: 17,
+    title: 'Breaks Between Learning Activities',
+    subtitle: 'How often should gentle cognitive breaks and breathing pauses be offered?',
+    options: [
+      'Every 5 to 7 minutes with calm sensory animations',
+      'After every 3 completed task milestones',
+      'Learner-initiated whenever the "Take a Break" button is clicked',
+      'Triggered automatically when cognitive fatigue or rapid clicking is detected'
+    ]
+  },
+  {
+    id: 'q18_reinforcement_style',
+    section: 3,
+    number: 18,
+    title: 'Preferred Reinforcement & Reward Style',
+    subtitle: 'What positive reinforcement motivates the learner without causing competitive stress?',
+    options: [
+      'Visual unlocks (opening new planets, sanctuaries, or cyber lab components)',
+      'Non-competitive mastery progress tree (watching conceptual branches blossom)',
+      'Warm encouraging verbal praise from friendly AI mentor',
+      'Collecting interest-themed badges and milestone stars'
+    ]
+  },
+  {
+    id: 'q19_support_communication',
+    section: 3,
+    number: 19,
+    title: 'Mentor Communication & Persona',
+    subtitle: 'What tone of interaction creates a welcoming, supportive atmosphere?',
+    options: [
+      'Warm, encouraging and patient mentor companion persona',
+      'Calm, neutral, concise and matter-of-fact educational guide',
+      'Audio voice companion with gentle spoken prompts',
+      'Visual mascot providing non-verbal supportive cues'
+    ]
+  },
+  {
+    id: 'q20_accommodations',
+    section: 3,
+    number: 20,
+    isMultiSelect: true,
+    title: 'Classroom & Digital Accommodations',
+    subtitle: 'Select any accessibility features currently found helpful (choose all that apply):',
+    options: [
+      'OpenDyslexic font with increased character & line spacing',
+      'Calm color palette (soft pastels or high-contrast dark theme)',
+      'Text-to-speech read aloud with synchronized word highlighting',
+      'Reduced motion (disable auto-sliding and flashing animations)',
+      'Thematic skin matching child\'s special interest (Space, Animals, Coding)'
+    ]
+  }
 ];
 
-const REWARD_OPTIONS = [
-  'Unlocking something', 'Collecting objects', 'Exploring', 'Building',
-  'Stories', 'Characters', 'Music/sounds', 'Visual effects',
-  'Choice/control', 'Praise/encouragement'
+export const SECTION_METADATA = [
+  {
+    title: 'Environment & Modalities',
+    icon: Compass,
+    color: 'text-blue-600',
+    bg: 'bg-blue-50',
+    description: 'Setting up the physical learning space, preferred media formats, and visual/audio tolerances.'
+  },
+  {
+    title: 'Pacing & Density',
+    icon: Clock,
+    color: 'text-amber-600',
+    bg: 'bg-amber-50',
+    description: 'Calibrating comfortable speed, processing response time, and screen clutter sensitivity.'
+  },
+  {
+    title: 'Guidance & Recovery',
+    icon: Heart,
+    color: 'text-emerald-600',
+    bg: 'bg-emerald-50',
+    description: 'Configuring instruction style, examples, and gentle recovery from learning mistakes.'
+  },
+  {
+    title: 'Reinforcement & Accommodations',
+    icon: Gift,
+    color: 'text-purple-600',
+    bg: 'bg-purple-50',
+    description: 'Personalizing rewards, break intervals, mentor communication, and accessibility tools.'
+  }
 ];
 
-const StepWizard = ({ onSubmit, loading }) => {
-  const [currentStep, setCurrentStep] = useState(0);
+export default function StepWizard({ onSubmit, loading }) {
+  const [currentSection, setCurrentSection] = useState(0);
 
   const [formData, setFormData] = useState({
-    // Section 1: Interests
-    q1_enjoyed_topics: '',
-    q2_engaging_activities: '',
+    // 20 Core Non-Diagnostic Fields
+    q1_learning_environment: CAREGIVER_20_QUESTIONS[0].options[0],
+    q2_content_format: CAREGIVER_20_QUESTIONS[1].options[0],
+    q3_text_tolerance: CAREGIVER_20_QUESTIONS[2].options[0],
+    q4_visual_support: CAREGIVER_20_QUESTIONS[3].options[0],
+    q5_audio_support: CAREGIVER_20_QUESTIONS[4].options[1],
+    q6_pace_preference: CAREGIVER_20_QUESTIONS[5].options[0],
+    q7_response_time: CAREGIVER_20_QUESTIONS[6].options[0],
+    q8_distraction_sensitivity: CAREGIVER_20_QUESTIONS[7].options[0],
+    q9_content_density: CAREGIVER_20_QUESTIONS[8].options[0],
+    q10_task_chunking: CAREGIVER_20_QUESTIONS[9].options[0],
+    q11_repetition_preference: CAREGIVER_20_QUESTIONS[10].options[0],
+    q12_instruction_complexity: CAREGIVER_20_QUESTIONS[11].options[0],
+    q13_difficulty_tolerance: CAREGIVER_20_QUESTIONS[12].options[0],
+    q14_frustration_recovery: CAREGIVER_20_QUESTIONS[13].options[0],
+    q15_example_preference: CAREGIVER_20_QUESTIONS[14].options[1],
+    q16_step_guidance: CAREGIVER_20_QUESTIONS[15].options[0],
+    q17_break_frequency: CAREGIVER_20_QUESTIONS[16].options[0],
+    q18_reinforcement_style: CAREGIVER_20_QUESTIONS[17].options[0],
+    q19_support_communication: CAREGIVER_20_QUESTIONS[18].options[0],
+    q20_accommodations: [
+      'OpenDyslexic font with increased character & line spacing',
+      'Calm color palette (soft pastels or high-contrast dark theme)'
+    ],
+
+    // Special interest tag
+    special_interest: 'Space',
+    
+    // Legacy helper fields for backward compatibility
+    q1_enjoyed_topics: 'Space Exploration, Astronomy',
+    q2_engaging_activities: 'Building Lego models and observing planets',
     q3_themes: ['Space', 'Animals'],
-    q4_hobbies: '',
-    q5_voluntary_subjects: '',
-
-    // Section 2: Visual Preferences
     q6_favorite_color: 'blue',
-    q7_disliked_colors: [],
-    q8_color_palette_preference: 'Soft/muted colors',
-    q9_visual_style_preference: 'A mixture',
-
-    // Section 3: Sensory Preferences
+    q8_color_palette_preference: 'soft',
+    q9_visual_style_preference: 'mixture',
     q10_animation_effect: 'distract',
-    q11_sound_effect: 'distract',
+    q11_sound_effect: 'help',
     q12_prefer_calm_screen: true,
-    q13_prefer_movement: false,
-    q14_avoided_patterns: '',
-
-    // Section 4: Learning Style
     q15_learning_modality: ['Seeing', 'Doing'],
-    q16_task_structure: 'Step-by-step guidance',
+    q16_task_structure: 'step_by_step',
     q17_difficulty_reaction: 'needs_break',
-    q18_reengagement_helper: 'visual_reward',
     q19_feedback_style: 'immediate',
-
-    // Section 5: Motivation
-    q20_excitement_triggers: '',
-    q21_reward_types: ['Unlocking something', 'Collecting objects'],
-
-    // Section 6: Comfort
-    q22_frustration_triggers: '',
-    q23_calming_methods: '',
-    q24_platform_avoidances: ''
+    q21_reward_types: ['Unlocking something', 'Collecting objects']
   });
 
-  const steps = [
-    { title: 'Learner Interests', icon: Sparkles, color: 'text-amber-500' },
-    { title: 'Visual World', icon: Palette, color: 'text-indigo-500' },
-    { title: 'Sensory Comfort', icon: Volume2, color: 'text-emerald-500' },
-    { title: 'Learning Style', icon: BookOpen, color: 'text-blue-500' },
-    { title: 'Motivation & Rewards', icon: Gift, color: 'text-purple-500' },
-    { title: 'Comfort & Safety', icon: ShieldAlert, color: 'text-rose-500' }
-  ];
-
-  const handleTextChange = (field, val) => {
-    setFormData(prev => ({ ...prev, [field]: val }));
+  const handleSelectOption = (field, option) => {
+    setFormData(prev => ({ ...prev, [field]: option }));
   };
 
-  const toggleArrayItem = (field, item) => {
+  const handleToggleMulti = (field, option) => {
     setFormData(prev => {
-      const arr = [...prev[field]];
-      const index = arr.indexOf(item);
-      if (index > -1) {
-        arr.splice(index, 1);
-      } else {
-        arr.push(item);
-      }
-      return { ...prev, [field]: arr };
+      const current = prev[field] || [];
+      const exists = current.includes(option);
+      const updated = exists ? current.filter(x => x !== option) : [...current, option];
+      return { ...prev, [field]: updated };
     });
   };
 
+  const currentQuestions = CAREGIVER_20_QUESTIONS.filter(q => q.section === currentSection);
+  const totalSections = SECTION_METADATA.length;
+  const currentMeta = SECTION_METADATA[currentSection];
+  const IconComponent = currentMeta.icon;
+
   const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(s => s + 1);
+    if (currentSection < totalSections - 1) {
+      setCurrentSection(s => s + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       onSubmit(formData);
@@ -103,563 +386,203 @@ const StepWizard = ({ onSubmit, loading }) => {
   };
 
   const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(s => s - 1);
+    if (currentSection > 0) {
+      setCurrentSection(s => s - 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
-  // Section Audio Narration Prompts
-  const getStepNarrationText = () => {
-    switch (currentStep) {
-      case 0:
-        return "Section 1: Learner Interests. What topics does the learner naturally enjoy talking about, and what themes attract them most?";
-      case 1:
-        return "Section 2: Visual Preferences. What are their favorite colors, avoided colors, and preferred visual presentation style?";
-      case 2:
-        return "Section 3: Sensory Preferences. Do animations or sounds help or distract them? Do they prefer a calm screen?";
-      case 3:
-        return "Section 4: Learning Preferences. How do they learn best, and do they prefer step-by-step guidance or exploration?";
-      case 4:
-        return "Section 5: Motivation and Rewards. What kinds of rewards excite them to complete an activity?";
-      case 5:
-        return "Section 6: Comfort and Safety. What usually causes frustration, and what should the platform avoid?";
-      default:
-        return "";
-    }
-  };
-
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
-      
+    <div className="bg-white rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden transition-all">
       {/* Header Banner */}
-      <div className="bg-slate-900 text-white p-6 sm:p-8 relative overflow-hidden">
-        <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-indigo-500/20 rounded-full blur-2xl pointer-events-none" />
-        
-        <div className="flex items-center justify-between gap-4 mb-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-indigo-500/30 text-indigo-300 border border-indigo-400/30">
-            Personalization Questionnaire
-          </span>
-          <AudioButton text={getStepNarrationText()} label="Read Section" className="bg-slate-800 text-slate-200 border-slate-700" />
-        </div>
-
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-          Help Us Build Their Learning World
-        </h2>
-        <p className="text-slate-300 text-sm mt-1 max-w-xl">
-          This is a low-stress preference questionnaire (not a diagnostic medical form). Every answer tailors their UI, colors, pacing, and feedback style.
-        </p>
-
-        {/* Step Progress Bar */}
-        <div className="mt-6">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-400 mb-2">
-            <span>Step {currentStep + 1} of {steps.length}: {steps[currentStep].title}</span>
-            <span>{Math.round(((currentStep + 1) / steps.length) * 100)}% Complete</span>
+      <div className="p-6 sm:p-8 bg-gradient-to-r from-slate-50 via-white to-indigo-50/40 border-b border-slate-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className={`p-3 rounded-2xl ${currentMeta.bg} ${currentMeta.color} shadow-sm`}>
+              <IconComponent className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200/70 text-slate-700">
+                  Section {currentSection + 1} of {totalSections}
+                </span>
+                <span className="text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  Strictly Non-Diagnostic
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                {currentMeta.title}
+              </h2>
+              <p className="text-sm text-slate-500 mt-0.5">
+                {currentMeta.description}
+              </p>
+            </div>
           </div>
-          <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
-              style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <AudioButton 
+              text={`Section ${currentSection + 1}: ${currentMeta.title}. ${currentMeta.description}`} 
+              className="bg-white shadow-xs border border-slate-200 text-slate-600 hover:text-slate-900"
             />
           </div>
         </div>
+
+        {/* Progress Dots */}
+        <div className="grid grid-cols-4 gap-2 mt-6">
+          {SECTION_METADATA.map((meta, idx) => (
+            <div 
+              key={meta.title}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === currentSection 
+                  ? 'bg-indigo-600 ring-2 ring-indigo-200' 
+                  : idx < currentSection 
+                    ? 'bg-emerald-500' 
+                    : 'bg-slate-200'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Questionnaire Body */}
-      <div className="p-6 sm:p-8 space-y-6">
+      {/* Questions Form Area */}
+      <div className="p-6 sm:p-8 space-y-8">
+        {currentQuestions.map((q) => {
+          const isMulti = q.isMultiSelect;
+          const selectedValue = formData[q.id];
 
-        {/* STEP 1: INTERESTS */}
-        {currentStep === 0 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                1. What topics does the learner naturally enjoy talking about?
-              </label>
-              <input
-                type="text"
-                value={formData.q1_enjoyed_topics}
-                onChange={e => handleTextChange('q1_enjoyed_topics', e.target.value)}
-                placeholder="e.g. Black holes, Dinosaurs, Minecraft, Drawing cats, Piano..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-slate-800 text-sm"
-              />
-            </div>
+          return (
+            <div 
+              key={q.id}
+              className="p-5 sm:p-6 rounded-2xl bg-slate-50/70 border border-slate-200/70 hover:border-slate-300 transition-all space-y-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-extrabold px-2 py-0.5 rounded-md bg-white border border-slate-200 text-slate-700 shadow-xs">
+                      Q{q.number}
+                    </span>
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                      {q.title}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-slate-600 mt-1">
+                    {q.subtitle}
+                  </p>
+                </div>
+                <AudioButton text={`${q.title}. ${q.subtitle}`} />
+              </div>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                2. What activities can they spend a long time doing willingly?
-              </label>
-              <input
-                type="text"
-                value={formData.q2_engaging_activities}
-                onChange={e => handleTextChange('q2_engaging_activities', e.target.value)}
-                placeholder="e.g. Building Lego sets, sorting cards, watching space launches..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"
-              />
-            </div>
+              {/* Options Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {q.options.map((opt) => {
+                  const isSelected = isMulti 
+                    ? Array.isArray(selectedValue) && selectedValue.includes(opt)
+                    : selectedValue === opt;
 
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                3. Which themes attract them most? (Select all that apply)
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                {THEME_OPTIONS.map(theme => {
-                  const isSelected = formData.q3_themes.includes(theme.id);
                   return (
                     <button
-                      key={theme.id}
+                      key={opt}
                       type="button"
-                      onClick={() => toggleArrayItem('q3_themes', theme.id)}
-                      className={`px-3 py-2.5 rounded-2xl text-xs font-bold text-left border transition-all flex items-center justify-between ${
+                      onClick={() => isMulti ? handleToggleMulti(q.id, opt) : handleSelectOption(q.id, opt)}
+                      className={`text-left p-3.5 sm:p-4 rounded-xl text-sm font-medium transition-all duration-200 border flex items-start gap-3 ${
                         isSelected
-                          ? `${theme.color} ring-2 ring-indigo-500 shadow-sm`
-                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                          ? 'bg-indigo-50 border-indigo-500 text-indigo-900 shadow-xs ring-1 ring-indigo-400'
+                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100/70 hover:border-slate-300'
                       }`}
                     >
-                      <span>{theme.label}</span>
-                      {isSelected && <Check className="w-4 h-4 text-indigo-600" />}
+                      <div className={`w-5 h-5 rounded-${isMulti ? 'md' : 'full'} mt-0.5 flex-shrink-0 flex items-center justify-center border transition-all ${
+                        isSelected 
+                          ? 'bg-indigo-600 border-indigo-600 text-white' 
+                          : 'border-slate-300 bg-white'
+                      }`}>
+                        {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      </div>
+                      <span className="flex-1 leading-snug">{opt}</span>
                     </button>
                   );
                 })}
               </div>
             </div>
+          );
+        })}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  4. Current favorite hobbies?
-                </label>
-                <input
-                  type="text"
-                  value={formData.q4_hobbies}
-                  onChange={e => handleTextChange('q4_hobbies', e.target.value)}
-                  placeholder="e.g. Origami, Swimming, Coding..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 text-sm outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  5. Voluntarily explored subjects?
-                </label>
-                <input
-                  type="text"
-                  value={formData.q5_voluntary_subjects}
-                  onChange={e => handleTextChange('q5_voluntary_subjects', e.target.value)}
-                  placeholder="e.g. Astronomy, Robots, World History..."
-                  className="w-full px-4 py-2.5 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 text-sm outline-none"
-                />
-              </div>
+        {/* Special Interest Selector in Section 4 */}
+        {currentSection === 3 && (
+          <div className="p-6 rounded-2xl bg-indigo-50/50 border border-indigo-200/80 space-y-4">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-indigo-600" />
+              <h3 className="text-base font-bold text-indigo-950">
+                Primary Motivation Theme
+              </h3>
             </div>
-          </div>
-        )}
-
-        {/* STEP 2: VISUAL PREFERENCES */}
-        {currentStep === 1 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                6. Favorite color (Accent Theme)?
-              </label>
-              <div className="flex flex-wrap gap-2.5">
-                {['blue', 'purple', 'teal', 'green', 'pink', 'amber', 'sky', 'indigo'].map(color => {
-                  const isSel = formData.q6_favorite_color === color;
-                  return (
-                    <button
-                      key={color}
-                      type="button"
-                      onClick={() => handleTextChange('q6_favorite_color', color)}
-                      className={`px-4 py-2 rounded-2xl text-xs font-bold capitalize transition-all border ${
-                        isSel
-                          ? 'bg-slate-900 text-white shadow-md ring-2 ring-indigo-500'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border-slate-200'
-                      }`}
-                    >
-                      {color}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                7. Colors usually disliked or avoided? (e.g. Avoid aggressive red error popups)
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {['bright red', 'neon yellow', 'harsh orange', 'dark grey', 'bright white'].map(c => {
-                  const isSel = formData.q7_disliked_colors.includes(c);
-                  return (
-                    <button
-                      key={c}
-                      type="button"
-                      onClick={() => toggleArrayItem('q7_disliked_colors', c)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-semibold border ${
-                        isSel
-                          ? 'bg-rose-100 border-rose-300 text-rose-800 font-bold'
-                          : 'bg-white border-slate-200 text-slate-600'
-                      }`}
-                    >
-                      {isSel ? `✓ Avoid ${c}` : `Avoid ${c}`}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                8. Preferred Color Palette?
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { id: 'Soft/muted colors', desc: 'Calm, gentle pastels (Low strain)' },
-                  { id: 'Dark themes', desc: 'Relaxing dark background (Reduced glare)' },
-                  { id: 'High contrast', desc: 'Maximum legibility and crisp outlines' },
-                  { id: 'Bright colors', desc: 'Vibrant, high-energy visuals' },
-                  { id: 'Minimal colors', desc: 'Clean, distraction-free neutral tones' }
-                ].map(opt => (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => handleTextChange('q8_color_palette_preference', opt.id)}
-                    className={`p-3.5 rounded-2xl border text-left transition-all ${
-                      formData.q8_color_palette_preference === opt.id
-                        ? 'border-indigo-600 bg-indigo-50/50 ring-2 ring-indigo-500'
-                        : 'border-slate-200 bg-white hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="text-sm font-bold text-slate-900">{opt.id}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{opt.desc}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                9. Preferred Visual Presentation Format?
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                {['Pictures', 'Icons', 'Diagrams', 'Text', 'A mixture'].map(style => (
-                  <button
-                    key={style}
-                    type="button"
-                    onClick={() => handleTextChange('q9_visual_style_preference', style)}
-                    className={`p-2.5 rounded-2xl text-xs font-bold border transition-all ${
-                      formData.q9_visual_style_preference === style
-                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    {style}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 3: SENSORY PREFERENCES */}
-        {currentStep === 2 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50">
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  10. Do animations help or distract?
-                </label>
-                <select
-                  value={formData.q10_animation_effect}
-                  onChange={e => handleTextChange('q10_animation_effect', e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm outline-none bg-white font-medium"
+            <p className="text-sm text-indigo-800">
+              Choose the learner's favorite topic to theme lessons, game worlds, and achievement missions:
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { id: 'Space', label: '🚀 Space & Planets' },
+                { id: 'Animals', label: '🐾 Animals & Wildlife' },
+                { id: 'Coding', label: '🤖 Coding & Robotics' },
+                { id: 'Nature', label: '🌿 Nature & Plants' }
+              ].map(th => (
+                <button
+                  key={th.id}
+                  type="button"
+                  onClick={() => {
+                    handleSelectOption('special_interest', th.id);
+                    handleSelectOption('q3_themes', [th.id]);
+                  }}
+                  className={`p-3 rounded-xl border text-sm font-semibold transition-all ${
+                    formData.special_interest === th.id
+                      ? 'bg-indigo-600 border-indigo-600 text-white shadow-xs'
+                      : 'bg-white border-indigo-200 text-slate-800 hover:bg-white/80'
+                  }`}
                 >
-                  <option value="distract">Animations distract (Reduce motion)</option>
-                  <option value="help">Animations help focus</option>
-                  <option value="neutral">Neutral</option>
-                </select>
-              </div>
-
-              <div className="p-4 rounded-2xl border border-slate-200 bg-slate-50/50">
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  11. Do sound effects help or distract?
-                </label>
-                <select
-                  value={formData.q11_sound_effect}
-                  onChange={e => handleTextChange('q11_sound_effect', e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm outline-none bg-white font-medium"
-                >
-                  <option value="distract">Sounds distract (Mute by default)</option>
-                  <option value="help">Sounds help focus (Calm chimes)</option>
-                  <option value="neutral">Neutral</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-start gap-3 ${
-                formData.q12_prefer_calm_screen ? 'bg-indigo-50/70 border-indigo-300' : 'bg-white border-slate-200'
-              }`}>
-                <input
-                  type="checkbox"
-                  checked={formData.q12_prefer_calm_screen}
-                  onChange={e => handleTextChange('q12_prefer_calm_screen', e.target.checked)}
-                  className="mt-1 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
-                />
-                <div>
-                  <div className="text-sm font-bold text-slate-900">12. Visually Calm Screen</div>
-                  <div className="text-xs text-slate-500 mt-0.5">Spacious paddings, minimal clutter</div>
-                </div>
-              </label>
-
-              <label className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-start gap-3 ${
-                formData.q13_prefer_movement ? 'bg-indigo-50/70 border-indigo-300' : 'bg-white border-slate-200'
-              }`}>
-                <input
-                  type="checkbox"
-                  checked={formData.q13_prefer_movement}
-                  onChange={e => handleTextChange('q13_prefer_movement', e.target.checked)}
-                  className="mt-1 w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
-                />
-                <div>
-                  <div className="text-sm font-bold text-slate-900">13. Movement & Interactive Dragging</div>
-                  <div className="text-xs text-slate-500 mt-0.5">Enjoys tactile drag & drop controls</div>
-                </div>
-              </label>
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                14. Visual patterns or triggers to avoid?
-              </label>
-              <input
-                type="text"
-                value={formData.q14_avoided_patterns}
-                onChange={e => handleTextChange('q14_avoided_patterns', e.target.value)}
-                placeholder="e.g. Flashing lights, dense wall of text, ticking timers..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm outline-none"
-              />
+                  {th.label}
+                </button>
+              ))}
             </div>
           </div>
         )}
+      </div>
 
-        {/* STEP 4: LEARNING PREFERENCES */}
-        {currentStep === 3 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                15. How do they learn best? (Select all that apply)
-              </label>
-              <div className="flex flex-wrap gap-2.5">
-                {['Seeing (Visual)', 'Listening (Auditory)', 'Doing (Hands-on)', 'Reading (Text)', 'Combination'].map(mode => {
-                  const cleanMode = mode.split(' ')[0];
-                  const isSel = formData.q15_learning_modality.includes(cleanMode);
-                  return (
-                    <button
-                      key={mode}
-                      type="button"
-                      onClick={() => toggleArrayItem('q15_learning_modality', cleanMode)}
-                      className={`px-4 py-2.5 rounded-2xl text-xs font-bold border transition-all ${
-                        isSel
-                          ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
-                          : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
-                      }`}
-                    >
-                      {isSel ? `✓ ${mode}` : mode}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+      {/* Navigation Footer */}
+      <div className="p-6 sm:p-8 bg-slate-50/90 border-t border-slate-200/80 flex items-center justify-between gap-4">
+        <button
+          type="button"
+          onClick={handlePrev}
+          disabled={currentSection === 0 || loading}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all ${
+            currentSection === 0 || loading
+              ? 'opacity-40 cursor-not-allowed bg-slate-100 border-slate-200 text-slate-400'
+              : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-100'
+          }`}
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Previous Section
+        </button>
 
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                16. Preferred Task Structure?
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { id: 'Step-by-step guidance', desc: 'Guided micro-steps with instant hints' },
-                  { id: 'Small tasks', desc: 'Single bite-sized questions (Low cognitive load)' },
-                  { id: 'Exploration', desc: 'Open-ended problem solving and freedom' },
-                  { id: 'Longer challenges', desc: 'Multi-part quest adventures' }
-                ].map(opt => (
-                  <button
-                    key={opt.id}
-                    type="button"
-                    onClick={() => handleTextChange('q16_task_structure', opt.id)}
-                    className={`p-3.5 rounded-2xl border text-left transition-all ${
-                      formData.q16_task_structure === opt.id
-                        ? 'border-blue-600 bg-blue-50/60 ring-2 ring-blue-500'
-                        : 'border-slate-200 bg-white hover:bg-slate-50'
-                    }`}
-                  >
-                    <div className="text-sm font-bold text-slate-900">{opt.id}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">{opt.desc}</div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  17. Reaction when task becomes difficult?
-                </label>
-                <select
-                  value={formData.q17_difficulty_reaction}
-                  onChange={e => handleTextChange('q17_difficulty_reaction', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm outline-none bg-white font-medium"
-                >
-                  <option value="needs_break">Needs a quick micro-break</option>
-                  <option value="wants_hint">Wants an immediate step-by-step hint</option>
-                  <option value="gets_frustrated">Expresses frustration (Needs gentle encouragement)</option>
-                  <option value="tries_again">Enjoys retrying independently</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-slate-800 mb-1">
-                  19. Feedback Preference?
-                </label>
-                <select
-                  value={formData.q19_feedback_style}
-                  onChange={e => handleTextChange('q19_feedback_style', e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm outline-none bg-white font-medium"
-                >
-                  <option value="immediate">Immediate feedback (Instant encouragement)</option>
-                  <option value="summary">Summary feedback after completing task</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 5: MOTIVATION */}
-        {currentStep === 4 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                20. What makes them excited to complete an activity?
-              </label>
-              <input
-                type="text"
-                value={formData.q20_excitement_triggers}
-                onChange={e => handleTextChange('q20_excitement_triggers', e.target.value)}
-                placeholder="e.g. Earning new space badges, unlocking story chapters, hearing gentle chimes..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-2">
-                21. What kinds of rewards do they naturally value? (Select all that apply)
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                {REWARD_OPTIONS.map(rw => {
-                  const isSel = formData.q21_reward_types.includes(rw);
-                  return (
-                    <button
-                      key={rw}
-                      type="button"
-                      onClick={() => toggleArrayItem('q21_reward_types', rw)}
-                      className={`p-3 rounded-2xl text-xs font-bold border transition-all text-left flex items-center justify-between ${
-                        isSel
-                          ? 'bg-purple-50 border-purple-300 text-purple-900 ring-2 ring-purple-500'
-                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      <span>{rw}</span>
-                      {isSel && <Check className="w-4 h-4 text-purple-600" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 6: COMFORT & SAFETY */}
-        {currentStep === 5 && (
-          <div className="space-y-6 animate-fadeIn">
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                22. What usually makes learning frustrating for them?
-              </label>
-              <input
-                type="text"
-                value={formData.q22_frustration_triggers}
-                onChange={e => handleTextChange('q22_frustration_triggers', e.target.value)}
-                placeholder="e.g. Strict time limits, harsh wrong red X markers, complex language..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                23. What usually helps calm them?
-              </label>
-              <input
-                type="text"
-                value={formData.q23_calming_methods}
-                onChange={e => handleTextChange('q23_calming_methods', e.target.value)}
-                placeholder="e.g. Taking a 1-minute breathing break, switching to soft colors, listening to calm music..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm outline-none"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-slate-800 mb-1">
-                24. What should the platform avoid at all costs?
-              </label>
-              <input
-                type="text"
-                value={formData.q24_platform_avoidances}
-                onChange={e => handleTextChange('q24_platform_avoidances', e.target.value)}
-                placeholder="e.g. Unexpected loud popups, punitive negative scoring..."
-                className="w-full px-4 py-3 rounded-2xl border border-slate-300 text-sm outline-none"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Footer Wizard Controls */}
-        <div className="pt-6 border-t border-slate-200/80 flex items-center justify-between">
-          <button
-            type="button"
-            onClick={handlePrev}
-            disabled={currentStep === 0 || loading}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-bold transition-all ${
-              currentStep === 0
-                ? 'opacity-0 pointer-events-none'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-            }`}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Previous</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={handleNext}
-            disabled={loading}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-2xl text-sm font-extrabold text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95"
-          >
-            {loading ? (
-              <span>Building Learner World...</span>
-            ) : currentStep === steps.length - 1 ? (
-              <>
-                <Sparkles className="w-4 h-4 fill-current" />
-                <span>Create Personalized World</span>
-              </>
-            ) : (
-              <>
-                <span>Next Step</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </button>
-        </div>
-
+        <button
+          type="button"
+          onClick={handleNext}
+          disabled={loading}
+          className="flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow transition-all"
+        >
+          {loading ? (
+            <span>Saving Profile...</span>
+          ) : currentSection === totalSections - 1 ? (
+            <>
+              <span>Complete Assessment</span>
+              <Check className="w-4 h-4" />
+            </>
+          ) : (
+            <>
+              <span>Continue to Section {currentSection + 2}</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
-};
-
-export default StepWizard;
+}

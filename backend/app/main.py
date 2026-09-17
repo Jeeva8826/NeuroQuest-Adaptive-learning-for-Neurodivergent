@@ -95,6 +95,7 @@ async def record_general_event(event_data: dict):
 
 @app.get("/")
 @app.get("/health")
+@app.get("/api/health")
 async def root_health_check():
     return {
         "status": "online",

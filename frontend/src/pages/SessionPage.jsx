@@ -28,7 +28,7 @@ const SessionPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { primaryColor } = useTheme();
-  const { applyStateAdaptation } = useSensory();
+  const { applyStateAdaptation, setManualSensoryMode, resetManualOverride } = useSensory();
 
   const [showCalibration, setShowCalibration] = useState(true);
   const [tasks, setTasks] = useState([]);
@@ -166,6 +166,20 @@ const SessionPage = () => {
     }
   };
 
+  const handleRequestNextScaffoldLevel = async (nextLvl) => {
+    if (!tasks[currentTaskIndex]) return;
+    try {
+      const scRes = await getAIScaffold({
+        task: tasks[currentTaskIndex],
+        attempt_count: attemptCount,
+        requested_level: nextLvl
+      });
+      if (scRes.data) setScaffoldData(scRes.data);
+    } catch (err) {
+      console.error("Next scaffold level error:", err);
+    }
+  };
+
   const handleNextTask = () => {
     setScaffoldData(null);
     setAttemptCount(0);
@@ -294,12 +308,39 @@ const SessionPage = () => {
 
         {/* Hackathon Judge Adaptation Visualization Explainer */}
         {explainerData && !sessionSummary && (
-          <AdaptationExplainer explainerData={explainerData} />
+          <AdaptationExplainer 
+            explainerData={explainerData} 
+            onKeep={() => {
+              if (explainerData.ui_mode) setManualSensoryMode(explainerData.ui_mode);
+            }}
+            onUndo={() => {
+              setManualSensoryMode('normal');
+              setExplainerData(prev => prev ? {
+                ...prev,
+                what_changed: "Layout reverted back to standard balanced mode upon learner request.",
+                why_it_changed: "Learner autonomy respected & reversible adaptation applied.",
+                what_signal_used: "Direct learner Undo button click.",
+                ui_mode: "normal"
+              } : null);
+            }}
+            onChangeMode={() => {
+              setManualSensoryMode('calm');
+            }}
+          />
         )}
 
         {/* Phase 3 Failure Scaffolding Box */}
         {scaffoldData && !sessionSummary && (
-          <ScaffoldedHintBox scaffoldData={scaffoldData} />
+          <ScaffoldedHintBox
+            scaffoldData={scaffoldData}
+            onRequestNextLevel={handleRequestNextScaffoldLevel}
+            onDismiss={() => setScaffoldData(null)}
+            onSelectRepresentation={(rep) => {
+              if (rep === 'visual_block' || rep === 'simplified') {
+                setManualSensoryMode('focus');
+              }
+            }}
+          />
         )}
 
         {/* Session Summary Modal */}

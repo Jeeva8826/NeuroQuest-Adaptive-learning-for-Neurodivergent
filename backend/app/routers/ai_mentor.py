@@ -22,6 +22,7 @@ class HintRequest(BaseModel):
 class ScaffoldRequest(BaseModel):
     task: Dict[str, Any]
     attempt_count: int = 1
+    requested_level: Optional[int] = None
 
 @router.post("/personalized-task")
 async def generate_personalized_task(
@@ -91,7 +92,8 @@ async def get_failure_scaffold(
     scaffold_result = await scaffold_engine.get_scaffold_response(
         task=req.task,
         attempt_count=req.attempt_count,
-        learner_context=learner_context
+        learner_context=learner_context,
+        requested_level=req.requested_level
     )
 
     return scaffold_result
