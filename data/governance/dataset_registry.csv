@@ -1,0 +1,2 @@
+Dataset Name,Source,URL,License,Population,Age,Country,Real/Synthetic,Purpose,Training Permission,Redistribution Permission,RAG Permission,Privacy Risk
+NCERT_Class7_Science_Math,NCERT / DIKSHA,https://ncert.nic.in/,NCERT Permitted Metadata,Students,11-13,India,Real,Curriculum Graph construction,Yes (Metadata),No full text; Yes metadata,Yes,None

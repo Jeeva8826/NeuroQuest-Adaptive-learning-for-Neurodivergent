@@ -1,0 +1,24 @@
+{
+    "subject": "Mathematics",
+    "class_level": 7,
+    "source": "NCERT",
+    "license": "NCERT Permitted Metadata",
+    "chapters": [
+        {
+            "chapter_id": "M7_C1",
+            "chapter_title": "Integers",
+            "topics": [
+                "Properties of Addition and Subtraction of Integers",
+                "Multiplication of Integers",
+                "Properties of Multiplication of Integers",
+                "Division of Integers",
+                "Properties of Division of Integers"
+            ],
+            "learning_outcomes": [
+                "Performs operations on integers",
+                "Applies properties of operations on integers to solve problems"
+            ],
+            "source_url": "https://ncert.nic.in/textbook.php?gemh1=1-15"
+        }
+    ]
+}

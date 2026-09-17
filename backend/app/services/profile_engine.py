@@ -1,0 +1,184 @@
+import logging
+from typing import Dict, Any, List
+from app.models.questionnaire import CaregiverQuestionnaireInput
+from app.models.learner_profile import (
+    LearnerProfile, VisualPreferences, SensoryPreferences,
+    MotivationPreferences, InteractionPreferences
+)
+
+logger = logging.getLogger("neuroquest.profile_engine")
+
+COLOR_HEX_MAP = {
+    "blue": "#3b82f6",
+    "purple": "#8b5cf6",
+    "teal": "#14b8a6",
+    "green": "#10b981",
+    "pink": "#ec4899",
+    "indigo": "#6366f1",
+    "amber": "#f59e0b",
+    "orange": "#f97316",
+    "sky": "#0284c7",
+    "violet": "#7c3aed",
+    "yellow": "#eab308",
+    "emerald": "#059669"
+}
+
+COMPLEMENTARY_COLOR_MAP = {
+    "#3b82f6": "#8b5cf6",
+    "#8b5cf6": "#ec4899",
+    "#14b8a6": "#059669",
+    "#10b981": "#3b82f6",
+    "#ec4899": "#8b5cf6",
+    "#6366f1": "#14b8a6",
+    "#f59e0b": "#f97316",
+    "#f97316": "#f59e0b",
+    "#0284c7": "#3b82f6",
+    "#7c3aed": "#ec4899"
+}
+
+def determine_primary_color(favorite: str, avoided: List[str]) -> str:
+    fav_clean = favorite.strip().lower()
+    avoided_clean = [c.strip().lower() for c in avoided]
+    
+    # Check if favorite matches known color hex
+    selected_hex = "#3b82f6" # default blue
+    for name, hex_val in COLOR_HEX_MAP.items():
+        if name in fav_clean and name not in avoided_clean:
+            selected_hex = hex_val
+            break
+            
+    # Avoid red/harsh colors if specified
+    if "red" in avoided_clean or "bright red" in avoided_clean:
+        if selected_hex in ["#f97316", "#ec4899"]: # replace warm reds with soft teal or blue
+            selected_hex = "#14b8a6"
+            
+    return selected_hex
+
+def determine_background_theme(themes: List[str], enjoyed_topics: str) -> str:
+    combined = " ".join(themes).lower() + " " + enjoyed_topics.lower()
+    
+    if "space" in combined or "planet" in combined or "star" in combined or "galaxy" in combined:
+        return "space"
+    elif "animal" in combined or "pet" in combined or "dog" in combined or "cat" in combined or "wild" in combined:
+        return "animals"
+    elif "coding" in combined or "technology" in combined or "robot" in combined or "computer" in combined:
+        return "coding"
+    elif "nature" in combined or "plant" in combined or "outdoor" in combined or "forest" in combined:
+        return "nature"
+    elif "fantasy" in combined or "magic" in combined or "dragon" in combined:
+        return "fantasy"
+    elif "art" in combined or "draw" in combined or "paint" in combined:
+        return "art"
+    elif "music" in combined or "song" in combined or "instrument" in combined:
+        return "music"
+    elif "sport" in combined or "game" in combined or "ball" in combined:
+        return "sports"
+    return "space" # default theme motif
+
+def process_questionnaire_to_profile(
+    questionnaire: CaregiverQuestionnaireInput,
+    learner_id: str,
+    caregiver_id: str,
+    learner_name: str = "Learner"
+) -> LearnerProfile:
+    
+    # 1. Colors & Theme
+    primary_color = determine_primary_color(
+        questionnaire.q6_favorite_color,
+        questionnaire.q7_disliked_colors
+    )
+    secondary_color = COMPLEMENTARY_COLOR_MAP.get(primary_color, "#8b5cf6")
+    background_theme = determine_background_theme(
+        questionnaire.q3_themes,
+        questionnaire.q1_enjoyed_topics
+    )
+    
+    # Palette type normalization
+    palette_raw = questionnaire.q8_color_palette_preference.lower()
+    if "dark" in palette_raw:
+        palette_type = "dark"
+    elif "contrast" in palette_raw:
+        palette_type = "high_contrast"
+    elif "bright" in palette_raw:
+        palette_type = "bright"
+    elif "minimal" in palette_raw:
+        palette_type = "minimal"
+    else:
+        palette_type = "soft"
+        
+    # Font style
+    font_family = "rounded" if palette_type == "soft" else "sans"
+    
+    visual_prefs = VisualPreferences(
+        favorite_colors=[questionnaire.q6_favorite_color],
+        avoided_colors=questionnaire.q7_disliked_colors,
+        palette_type=palette_type,
+        visual_style=questionnaire.q9_visual_style_preference,
+        primary_color=primary_color,
+        secondary_color=secondary_color,
+        background_theme=background_theme,
+        font_family=font_family,
+        font_scale="medium"
+    )
+    
+    # 2. Sensory Preferences
+    anim_raw = questionnaire.q10_animation_effect.lower()
+    if "distract" in anim_raw:
+        anim_intensity = "low" if questionnaire.q12_prefer_calm_screen else "none"
+    elif "help" in anim_raw:
+        anim_intensity = "normal"
+    else:
+        anim_intensity = "low"
+        
+    sound_raw = questionnaire.q11_sound_effect.lower()
+    sound_enabled = "help" in sound_raw or questionnaire.q13_prefer_movement
+    
+    sensory_prefs = SensoryPreferences(
+        sound_enabled=sound_enabled,
+        sound_preference="calm_chimes" if sound_enabled else "quiet",
+        animation_intensity=anim_intensity,
+        visual_density="spacious" if questionnaire.q12_prefer_calm_screen else "balanced",
+        calm_mode=questionnaire.q12_prefer_calm_screen
+    )
+    
+    # 3. Motivation
+    motivation_prefs = MotivationPreferences(
+        preferred_rewards=questionnaire.q21_reward_types,
+        reward_style="badges_unlocks" if "Unlocking something" in questionnaire.q21_reward_types else "collectables"
+    )
+    
+    # 4. Interaction Preferences
+    task_struct = questionnaire.q16_task_structure.lower()
+    task_size = "small" if "small" in task_struct or "step" in task_struct else "medium"
+    guidance = "high" if "step" in task_struct or "guidance" in task_struct else "moderate"
+    
+    interaction_prefs = InteractionPreferences(
+        task_size=task_size,
+        feedback_style=questionnaire.q19_feedback_style,
+        guidance_level=guidance,
+        break_frequency_mins=10 if "needs_break" in questionnaire.q17_difficulty_reaction else 15
+    )
+    
+    # 5. Extract interests list
+    interests = questionnaire.q3_themes.copy()
+    if questionnaire.q1_enjoyed_topics:
+        interests.append(questionnaire.q1_enjoyed_topics)
+    if questionnaire.q5_voluntary_subjects:
+        interests.append(questionnaire.q5_voluntary_subjects)
+        
+    hobbies = [h.strip() for h in questionnaire.q4_hobbies.split(",") if h.strip()]
+    
+    return LearnerProfile(
+        learner_id=learner_id,
+        caregiver_id=caregiver_id,
+        learner_name=learner_name,
+        interests=interests,
+        hobbies=hobbies,
+        preferred_learning_modes=questionnaire.q15_learning_modality,
+        visual_preferences=visual_prefs,
+        sensory_preferences=sensory_prefs,
+        motivation=motivation_prefs,
+        interaction_preferences=interaction_prefs,
+        avoidance_keywords=[w.strip() for w in questionnaire.q24_platform_avoidances.split(",") if w.strip()],
+        calming_strategies=[c.strip() for c in questionnaire.q23_calming_methods.split(",") if c.strip()]
+    )

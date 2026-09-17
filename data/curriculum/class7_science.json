@@ -1,0 +1,25 @@
+{
+    "subject": "Science",
+    "class_level": 7,
+    "source": "NCERT",
+    "license": "NCERT Permitted Metadata",
+    "chapters": [
+        {
+            "chapter_id": "S7_C1",
+            "chapter_title": "Nutrition in Plants",
+            "topics": [
+                "Mode of Nutrition in Plants",
+                "Photosynthesis - Food Making Process in Plants",
+                "Other Modes of Nutrition in Plants",
+                "Saprotrophs",
+                "How Nutrients are Replenished in the Soil"
+            ],
+            "learning_outcomes": [
+                "Explains the process of photosynthesis",
+                "Differentiates between autotrophic and heterotrophic nutrition",
+                "Understands the role of stomata and chlorophyll"
+            ],
+            "source_url": "https://ncert.nic.in/textbook.php?gesc1=1-18"
+        }
+    ]
+}
