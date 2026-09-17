@@ -2,6 +2,7 @@ import jwt
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
+from typing import Optional, Dict, Any, List
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 import redis
@@ -33,7 +34,8 @@ class Token(BaseModel):
     user_id: int
 
 class UserLogin(BaseModel):
-    username: str
+    username: Optional[str] = None
+    email: Optional[str] = None
     password: str
 
 class UserRegister(BaseModel):
@@ -89,7 +91,17 @@ async def register_user(user_in: UserRegister, db: Session = Depends(get_db)):
 
 @router.post("/token", response_model=Token)
 async def login_for_access_token(user_in: UserLogin, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.username == user_in.username).first()
+    from sqlalchemy import or_, func
+    identifier = (user_in.username or user_in.email or "").strip().lower()
+    if not identifier:
+        raise HTTPException(status_code=400, detail="Username or email is required")
+
+    db_user = db.query(User).filter(
+        or_(
+            func.lower(User.username) == identifier,
+            func.lower(User.email) == identifier
+        )
+    ).first()
     if not db_user or not verify_password(user_in.password, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShieldCheck, LogIn, AlertCircle } from 'lucide-react';
+import { ShieldCheck, LogIn, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     password: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -16,21 +19,44 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
+    const identifier = formData.username.trim();
+    const payload = {
+      username: identifier,
+      email: identifier,
+      password: formData.password
+    };
+
     try {
-      const res = await fetch('http://localhost:8000/auth/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      // Use relative proxy first, fallback to direct port 8000
+      let res;
+      try {
+        res = await fetch('/auth/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (networkErr) {
+        res = await fetch('http://localhost:8000/auth/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
       
       const data = await res.json();
       
       if (!res.ok) {
-        throw new Error(data.detail || 'Invalid login credentials');
+        throw new Error(data.detail || 'Invalid username or password');
       }
 
+      // Store token in both keys for compatibility
+      localStorage.setItem('neuroquest_token', data.access_token);
       localStorage.setItem('token', data.access_token);
-      // Fix: Directing explicitly to caregiver dashboard to avoid 404/redirect loops
+
+      if (refreshUser) {
+        await refreshUser();
+      }
+
       navigate('/dashboard/caregiver');
     } catch (err) {
       setError(err.message);
@@ -66,25 +92,37 @@ export default function LoginPage() {
           
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm font-bold text-slate-700 mb-1">Username</label>
+              <label className="block text-sm font-bold text-slate-700 mb-1">Username or Email</label>
               <input
                 type="text"
                 required
+                value={formData.username}
                 className="appearance-none block w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
                 onChange={e => setFormData({...formData, username: e.target.value})}
-                placeholder="Enter your username"
+                placeholder="Enter your username or email"
               />
             </div>
 
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1">Password</label>
-              <input
-                type="password"
-                required
-                className="appearance-none block w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
-                onChange={e => setFormData({...formData, password: e.target.value})}
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={formData.password}
+                  className="appearance-none block w-full px-4 py-3 pr-11 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                  onChange={e => setFormData({...formData, password: e.target.value})}
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
             </div>
 
             <div className="pt-2">
