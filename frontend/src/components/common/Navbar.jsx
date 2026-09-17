@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Sparkles, Home, BookOpen, Award, Settings, LogOut, Heart, ShieldCheck } from 'lucide-react';
+import { Sparkles, Home, BookOpen, Award, Settings, LogOut, Heart, ShieldCheck, Gamepad2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -64,6 +64,18 @@ const Navbar = () => {
                 </Link>
 
                 <Link
+                  to="/games"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
+                    isActive('/games')
+                      ? 'bg-white text-indigo-700 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+                  }`}
+                >
+                  <Gamepad2 className="w-4 h-4 text-emerald-600" />
+                  <span>Games Arena</span>
+                </Link>
+
+                <Link
                   to="/progress"
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
                     isActive('/progress')
@@ -76,9 +88,9 @@ const Navbar = () => {
                 </Link>
 
                 <Link
-                  to="/caregiver"
+                  to="/dashboard/caregiver"
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
-                    isActive('/caregiver')
+                    isActive('/caregiver') || isActive('/dashboard/caregiver')
                       ? 'bg-white text-indigo-700 shadow-sm'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
                   }`}

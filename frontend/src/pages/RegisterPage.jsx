@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -33,10 +35,15 @@ export default function RegisterPage() {
         throw new Error(data.detail || 'Registration failed');
       }
 
-      // Store token securely (in real app use HttpOnly cookies if possible)
+      // Store token under both keys for cross-compatibility
+      localStorage.setItem('neuroquest_token', data.access_token);
       localStorage.setItem('token', data.access_token);
       
-      // Navigate to the onboarding profile flow
+      if (refreshUser) {
+        await refreshUser();
+      }
+
+      // Navigate to the caregiver overview hub with full navigation
       navigate('/dashboard/caregiver');
     } catch (err) {
       setError(err.message);
