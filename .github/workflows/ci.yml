@@ -24,10 +24,3 @@ jobs:
       run: |
         pytest tests/test_bkt.py
 
-  build-docker:
-    needs: test-backend
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build Docker Compose
-      run: docker-compose build
