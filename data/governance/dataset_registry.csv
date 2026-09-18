@@ -1,2 +1,6 @@
-Dataset Name,Source,URL,License,Population,Age,Country,Real/Synthetic,Purpose,Training Permission,Redistribution Permission,RAG Permission,Privacy Risk
-NCERT_Class7_Science_Math,NCERT / DIKSHA,https://ncert.nic.in/,NCERT Permitted Metadata,Students,11-13,India,Real,Curriculum Graph construction,Yes (Metadata),No full text; Yes metadata,Yes,None
+Dataset Name,Source,URL,License,Population,Age,Country,Real/Synthetic,Purpose,Training Permission,Redistribution Permission,RAG Permission,Privacy Risk,Clinical Diagnosis Calculation
+NCERT_Textbooks_Class6_12,NCERT / Kaggle adityasharma01,https://ncert.nic.in/,NCERT Open Educational Content,K-12 Students,11-18,India,Real,Curriculum tasks & Knowledge Graph,Yes,Metadata & excerpts only,Yes,None,No
+WALS_Neurodivergent_Personalization,Kaggle rahuldev77788,https://kaggle.com/datasets/rahuldev77788,CC BY 4.0,Neurodivergent Learners,10-24,Global,Empirical/Synthetic,UI personalization benchmarks & session lengths,Yes,Yes,Yes,Low (De-identified),No
+ASD_Screening_Child_Adolescent,Kaggle raiyangani / University of Huddersfield,https://kaggle.com/datasets/raiyangani,CC BY 4.0,Pediatric Assessment,4-18,Global,Real (Clinical Research),Non-diagnostic behavioral structure reference,No,No,No,High (Labels Purged),Strictly Purged (0%)
+ASD_Screening_Combined_Ages,Kaggle fabdelja,https://kaggle.com/datasets/fabdelja,CC BY 4.0,Assessment Subjects,All Ages,Global,Real,Cross-validation of accommodation items,No,No,No,High (Labels Purged),Strictly Purged (0%)
+ICMR_Testing_Data,ICMR / Kaggle n1sarg,https://kaggle.com/datasets/n1sarg,Public Data,Public Health,All,India,Real,Health research context,Yes,Yes,No,None,No

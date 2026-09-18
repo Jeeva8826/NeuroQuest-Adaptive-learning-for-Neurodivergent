@@ -19,7 +19,8 @@ from app.routers import (
     caregiver as caregiver_router,
     medical as medical_router,
     ai_mentor as ai_mentor_router,
-    ai_assist as ai_assist_router
+    ai_assist as ai_assist_router,
+    students as students_router
 )
 
 # Relational SQLAlchemy API endpoints
@@ -65,6 +66,7 @@ app.add_middleware(
 
 # Attach Primary Application Routers
 app.include_router(auth_router.router)
+app.include_router(students_router.router)
 app.include_router(onboarding_router.router)
 app.include_router(learner_router.router)
 app.include_router(tasks_router.router)

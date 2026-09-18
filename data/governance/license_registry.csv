@@ -1,2 +1,4 @@
-License Name,Source,Terms,Restrictions,Permitted Uses
-NCERT Permitted Metadata,NCERT,Open use of metadata and curriculum structure,No redistribution of full copyrighted textbooks,Metadata extraction; curriculum structuring; RAG
+License ID,Name,Permitted Commercial,Permitted Modification,Requires Attribution,Non-Diagnostic Compliance
+CC_BY_4_0,Creative Commons Attribution 4.0,Yes,Yes,Yes,Yes
+NCERT_EDU,NCERT Educational Open Resource,Non-commercial educational,Yes,Yes,Yes
+PUBLIC_DOMAIN,Open Public Health Data,Yes,Yes,No,Yes

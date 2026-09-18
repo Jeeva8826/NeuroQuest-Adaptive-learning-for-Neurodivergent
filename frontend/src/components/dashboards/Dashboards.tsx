@@ -185,23 +185,23 @@ export const CaregiverDashboard = () => {
               </div>
             </motion.div>
 
-            {/* Gateway 4: Onboarding Questionnaire */}
+            {/* Gateway 4: Student Baseline Screening */}
             <motion.div 
               whileHover={{ y: -4 }} 
-              onClick={() => navigate('/onboarding')}
+              onClick={() => navigate('/student-registration')}
               className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-amber-200 transition-all cursor-pointer flex flex-col justify-between group"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 mb-4 group-hover:scale-110 transition-transform">
                   <Sliders className="w-6 h-6" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-base mb-1">Sensory Questionnaire</h3>
+                <h3 className="font-bold text-slate-900 text-base mb-1">Student Baseline Screening</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Complete or adjust the 20-question profile to tailor contrast, chunking, and sound.
+                  Register a learner and complete the 20-question profile to tailor contrast, chunking, and sound.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-center text-xs font-bold text-amber-600 group-hover:text-amber-700">
-                <span>Customize Profile</span>
+                <span>Register & Screen Student</span>
                 <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
               </div>
             </motion.div>

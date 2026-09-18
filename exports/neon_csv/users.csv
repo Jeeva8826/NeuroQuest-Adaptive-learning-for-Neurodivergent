@@ -1,0 +1,5 @@
+id,username,email,hashed_password,role,created_at
+3,jeeva,jeevananth123@gmail.com,$2b$12$c3ad6lxMszblWkc9u3LLMetykJ0M1SPkOJSWMIPVhd2Za3TmcNKua,CAREGIVER,2026-09-17 17:55:58.477725+00:00
+4,akash,jeevananth124@gmail.com,$2b$12$cHXSmzLJ/1/n63FI7.MAVe.czrV/uqGyx28YouK8O6ujvr01KcDZq,CAREGIVER,2026-09-17 18:05:01.352570+00:00
+1,testparent,testparent@example.com,$2b$12$Hnh4hpZcutZZfmr/MCfLXuGA3eaQULhQX7.9oFxrk.G8ws6i8yWWO,CAREGIVER,2026-09-17 16:20:16.003078+00:00
+2,jeevananth,jeevananth1234@gmail.com,$2b$12$ubUaSu7gstJ.VT1e7Pxbhust7kx7Ek3KwUfrRTpiRJstaqgmBe.7u,CAREGIVER,2026-09-17 16:36:29.268243+00:00

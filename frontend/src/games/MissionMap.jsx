@@ -7,7 +7,7 @@ const MissionMap = ({ difficulty = 'easy', currentNodeId, nodes = [] }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'completed': return 'bg-green-500 border-green-600';
-      case 'current': return 'bg-yellow-400 border-yellow-500 animate-pulse';
+      case 'current': return 'bg-yellow-400 border-yellow-500 ring-4 ring-yellow-200 shadow-sm';
       case 'locked': return 'bg-gray-300 border-gray-400';
       default: return 'bg-gray-300 border-gray-400';
     }

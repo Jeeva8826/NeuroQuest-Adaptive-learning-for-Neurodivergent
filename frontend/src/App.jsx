@@ -14,11 +14,9 @@ import SessionPage from './pages/SessionPage';
 import ProgressPage from './pages/ProgressPage';
 import SettingsPage from './pages/SettingsPage';
 import CaregiverDashboardPage from './pages/CaregiverDashboardPage';
-
-// Agent E Imports
-import { Home } from './pages/Home';
-import { CaregiverProfile } from './components/profile/CaregiverProfile';
-import { AdaptiveLesson } from './components/lesson/AdaptiveLesson';
+import StudentRegistrationPage from './pages/StudentRegistrationPage';
+import StudentScreeningPage from './pages/StudentScreeningPage';
+import StudentProfileResultPage from './pages/StudentProfileResultPage';
 
 // Dashboards and Games
 import GamesContainer from './games/Games';
@@ -106,6 +104,36 @@ function AppRoutes() {
         }
       />
 
+      {/* Student Onboarding & Baseline Screening Flow (Caretaker -> Student Experience) */}
+      <Route
+        path="/student-registration"
+        element={
+          <ProtectedRoute>
+            <StudentRegistrationPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student-screening/:studentId"
+        element={
+          <ProtectedRoute>
+            <StudentScreeningPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/student-profile/:studentId"
+        element={
+          <ProtectedRoute>
+            <StudentProfileResultPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/students"
+        element={<Navigate to="/caregiver" replace />}
+      />
+
       <Route
         path="/settings"
         element={
@@ -114,11 +142,6 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-
-      {/* New Components from Agent E */}
-      <Route path="/home-new" element={<Home />} />
-      <Route path="/caregiver-profile" element={<CaregiverProfile />} />
-      <Route path="/lesson" element={<AdaptiveLesson />} />
 
       {/* Gamification & Dashboards */}
       <Route path="/games" element={<GamesContainer />} />

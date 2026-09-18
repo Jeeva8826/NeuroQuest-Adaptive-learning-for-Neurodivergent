@@ -22,7 +22,7 @@ const MicroMilestoneProgress = ({ currentStep = 1, totalSteps = 3, milestoneTitl
           return (
             <div key={idx} className="flex-1 flex items-center gap-2">
               <div className={`h-2.5 rounded-full flex-1 transition-all ${
-                isDone ? 'bg-emerald-500' : isCurrent ? 'bg-indigo-600 animate-pulse' : 'bg-slate-200'
+                isDone ? 'bg-emerald-500' : isCurrent ? 'bg-indigo-600 ring-2 ring-indigo-300/50' : 'bg-slate-200'
               }`} />
             </div>
           );

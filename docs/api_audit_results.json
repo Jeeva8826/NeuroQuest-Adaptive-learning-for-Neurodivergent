@@ -1,0 +1,485 @@
+{
+  "total_tested": 53,
+  "pass": 53,
+  "fail": 0,
+  "blocked": 0,
+  "endpoints": [
+    {
+      "method": "GET",
+      "endpoint": "/",
+      "purpose": "Service Health & Metadata Check",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "System/Browser",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/health",
+      "purpose": "Service Health & Metadata Check",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "System/Browser",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "purpose": "Service Health & Metadata Check",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "System/Browser",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/register",
+      "purpose": "Caregiver Registration (Dual DB & Token Issue)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "RegisterPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/register",
+      "purpose": "Duplicate User Registration Rejection (HTTP 400)",
+      "status": "PASS",
+      "http_code": 400,
+      "caller": "RegisterPage.jsx",
+      "error": "Bad Request"
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/register",
+      "purpose": "API Prefix Registration Endpoint",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.js",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/token",
+      "purpose": "User Login by Username (JWT Issuance)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "LoginPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/token",
+      "purpose": "User Login by Email (Case-Insensitive Resolution)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "LoginPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/auth/token",
+      "purpose": "API Prefix Login Endpoint",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.js",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/token",
+      "purpose": "Invalid Password Rejection (HTTP 401)",
+      "status": "PASS",
+      "http_code": 401,
+      "caller": "LoginPage.jsx",
+      "error": "Unauthorized"
+    },
+    {
+      "method": "GET",
+      "endpoint": "/auth/whoami",
+      "purpose": "Token Verification & User Profile Retrieval",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "AuthContext.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/auth/me",
+      "purpose": "Current Authenticated User Identity Endpoint",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.js",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/auth/me",
+      "purpose": "Unauthenticated Request Rejection (HTTP 401)",
+      "status": "PASS",
+      "http_code": 401,
+      "caller": "ProtectedRoute.jsx",
+      "error": "Unauthorized"
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/auth/me",
+      "purpose": "Tampered/Malformed JWT Rejection (HTTP 401)",
+      "status": "PASS",
+      "http_code": 401,
+      "caller": "Axios Interceptor",
+      "error": "Unauthorized"
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/onboarding/questionnaire",
+      "purpose": "Submit 20-Q Caregiver Onboarding Assessment",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "StepWizard.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/caregiver/questionnaire",
+      "purpose": "Fetch Caregiver Questionnaire Schema",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.js",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/caregiver/insights",
+      "purpose": "Fetch Caregiver Dashboard Insights & Metrics",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "CaregiverDashboardPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/learner/profile",
+      "purpose": "Retrieve Authenticated Learner Profile",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ThemeContext.jsx",
+      "error": ""
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/learner/preferences",
+      "purpose": "Update Learner Accessibility & Theme Preferences",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SettingsPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/tasks",
+      "purpose": "Fetch Curriculum Tasks Catalog (14 tasks loaded)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "LearnerHomePage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/tasks?subject=Science&difficulty=1",
+      "purpose": "Filter Tasks by Subject & Level",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.js",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/tasks/6aacc3c6bc22009c6597d1d2",
+      "purpose": "Fetch Task Details by Unique ID",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SessionPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/tasks/NON_EXISTENT_TASK_9999",
+      "purpose": "Query Invalid Task ID (HTTP 404)",
+      "status": "PASS",
+      "http_code": 404,
+      "caller": "SessionPage.jsx",
+      "error": "Not Found"
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/session/start",
+      "purpose": "Initialize Learning Session (Session ID: 6aacc9a4...)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SessionPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/ai/daily-welcome",
+      "purpose": "Generate AI Personalized Daily Welcome Mission",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "LearnerHomePage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/personalized-task",
+      "purpose": "Generate AI Contextual Task via Agent Engine",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ai_mentor.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 1 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 2 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 3 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 4 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 5 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 6 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 7 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/answer",
+      "purpose": "Submit Incorrect Answer (Triggers Non-Punitive Feedback)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SessionPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/answer",
+      "purpose": "Submit Correct Answer (Points & Mastery Progression)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SessionPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/explain",
+      "purpose": "RAG-Grounded AI Adaptive Explanation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ai_assist.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/end",
+      "purpose": "Conclude Learning Session & Persist Summary",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "SessionPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/telemetry/evaluate",
+      "purpose": "Telemetry Evaluation: Focused State Inference",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "telemetryService.js",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/telemetry/evaluate",
+      "purpose": "Telemetry Evaluation: Cognitive Fatigue Adaptation Trigger",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "telemetryService.js",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/events",
+      "purpose": "Record General Interaction Event & Sensory Load Adaptation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "api.ts",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/events/async",
+      "purpose": "Record Asynchronous Interaction Telemetry Event",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "Navbar.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/game-world",
+      "purpose": "Fetch Personal Game World & Thematic Sanctuary",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "LearnerHomePage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/game-world/mastery-tree",
+      "purpose": "Fetch Non-Competitive Mastery Tree (Skill Graph)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ProgressPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/progress/summary",
+      "purpose": "Retrieve Cumulative Mastery Stars & Progress",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ProgressPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/medical/questions/6aacc9a3bc22009c6597d22a",
+      "purpose": "Fetch ICMR Pediatric Questions",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "MedicalOnboardingPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/medical/submit",
+      "purpose": "Submit Medical Support Profile Responses",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "MedicalOnboardingPage.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/demo/profiles",
+      "purpose": "Fetch Pre-Configured Demo Persona Profiles (Leo, Maya, Kai)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "HackathonDemoBar.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/demo/activate-profile",
+      "purpose": "Instantly Activate Demo Profile (Judge Demonstration)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "HackathonDemoBar.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/demo/simulate-state",
+      "purpose": "Simulate Live Cognitive State & Force UI Adaptation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "HackathonDemoBar.jsx",
+      "error": ""
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/demo/adaptation-explanation",
+      "purpose": "Retrieve Transparent Adaptation Explainer Data",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "AdaptationExplainer.jsx",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/auth/token",
+      "purpose": "SQL Injection Protection on Auth Handshake",
+      "status": "PASS",
+      "http_code": 401,
+      "caller": "Security Probe",
+      "error": "Unauthorized"
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/telemetry/evaluate",
+      "purpose": "XSS Payload Neutralization in Telemetry",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "Security Probe",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/telemetry/evaluate",
+      "purpose": "Malformed Payload Type Validation (HTTP 422)",
+      "status": "PASS",
+      "http_code": 422,
+      "caller": "Pydantic Validator",
+      "error": "Unprocessable Content"
+    }
+  ]
+}

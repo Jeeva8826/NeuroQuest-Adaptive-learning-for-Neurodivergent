@@ -48,8 +48,8 @@ const SessionCalibration = ({ onCalibrationComplete }) => {
         
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white mx-auto flex items-center justify-center shadow-lg">
-            <Sparkles className="w-6 h-6 fill-current animate-pulse" />
+          <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white mx-auto flex items-center justify-center shadow-md">
+            <Sparkles className="w-6 h-6 fill-current" />
           </div>
           <h2 className="text-2xl font-extrabold tracking-tight text-slate-900">
             Let's Get Ready!
@@ -129,12 +129,23 @@ const SessionCalibration = ({ onCalibrationComplete }) => {
                     type="button"
                     onClick={handleTargetClick}
                     style={{ top: tgt.top, left: tgt.left }}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 p-3 rounded-full bg-amber-400 text-amber-950 shadow-lg animate-bounce hover:scale-125 transition-transform"
+                    className="absolute -translate-x-1/2 -translate-y-1/2 p-3.5 rounded-2xl bg-amber-400 text-amber-950 shadow-md ring-4 ring-amber-300/60 hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                    title="Click star to calibrate"
                   >
                     <Sparkles className="w-6 h-6 fill-current" />
                   </button>
                 );
               })}
+            </div>
+
+            <div className="pt-2 flex justify-center">
+              <button
+                type="button"
+                onClick={() => onCalibrationComplete({ useCamera })}
+                className="text-xs font-semibold text-slate-400 hover:text-slate-700 underline transition-colors"
+              >
+                Skip Calibration & Enter Quest
+              </button>
             </div>
           </div>
         )}

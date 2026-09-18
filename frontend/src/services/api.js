@@ -31,6 +31,10 @@ export const getMedicalQuestions = (learnerId) => api.get(`/medical/questions/${
 export const submitMedicalProfile = (data) => api.post('/medical/submit', data);
 
 // Onboarding Questionnaire & Profile Engine
+export const getQuestionnaireSchema = () => api.get('/onboarding/schema');
+export const getQuestionnaireDraft = () => api.get('/onboarding/draft');
+export const saveQuestionnaireDraft = (draftData) => api.post('/onboarding/draft', draftData);
+export const getInitialSupportProfile = () => api.get('/onboarding/profile');
 export const submitQuestionnaire = (answers) => api.post('/onboarding/questionnaire', answers);
 
 // Learner Preferences & Theme Engine
@@ -76,4 +80,14 @@ export const activateDemoProfile = (learnerId) => api.post('/demo/activate-profi
 export const simulateState = (stateName) => api.post('/demo/simulate-state', { simulated_state: stateName });
 export const getAdaptationExplanation = () => api.get('/demo/adaptation-explanation');
 
+// Student Management & Baseline Screening Flow (Caretaker -> Student Experience)
+export const getStudents = () => api.get('/students');
+export const getStudent = (studentId) => api.get(`/students/${studentId}`);
+export const createStudent = (studentData) => api.post('/students', studentData);
+export const getStudentQuestionnaire = (studentId) => api.get(`/students/${studentId}/questionnaire`);
+export const saveStudentQuestionnaireDraft = (studentId, draftData) => api.post(`/students/${studentId}/questionnaire/draft`, draftData);
+export const completeStudentQuestionnaire = (studentId, submissionData) => api.post(`/students/${studentId}/questionnaire/complete`, submissionData);
+export const getStudentBaselineProfile = (studentId) => api.get(`/students/${studentId}/baseline-profile`);
+
 export default api;
+

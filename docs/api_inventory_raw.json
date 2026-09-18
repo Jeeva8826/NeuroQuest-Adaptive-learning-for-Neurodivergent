@@ -1,0 +1,608 @@
+[
+  {
+    "method": "GET",
+    "path": "/",
+    "summary": "Root Health Check",
+    "tags": [],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/ai/daily-welcome",
+    "summary": "Get Daily Welcome",
+    "tags": [
+      "AI Mentor & Personalization"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/explain",
+    "summary": "Get Adaptive Explanation",
+    "tags": [
+      "AI Assistance"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/hint",
+    "summary": "Get Ai Hint",
+    "tags": [
+      "AI Mentor & Personalization"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/personalized-task",
+    "summary": "Generate Personalized Task",
+    "tags": [
+      "AI Mentor & Personalization"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/ai/scaffold",
+    "summary": "Get Failure Scaffold",
+    "tags": [
+      "AI Mentor & Personalization"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/login",
+    "summary": "Login",
+    "tags": [
+      "Auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/auth/me",
+    "summary": "Get Me",
+    "tags": [
+      "Auth"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/register",
+    "summary": "Register",
+    "tags": [
+      "Auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/auth/token",
+    "summary": "Login",
+    "tags": [
+      "Auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/caregiver/insights",
+    "summary": "Get Caregiver Insights",
+    "tags": [
+      "Caregiver Dashboard"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/caregiver/profile",
+    "summary": "Submit Caregiver Profile Api",
+    "tags": [
+      "Caregiver Dashboard"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/caregiver/questionnaire",
+    "summary": "Get Questionnaire",
+    "tags": [
+      "Caregiver Dashboard"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/caregiver/questionnaire",
+    "summary": "Submit Questionnaire",
+    "tags": [
+      "Caregiver Dashboard"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/demo/activate-profile",
+    "summary": "Activate Demo Profile",
+    "tags": [
+      "Hackathon Demo Simulation Mode"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/demo/adaptation-explanation",
+    "summary": "Get Adaptation Explanation",
+    "tags": [
+      "Hackathon Demo Simulation Mode"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/demo/profiles",
+    "summary": "Get Demo Profiles",
+    "tags": [
+      "Hackathon Demo Simulation Mode"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/demo/simulate-state",
+    "summary": "Simulate Learner State",
+    "tags": [
+      "Hackathon Demo Simulation Mode"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/events",
+    "summary": "Record General Event",
+    "tags": [],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/game-world",
+    "summary": "Get Personal Game World",
+    "tags": [
+      "Personal Game World"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/game-world/mastery-tree",
+    "summary": "Get Personal Mastery Tree",
+    "tags": [
+      "Personal Game World"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/health",
+    "summary": "Root Health Check",
+    "tags": [],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "PUT",
+    "path": "/api/learner/preferences",
+    "summary": "Update Learner Preferences",
+    "tags": [
+      "Learner"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/learner/profile",
+    "summary": "Get Learner Profile",
+    "tags": [
+      "Learner"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/learners/{learner_id}/profile",
+    "summary": "Get Learner By Id Profile",
+    "tags": [
+      "Learner"
+    ],
+    "parameters": [
+      "learner_id"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/medical/questions/{learner_id}",
+    "summary": "Fetch Questions",
+    "tags": [
+      "Medical"
+    ],
+    "parameters": [
+      "learner_id"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/medical/submit",
+    "summary": "Submit Medical Profile",
+    "tags": [
+      "Medical"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/onboarding/questionnaire",
+    "summary": "Submit Questionnaire",
+    "tags": [
+      "Onboarding"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/progress/summary",
+    "summary": "Get Progress Summary",
+    "tags": [
+      "Progress"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/session/start",
+    "summary": "Start Session",
+    "tags": [
+      "Session"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/session/{session_id}/answer",
+    "summary": "Submit Answer",
+    "tags": [
+      "Session"
+    ],
+    "parameters": [
+      "session_id"
+    ],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/session/{session_id}/end",
+    "summary": "End Session",
+    "tags": [
+      "Session"
+    ],
+    "parameters": [
+      "session_id"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/tasks",
+    "summary": "Get Tasks",
+    "tags": [
+      "Tasks"
+    ],
+    "parameters": [
+      "subject",
+      "difficulty",
+      "limit"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/api/tasks/{task_id}",
+    "summary": "Get Task By Id",
+    "tags": [
+      "Tasks"
+    ],
+    "parameters": [
+      "task_id"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/api/telemetry/evaluate",
+    "summary": "Evaluate Telemetry",
+    "tags": [
+      "Telemetry"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/auth/events/async",
+    "summary": "Record Event Async",
+    "tags": [
+      "auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/auth/me",
+    "summary": "Get Current User",
+    "tags": [
+      "auth"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/auth/register",
+    "summary": "Register User",
+    "tags": [
+      "auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/auth/token",
+    "summary": "Login For Access Token",
+    "tags": [
+      "auth"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/auth/whoami",
+    "summary": "Whoami",
+    "tags": [
+      "auth"
+    ],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/events",
+    "summary": "Record General Event",
+    "tags": [],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/health",
+    "summary": "Root Health Check",
+    "tags": [],
+    "parameters": [],
+    "has_request_body": false,
+    "responses": [
+      "200"
+    ]
+  },
+  {
+    "method": "GET",
+    "path": "/medical/questions/{learner_id}",
+    "summary": "Fetch Questions",
+    "tags": [
+      "Medical ICMR"
+    ],
+    "parameters": [
+      "learner_id"
+    ],
+    "has_request_body": false,
+    "responses": [
+      "200",
+      "422"
+    ]
+  },
+  {
+    "method": "POST",
+    "path": "/medical/submit",
+    "summary": "Submit Medical Profile",
+    "tags": [
+      "Medical ICMR"
+    ],
+    "parameters": [],
+    "has_request_body": true,
+    "responses": [
+      "200",
+      "422"
+    ]
+  }
+]

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Compass, Shield, Award, Cpu, BookOpen, Star, CheckCircle, Lock, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Compass, Shield, Award, Cpu, BookOpen, Star, CheckCircle, Lock, Sparkles, ArrowRight } from 'lucide-react';
 
 const PersonalWorldMap = ({ gameWorld, masteryTree }) => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('map'); // 'map', 'mastery', 'inventory'
 
   if (!gameWorld) return null;
@@ -79,40 +81,54 @@ const PersonalWorldMap = ({ gameWorld, masteryTree }) => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {explorationMap.map((zone, idx) => (
-                <div
-                  key={zone.id || idx}
-                  className={`p-5 rounded-2xl border transition-all flex flex-col justify-between space-y-4 ${
-                    zone.is_current
-                      ? 'bg-indigo-50/90 border-indigo-300 ring-2 ring-indigo-500/20 shadow-md'
-                      : zone.is_unlocked
-                      ? 'bg-emerald-50/60 border-emerald-200'
-                      : 'bg-slate-50 border-slate-200 opacity-60'
-                  }`}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-sm ${
-                      zone.is_current ? 'bg-indigo-600' : zone.is_unlocked ? 'bg-emerald-500' : 'bg-slate-400'
-                    }`}>
-                      {zone.is_unlocked ? <CheckCircle className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
+              {explorationMap.map((zone, idx) => {
+                const canEnter = zone.is_current || zone.is_unlocked;
+                return (
+                  <div
+                    key={zone.id || idx}
+                    onClick={() => {
+                      if (canEnter) navigate('/session', { state: { zone: zone.name } });
+                    }}
+                    className={`p-5 rounded-2xl border transition-all flex flex-col justify-between space-y-4 ${
+                      canEnter ? 'cursor-pointer hover:shadow-lg hover:scale-[1.02]' : 'cursor-not-allowed opacity-60'
+                    } ${
+                      zone.is_current
+                        ? 'bg-indigo-50/90 border-indigo-300 ring-2 ring-indigo-500/20 shadow-md'
+                        : zone.is_unlocked
+                        ? 'bg-emerald-50/60 border-emerald-200'
+                        : 'bg-slate-50 border-slate-200'
+                    }`}
+                    title={canEnter ? `Enter ${zone.name} Mission` : `${zone.name} is Locked`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-sm ${
+                        zone.is_current ? 'bg-indigo-600' : zone.is_unlocked ? 'bg-emerald-500' : 'bg-slate-400'
+                      }`}>
+                        {zone.is_unlocked ? <CheckCircle className="w-5 h-5" /> : <Lock className="w-5 h-5" />}
+                      </div>
+                      <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider bg-white/80 text-slate-600 border border-slate-200/80">
+                        Sector {idx + 1}
+                      </span>
                     </div>
-                    <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider bg-white/80 text-slate-600 border border-slate-200/80">
-                      Sector {idx + 1}
-                    </span>
-                  </div>
 
-                  <div className="space-y-1">
-                    <h4 className="font-extrabold text-sm text-slate-900">{zone.name}</h4>
-                    <p className="text-xs text-slate-500 line-clamp-2">{zone.description}</p>
-                  </div>
+                    <div className="space-y-1">
+                      <h4 className="font-extrabold text-sm text-slate-900">{zone.name}</h4>
+                      <p className="text-xs text-slate-500 line-clamp-2">{zone.description}</p>
+                    </div>
 
-                  <div className="pt-2 text-right">
-                    <span className="text-[11px] font-bold text-slate-400">
-                      {zone.is_current ? '📍 Current Location' : zone.is_unlocked ? '✨ Unlocked Zone' : '🔒 Locked Zone'}
-                    </span>
+                    <div className="pt-2 flex items-center justify-between border-t border-slate-100/80">
+                      <span className="text-[11px] font-bold text-slate-400">
+                        {zone.is_current ? '📍 Active Sector' : zone.is_unlocked ? '✨ Unlocked' : '🔒 Locked'}
+                      </span>
+                      {canEnter && (
+                        <span className="text-[11px] font-extrabold text-indigo-600 flex items-center gap-0.5">
+                          Enter <ArrowRight className="w-3 h-3" />
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

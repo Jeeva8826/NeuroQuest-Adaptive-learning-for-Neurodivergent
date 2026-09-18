@@ -1,29 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
-  ShieldCheck, Heart, Clock, Award, CheckCircle, Sparkles, TrendingUp, BookOpen, User, RefreshCw
+  ShieldCheck, Heart, Clock, Award, CheckCircle, Sparkles, TrendingUp, BookOpen, 
+  User, RefreshCw, UserPlus, ArrowRight, Play, FileText, CheckCircle2, AlertCircle
 } from 'lucide-react';
-import { getCaregiverInsights } from '../services/api';
+import { getCaregiverInsights, getStudents } from '../services/api';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import AudioButton from '../components/common/AudioButton';
 
 const CaregiverDashboardPage = () => {
+  const navigate = useNavigate();
   const [insights, setInsights] = useState(null);
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchInsights();
+    fetchDashboardData();
   }, []);
 
-  const fetchInsights = async () => {
+  const fetchDashboardData = async () => {
     try {
-      const res = await getCaregiverInsights();
-      setInsights(res.data);
+      const [insightsRes, studentsRes] = await Promise.all([
+        getCaregiverInsights().catch(() => ({ data: null })),
+        getStudents().catch(() => ({ data: [] }))
+      ]);
+      setInsights(insightsRes?.data);
+      setStudents(studentsRes?.data || []);
     } catch (err) {
-      console.error('Failed to fetch caregiver insights:', err);
+      console.error('Failed to fetch caregiver dashboard data:', err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLaunchStudent = (student) => {
+    localStorage.setItem('neuroquest_active_student_id', student.id);
+    localStorage.setItem('neuroquest_active_student_name', student.name);
+    navigate('/home');
   };
 
   if (loading) {
@@ -38,17 +52,17 @@ const CaregiverDashboardPage = () => {
     );
   }
 
-  const learnerName = insights?.learner_name || 'Learner';
+  const learnerName = insights?.learner_name || (students[0]?.name) || 'Learner';
   const engagement = insights?.engagement_distribution || {};
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-200/80 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200/80 pb-4 gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-extrabold uppercase tracking-wider flex items-center gap-1">
@@ -56,16 +70,134 @@ const CaregiverDashboardPage = () => {
               </span>
             </div>
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-2">
-              Caregiver Insights Dashboard
+              Caregiver & Guardian Hub
             </h1>
             <p className="text-slate-500 text-sm mt-0.5">
-              Broad engagement trends, effective adaptations, and session history for {learnerName}.
+              Manage registered students, baseline learning profiles, and engagement adaptations.
             </p>
           </div>
-          <AudioButton
-            text={`Caregiver Insights summary for ${learnerName}. Total sessions completed: ${insights?.total_sessions || 0}.`}
-            label="Listen Summary"
-          />
+          
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate('/student-registration')}
+              className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md flex items-center gap-2 transition-all"
+            >
+              <UserPlus className="w-4 h-4" />
+              <span>Register New Student</span>
+            </button>
+
+            <AudioButton
+              text={`Caregiver Hub. Total registered students: ${students.length}. Total sessions completed: ${insights?.total_sessions || 0}.`}
+              label="Listen Summary"
+            />
+          </div>
+        </div>
+
+        {/* Registered Students Section */}
+        <div className="bg-white rounded-3xl border border-slate-200/90 shadow-md p-6 sm:p-8 space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                <User className="w-5 h-5 text-indigo-600" />
+                Registered Students & Baseline Assessments
+              </h2>
+              <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
+                Each student has an individualized 20-question educational baseline and accommodation profile.
+              </p>
+            </div>
+            
+            <button
+              onClick={() => navigate('/student-registration')}
+              className="hidden sm:flex text-indigo-600 hover:text-indigo-800 text-xs font-bold items-center gap-1 transition-colors"
+            >
+              <span>+ Add Student</span>
+            </button>
+          </div>
+
+          {students.length === 0 ? (
+            <div className="p-8 text-center bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 space-y-3">
+              <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto">
+                <UserPlus className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-slate-800">No Students Registered Yet</h3>
+              <p className="text-xs text-slate-500 max-w-md mx-auto">
+                Register a student learner to start the 20-question baseline assessment and configure personalized quests.
+              </p>
+              <button
+                onClick={() => navigate('/student-registration')}
+                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm inline-flex items-center gap-2"
+              >
+                <UserPlus className="w-4 h-4" />
+                Register First Student
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {students.map((stud) => (
+                <div 
+                  key={stud.id}
+                  className="p-5 rounded-2xl border border-slate-200/90 bg-gradient-to-br from-slate-50 to-white space-y-4 hover:shadow-sm transition-all"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">{stud.name}</h3>
+                      <p className="text-xs text-slate-500 font-medium">
+                        {stud.grade || 'Class 7'} • Age {stud.age} • {stud.school_level || 'Middle School'}
+                      </p>
+                    </div>
+
+                    <span className={`px-3 py-1 rounded-full text-[11px] font-bold shrink-0 flex items-center gap-1 ${
+                      stud.has_completed_screening
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                        : 'bg-amber-100 text-amber-800 border border-amber-200'
+                    }`}>
+                      {stud.has_completed_screening ? (
+                        <>
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Screening Complete</span>
+                        </>
+                      ) : (
+                        <>
+                          <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                          <span>Screening Pending</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-2.5 pt-2 border-t border-slate-100">
+                    {stud.has_completed_screening ? (
+                      <>
+                        <button
+                          onClick={() => handleLaunchStudent(stud)}
+                          className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-sm transition-all"
+                        >
+                          <Play className="w-3.5 h-3.5 fill-current" />
+                          <span>Launch Quest Experience</span>
+                        </button>
+                        <button
+                          onClick={() => navigate(`/student-profile/${stud.id}`)}
+                          className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all"
+                        >
+                          <FileText className="w-3.5 h-3.5 text-slate-500" />
+                          <span>View Profile</span>
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => navigate(`/student-screening/${stud.id}`)}
+                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-sm transition-all"
+                      >
+                        <span>Complete 20-Q Baseline</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Top Summary Cards */}

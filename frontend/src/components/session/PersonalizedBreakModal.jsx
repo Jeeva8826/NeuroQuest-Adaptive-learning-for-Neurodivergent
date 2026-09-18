@@ -76,10 +76,10 @@ const PersonalizedBreakModal = ({ onClose, breakPreference = 'breathing' }) => {
           {/* 1. Breathing Circle */}
           {activeMode === 'breathing' && (
             <div className="space-y-4">
-              <div className="w-24 h-24 rounded-full bg-indigo-500/20 border-4 border-indigo-500 mx-auto animate-pulse flex items-center justify-center">
+              <div className="w-24 h-24 rounded-full bg-indigo-500/20 border-4 border-indigo-500 mx-auto flex items-center justify-center shadow-inner">
                 <span className="text-xs font-black text-indigo-700">Inhale... Exhale...</span>
               </div>
-              <p className="text-xs text-slate-500 font-medium">Breathe softly with the pulsing circle.</p>
+              <p className="text-xs text-slate-500 font-medium">Breathe softly and relax.</p>
             </div>
           )}
 

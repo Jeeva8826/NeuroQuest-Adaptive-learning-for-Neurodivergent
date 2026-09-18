@@ -53,7 +53,7 @@ const ThemeBanner = ({ learnerName = 'Learner', totalStars = 10 }) => {
         {/* Stars / Reward Stats Widget */}
         <div className="bg-white/15 backdrop-blur-md border border-white/30 p-4 rounded-2xl flex items-center gap-4 self-start sm:self-auto shadow-inner">
           <div className="w-12 h-12 rounded-2xl bg-amber-400 text-amber-950 flex items-center justify-center font-extrabold text-xl shadow-md">
-            <Sparkles className="w-6 h-6 fill-current animate-pulse" />
+            <Sparkles className="w-6 h-6 fill-current" />
           </div>
           <div>
             <div className="text-xs uppercase tracking-wider font-bold text-white/80">Quest Stars</div>

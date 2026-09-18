@@ -1,0 +1,17 @@
+id,objective_id,base_text,question_type,difficulty
+1,1,Organisms that can prepare their own food from simple substances are called:,multiple_choice,1.0
+2,1,"A deer grazes on prairie grass, while the grass uses sunlight to grow. Which statement accurately describes their nutritional modes?",multiple_choice,2.0
+3,2,Organisms that can prepare their own food from simple substances are called:,multiple_choice,1.0
+4,2,"A deer grazes on prairie grass, while the grass uses sunlight to grow. Which statement accurately describes their nutritional modes?",multiple_choice,2.0
+5,3,"During photosynthesis in plant leaves, which gas is released into the atmosphere?",multiple_choice,2.0
+6,3,"If a healthy green potted plant is kept inside a completely dark closet for two weeks with regular watering, what will happen and why?",multiple_choice,3.0
+7,4,"During photosynthesis in plant leaves, which gas is released into the atmosphere?",multiple_choice,2.0
+8,4,"If a healthy green potted plant is kept inside a completely dark closet for two weeks with regular watering, what will happen and why?",multiple_choice,3.0
+9,5,The tiny breathing pores present on the surface of plant leaves are called:,multiple_choice,1.0
+10,6,The tiny breathing pores present on the surface of plant leaves are called:,multiple_choice,1.0
+11,7,Which of the following integers has the greatest value?,multiple_choice,1.0
+12,7,"At midnight, the temperature in Dras was -7°C. By morning, it rose by 4°C. What was the morning temperature?",multiple_choice,2.0
+13,8,Which of the following integers has the greatest value?,multiple_choice,1.0
+14,8,"At midnight, the temperature in Dras was -7°C. By morning, it rose by 4°C. What was the morning temperature?",multiple_choice,2.0
+15,9,Calculate the product: (-6) × (-7),multiple_choice,2.0
+16,10,Calculate the product: (-6) × (-7),multiple_choice,2.0

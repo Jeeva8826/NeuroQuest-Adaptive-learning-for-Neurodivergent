@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useSensory } from '../context/SensoryContext';
 import { 
   getProgressSummary, getTasks, getDailyWelcomeMission, 
   getPersonalGameWorld, getPersonalMasteryTree 
@@ -28,6 +29,7 @@ const SUBJECT_CARDS = [
 const LearnerHomePage = () => {
   const { user } = useAuth();
   const { primaryColor, profile } = useTheme();
+  const { applyStateAdaptation } = useSensory();
   const navigate = useNavigate();
 
   const [progress, setProgress] = useState(null);
@@ -69,19 +71,25 @@ const LearnerHomePage = () => {
     fetchDashboardData();
   };
 
-  const learnerName = profile?.learner_name || user?.full_name || 'Learner';
+  const learnerName = localStorage.getItem('neuroquest_active_student_name') || profile?.learner_name || user?.full_name || 'Learner';
   const totalStars = progress?.total_stars || 10;
   const streakDays = progress?.streak_days || 1;
   const completedCount = progress?.total_tasks_completed || 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-slate-50 relative overflow-x-hidden">
+      {/* Ambient background soft glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-indigo-50/60 via-purple-50/30 to-transparent pointer-events-none" />
+
       {/* Hackathon Presenter Demo Bar */}
-      <HackathonDemoBar onProfileActivated={handleDemoProfileActivated} />
+      <HackathonDemoBar 
+        onProfileActivated={handleDemoProfileActivated} 
+        onStateSimulated={(data) => applyStateAdaptation(data?.adaptation, data?.state)}
+      />
 
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8 relative z-10">
         
         {/* Hero Personalized Banner */}
         <ThemeBanner learnerName={learnerName} totalStars={totalStars} />
@@ -111,7 +119,7 @@ const LearnerHomePage = () => {
             <div className="pt-2 flex justify-end">
               <button
                 onClick={() => navigate('/session')}
-                className="px-6 py-3 rounded-2xl text-xs font-black text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all flex items-center gap-2"
+                className="px-6 py-3 rounded-2xl text-xs font-black text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all flex items-center gap-2 hover:scale-[1.02] active:scale-98"
               >
                 <Play className="w-4 h-4 fill-current" />
                 <span>Launch Today's Mission</span>
@@ -125,33 +133,54 @@ const LearnerHomePage = () => {
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold">
+          <div 
+            onClick={() => navigate('/progress')}
+            className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-300 transition-all cursor-pointer flex items-center gap-4 group"
+            title="View Badges & Stars"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
               <Star className="w-6 h-6 fill-current" />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="text-2xl font-black text-slate-900">{totalStars}</div>
-              <div className="text-xs font-semibold text-slate-500">Stars Earned</div>
+              <div className="text-xs font-semibold text-slate-500 flex items-center justify-between">
+                <span>Stars Earned</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold">
+          <div 
+            onClick={() => navigate('/progress')}
+            className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-rose-300 transition-all cursor-pointer flex items-center gap-4 group"
+            title="View Streak Progress"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
               <Flame className="w-6 h-6 fill-current" />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="text-2xl font-black text-slate-900">{streakDays} Day Streak</div>
-              <div className="text-xs font-semibold text-slate-500">Daily Quest Streak</div>
+              <div className="text-xs font-semibold text-slate-500 flex items-center justify-between">
+                <span>Daily Quest Streak</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+              </div>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+          <div 
+            onClick={() => navigate('/session')}
+            className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-emerald-300 transition-all cursor-pointer flex items-center gap-4 group"
+            title="Go to Quest Room"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold group-hover:scale-105 transition-transform">
               <CheckCircle className="w-6 h-6" />
             </div>
-            <div>
+            <div className="flex-1">
               <div className="text-2xl font-black text-slate-900">{completedCount} Quests</div>
-              <div className="text-xs font-semibold text-slate-500">Completed Activities</div>
+              <div className="text-xs font-semibold text-slate-500 flex items-center justify-between">
+                <span>Completed Activities</span>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+              </div>
             </div>
           </div>
         </div>
@@ -247,11 +276,13 @@ const LearnerHomePage = () => {
               {progress.earned_badges.slice(0, 4).map(badge => (
                 <div
                   key={badge.id}
-                  className={`p-4 rounded-2xl border text-center space-y-2 ${
+                  onClick={() => navigate('/progress')}
+                  className={`p-4 rounded-2xl border text-center space-y-2 cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all ${
                     badge.is_unlocked
                       ? 'bg-amber-50/70 border-amber-200 text-amber-950'
                       : 'bg-slate-50 border-slate-200 text-slate-400 opacity-60'
                   }`}
+                  title="View Badge in Progress Hub"
                 >
                   <div className="w-10 h-10 rounded-2xl bg-amber-400 text-amber-950 mx-auto flex items-center justify-center font-bold shadow-sm">
                     <Award className="w-5 h-5" />

@@ -20,8 +20,12 @@ class HintRequest(BaseModel):
     attempt_count: int = 1
 
 class ScaffoldRequest(BaseModel):
-    task: Dict[str, Any]
+    task: Optional[Dict[str, Any]] = None
+    task_id: Optional[str] = None
+    session_id: Optional[str] = None
     attempt_count: int = 1
+    failed_attempts: Optional[int] = None
+    hint_level: Optional[int] = None
     requested_level: Optional[int] = None
 
 @router.post("/personalized-task")
@@ -89,11 +93,33 @@ async def get_failure_scaffold(
         "preferredLearningMode": "visual"
     }
 
+    task_obj = req.task
+    if not task_obj and req.task_id:
+        task_doc = await db["tasks"].find_one({"$or": [{"_id": req.task_id}, {"id": req.task_id}]})
+        if task_doc:
+            task_obj = task_doc
+        else:
+            task_obj = {
+                "id": req.task_id,
+                "question": "Photosynthesis & Plant Nutrition",
+                "options": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"],
+                "correct_answer": "Oxygen"
+            }
+    if not task_obj:
+        task_obj = {
+            "question": "What gas do green plants release during photosynthesis?",
+            "options": ["Oxygen", "Carbon dioxide", "Nitrogen", "Hydrogen"],
+            "correct_answer": "Oxygen"
+        }
+
+    attempts = req.attempt_count if req.attempt_count > 1 else (req.failed_attempts or req.attempt_count)
+    target_level = req.requested_level or req.hint_level
+
     scaffold_result = await scaffold_engine.get_scaffold_response(
-        task=req.task,
-        attempt_count=req.attempt_count,
+        task=task_obj,
+        attempt_count=attempts,
         learner_context=learner_context,
-        requested_level=req.requested_level
+        requested_level=target_level
     )
 
     return scaffold_result

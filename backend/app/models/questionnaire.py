@@ -143,3 +143,118 @@ class CaregiverQuestionnaireResponse(CaregiverQuestionnaireInput):
     caregiver_id: str
     learner_id: str
     created_at: datetime
+
+class InitialLearnerSupportProfile(BaseModel):
+    """
+    14-Dimension Initial Learning Support Profile.
+    Directly informed by educational relevance analysis of research datasets.
+    Non-diagnostic and strictly support-oriented.
+    """
+    id: Optional[str] = None
+    learner_id: str
+    caregiver_id: str
+    learner_name: str = "Learner"
+    grade_level: str = "Class 6"
+    primary_subjects: List[str] = Field(default_factory=lambda: ["Science", "Mathematics"])
+    theme_anchor: str = "space"
+    
+    # 1. Learning representation
+    learning_representation: List[str] = Field(default_factory=lambda: ["Visual diagrams, charts & infographics"])
+    # 2. Instruction style
+    instruction_style: List[str] = Field(default_factory=lambda: ["Single-clause direct instructions"])
+    # 3. Task size preference
+    task_size_preference: str = "small"
+    # 4. Session length preference
+    session_length_preference: str = "short_micro_sessions"
+    # 5. Feedback style
+    feedback_style: List[str] = Field(default_factory=lambda: ["Gentle guidance", "Immediate encouraging feedback"])
+    # 6. Scaffolding preference
+    scaffolding_preference: List[str] = Field(default_factory=lambda: ["Step-by-step ladder", "Parallel worked example"])
+    # 7. Engagement preferences
+    engagement_preferences: List[str] = Field(default_factory=lambda: ["Exploration quests", "Special interest analogies"])
+    # 8. Observed learning difficulties
+    observed_learning_difficulties: List[str] = Field(default_factory=lambda: ["Dense reading passages"])
+    # 9. Task management support
+    task_management_support: List[str] = Field(default_factory=lambda: ["Visual step checklists", "Untimed exploration"])
+    # 10. Accessibility preferences
+    accessibility_preferences: List[str] = Field(default_factory=lambda: ["Calm color palette", "Dyslexic font support"])
+    # 11. Sensory preferences
+    sensory_preferences: Dict[str, Any] = Field(default_factory=lambda: {
+        "sound_enabled": True,
+        "audio_mode": "on_demand",
+        "visual_density": "spacious",
+        "palette": "soft",
+        "animation_level": "gentle"
+    })
+    # 12. Existing accommodations
+    existing_accommodations: List[str] = Field(default_factory=lambda: ["Extra processing time", "Audio button"])
+    # 13. Caregiver reported support info (strictly educational context)
+    caregiver_reported_support_information: List[str] = Field(default_factory=list)
+    # 14. Learner goals
+    learner_goals: List[str] = Field(default_factory=lambda: ["Concept mastery", "Independent learning confidence"])
+    
+    consent: Dict[str, Any] = Field(default_factory=lambda: {"granted": True, "timestamp": str(datetime.utcnow())})
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
+
+class QuestionnaireDraft(BaseModel):
+    step: int = 1
+    form_data: Dict[str, Any] = Field(default_factory=dict)
+    updated_at: Optional[datetime] = None
+
+class CaregiverQuestionnaireComprehensiveInput(BaseModel):
+    """
+    10-Step Comprehensive Caregiver Questionnaire Input.
+    Supports either flattened or structured field payload submissions.
+    """
+    # Step 1: Learner & Education
+    learner_name: Optional[str] = "Learner"
+    grade_level: Optional[str] = "Class 6"
+    primary_subjects: Optional[List[str]] = Field(default_factory=lambda: ["Science", "Mathematics"])
+    interest_anchors: Optional[List[str]] = Field(default_factory=lambda: ["Space", "Animals"])
+    
+    # Step 2: Known Support Info (Optional, Non-Diagnostic)
+    has_identified_support: Optional[str] = "No"
+    support_categories: Optional[List[str]] = Field(default_factory=list)
+    
+    # Step 3: Learning Strengths
+    representation_mode: Optional[List[str]] = Field(default_factory=lambda: ["Visual diagrams, charts & infographics"])
+    engagement_anchors: Optional[List[str]] = Field(default_factory=lambda: ["Exploration quests", "Visual puzzles"])
+    interest_boost: Optional[str] = "Greatly helps"
+    
+    # Step 4: Learning Difficulties
+    reading_text_volume: Optional[str] = "Bite-sized sentences (1 to 2 lines per card)"
+    academic_triggers: Optional[List[str]] = Field(default_factory=lambda: ["Dense reading passages"])
+    difficulty_response: Optional[str] = "Smaller steps"
+    
+    # Step 5: Attention & Task Management
+    task_management_friction: Optional[List[str]] = Field(default_factory=lambda: ["Starting a task", "Organizing work"])
+    frustration_behavior: Optional[str] = "Offer a 1-minute calming sensory break"
+    session_fatigue_pattern: Optional[str] = "Prefers short micro-sessions"
+    
+    # Step 6: Accessibility & Sensory
+    visual_accessibility: Optional[List[str]] = Field(default_factory=lambda: ["Clear visual headings", "Reduced motion/animation"])
+    audio_preferences: Optional[str] = "On-demand audio button (listen when helpful)"
+    color_palette: Optional[str] = "Soft calming pastels"
+    
+    # Step 7: Communication & Instruction
+    instruction_granularity: Optional[str] = "Single-clause direct instructions"
+    feedback_style: Optional[str] = "Show the first step"
+    pacing_control: Optional[str] = "Completely untimed, relaxed exploration"
+    
+    # Step 8: Existing Accommodations
+    accommodations_used: Optional[List[str]] = Field(default_factory=lambda: ["Additional time", "Visual instructions"])
+    effective_accommodations: Optional[List[str]] = Field(default_factory=list)
+    
+    # Step 9: Learning Environment & Motivation
+    study_environment: Optional[str] = "Quiet, distraction-minimized space"
+    break_rhythm: Optional[str] = "Every 5 to 7 minutes with calm sensory animations"
+    celebration_style: Optional[str] = "Visual unlocks (opening new planets, sanctuaries, or cyber parts)"
+    
+    # Step 10: Consent & Goals
+    learner_goals: Optional[List[str]] = Field(default_factory=lambda: ["Confidence in Science", "Independent study skills"])
+    consent_acknowledged: Optional[bool] = True
+    
+    # Extra / legacy dictionary pass-through for flexibility
+    extra_data: Optional[Dict[str, Any]] = Field(default_factory=dict)
+

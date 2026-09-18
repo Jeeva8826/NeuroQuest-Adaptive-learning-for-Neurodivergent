@@ -4,7 +4,8 @@ from datetime import datetime
 
 class TaskAnswerSubmit(BaseModel):
     task_id: str
-    selected_answer: str
+    selected_answer: Optional[str] = None
+    selected_option: Optional[Any] = None
     time_taken_seconds: int = 0
     hints_used: int = 0
 

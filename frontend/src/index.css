@@ -15,11 +15,32 @@
     --animation-speed: 0.3s;
   }
 
+  html {
+    scroll-behavior: smooth;
+    width: 100%;
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+    touch-action: pan-y;
+  }
+
   body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     background-color: var(--bg-main);
     color: var(--text-main);
     font-size: calc(1rem * var(--font-scale));
     transition: background-color var(--animation-speed) ease, color var(--animation-speed) ease;
+    touch-action: pan-y;
+  }
+
+  #root, .sensory-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 

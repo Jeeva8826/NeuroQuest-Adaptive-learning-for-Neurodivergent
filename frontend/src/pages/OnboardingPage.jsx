@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import StepWizard from '../components/onboarding/StepWizard';
+import QuestionnaireWizard from '../components/onboarding/QuestionnaireWizard';
 import { submitQuestionnaire } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -44,7 +44,7 @@ const OnboardingPage = () => {
           </div>
         )}
 
-        <StepWizard onSubmit={handleQuestionnaireSubmit} loading={loading} />
+        <QuestionnaireWizard onSubmit={handleQuestionnaireSubmit} loading={loading} />
       </main>
 
       <Footer />

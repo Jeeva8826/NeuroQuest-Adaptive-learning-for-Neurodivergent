@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Palette, Volume2, Type, Eye, Sparkles, Check } from 'lucide-react';
+import { Palette, Volume2, Type, Eye, Sparkles, Check, ZoomIn } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
 const PRESET_COLORS = [
@@ -96,6 +96,19 @@ const PreferenceCustomizer = () => {
     }
   };
 
+  const handleFontScaleChange = async (scale) => {
+    setSaving(true);
+    try {
+      await updatePreferences({ font_scale: scale });
+      setSuccessMsg(`Font scale updated to ${scale}!`);
+      setTimeout(() => setSuccessMsg(''), 2000);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xl space-y-8">
       
@@ -110,7 +123,7 @@ const PreferenceCustomizer = () => {
           </p>
         </div>
         {successMsg && (
-          <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full animate-bounce">
+          <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full shadow-sm border border-emerald-200">
             {successMsg}
           </span>
         )}
@@ -240,6 +253,38 @@ const PreferenceCustomizer = () => {
               }`}
             >
               {a.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 6. Text Size & Display Scale */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-bold text-slate-800 flex items-center gap-1.5">
+            <ZoomIn className="w-4 h-4 text-slate-600" /> Text Size & Display Scale
+          </label>
+          <span className="text-xs text-slate-400 font-medium">Tip: Press Ctrl + 0 to reset browser zoom</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {[
+            { id: 'small', label: 'Compact (0.9x)', desc: 'More content on screen' },
+            { id: 'medium', label: 'Standard (1.0x)', desc: 'Default comfortable size' },
+            { id: 'large', label: 'Large (1.125x)', desc: 'High legibility' },
+            { id: 'xlarge', label: 'Extra Large (1.25x)', desc: 'Maximum readability' }
+          ].map(s => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => handleFontScaleChange(s.id)}
+              className={`p-3 rounded-2xl text-xs font-bold border transition-all text-left flex flex-col justify-between ${
+                fontScale === s.id
+                  ? 'border-indigo-600 bg-indigo-50 text-indigo-900 ring-2 ring-indigo-500 shadow-sm'
+                  : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
+              }`}
+            >
+              <span className="font-extrabold">{s.label}</span>
+              <span className="text-[10px] text-slate-500 font-normal mt-1">{s.desc}</span>
             </button>
           ))}
         </div>

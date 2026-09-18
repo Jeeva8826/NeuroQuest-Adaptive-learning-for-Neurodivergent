@@ -61,12 +61,23 @@ async def submit_answer(
     task = await db["tasks"].find_one(query)
     if not task:
         task = {
-            "correct_answer": submit_data.selected_answer,
+            "correct_answer": str(submit_data.selected_answer or "Option 1"),
             "subject": "Mathematics",
             "explanation": "Great effort exploring this question!"
         }
 
-    is_correct = submit_data.selected_answer.strip().lower() == task["correct_answer"].strip().lower()
+    user_answer = ""
+    if submit_data.selected_answer is not None:
+        user_answer = str(submit_data.selected_answer).strip()
+    elif submit_data.selected_option is not None:
+        opts = task.get("options", [])
+        if isinstance(submit_data.selected_option, int) and 0 <= submit_data.selected_option < len(opts):
+            user_answer = str(opts[submit_data.selected_option]).strip()
+        else:
+            user_answer = str(submit_data.selected_option).strip()
+
+    correct_answer = str(task.get("correct_answer", "")).strip()
+    is_correct = (user_answer.lower() == correct_answer.lower())
     points = 10 if is_correct else 2
 
     # Log telemetry event
@@ -76,8 +87,8 @@ async def submit_answer(
         "event_type": "answer_submit",
         "payload": {
             "task_id": submit_data.task_id,
-            "selected_answer": submit_data.selected_answer,
-            "correct_answer": task["correct_answer"],
+            "selected_answer": user_answer,
+            "correct_answer": correct_answer,
             "is_correct": is_correct,
             "hints_used": submit_data.hints_used,
             "time_taken": submit_data.time_taken_seconds

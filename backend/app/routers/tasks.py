@@ -45,16 +45,7 @@ async def get_task_by_id(task_id: str, current_user: dict = Depends(get_current_
         
     task_doc = await db["tasks"].find_one(query)
     if not task_doc:
-        return LearningTask(
-            id=task_id,
-            title="Introduction to Patterns & Numbers",
-            subject="Mathematics",
-            difficulty=1,
-            question="Which shape comes next in the pattern: Circle, Square, Circle, Square, ...?",
-            options=["Circle", "Square", "Triangle", "Star"],
-            correct_answer="Circle",
-            explanation="The pattern alternates between Circle and Square."
-        )
+        raise HTTPException(status_code=404, detail=f"Task with ID {task_id} not found.")
         
     task_doc["id"] = str(task_doc.get("_id", task_id))
     return LearningTask(**task_doc)

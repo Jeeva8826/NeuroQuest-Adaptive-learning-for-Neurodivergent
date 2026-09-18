@@ -45,17 +45,87 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
     try:
         payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
+        sub = payload.get("sub")
+        email = payload.get("email", sub)
+        username = payload.get("username", sub)
+        if not sub:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
 
     db = get_database()
-    user = await db["users"].find_one({"email": email})
+    user = None
+    if db is not None:
+        user = await db["users"].find_one({
+            "$or": [
+                {"email": email},
+                {"username": username},
+                {"email": sub},
+                {"username": sub}
+            ]
+        })
+
+    # Fallback to check SQLAlchemy user if not found in MongoDB
+    if user is None:
+        try:
+            from app.database import SessionLocal
+            from app.models.schema import User as SqlUser
+            if SessionLocal is not None:
+                sql_session = SessionLocal()
+                try:
+                    sql_u = sql_session.query(SqlUser).filter(
+                        (SqlUser.email == email) | (SqlUser.username == username) | (SqlUser.username == sub) | (SqlUser.email == sub)
+                    ).first()
+                    if sql_u:
+                        learner_id = f"learner_{sql_u.id}"
+                        if db is not None:
+                            l_doc = await db["learners"].find_one({"caregiver_id": str(sql_u.id)})
+                            if not l_doc:
+                                l_res = await db["learners"].insert_one({
+                                    "caregiver_id": str(sql_u.id),
+                                    "name": f"{sql_u.username}'s Learner",
+                                    "created_at": datetime.utcnow()
+                                })
+                                learner_id = str(l_res.inserted_id)
+                            else:
+                                learner_id = str(l_doc["_id"])
+                        user = {
+                            "id": str(sql_u.id),
+                            "username": sql_u.username,
+                            "email": sql_u.email,
+                            "role": sql_u.role.value if hasattr(sql_u.role, 'value') else str(sql_u.role),
+                            "learner_id": learner_id
+                        }
+                        if db is not None:
+                            user_mongo = user.copy()
+                            user_mongo["created_at"] = datetime.utcnow()
+                            ins_res = await db["users"].insert_one(user_mongo)
+                            user["_id"] = ins_res.inserted_id
+                finally:
+                    sql_session.close()
+        except Exception:
+            pass
+
     if user is None:
         raise credentials_exception
-    
-    # Convert _id to string id
-    user["id"] = str(user["_id"])
+
+    # Convert _id to string id and ensure user_id and learner_id are available
+    if "_id" not in user and "id" in user:
+        user["_id"] = user["id"]
+    user["id"] = str(user.get("_id", user.get("id", "")))
+    user["user_id"] = user["id"]
+
+    if not user.get("learner_id") and db is not None:
+        l_doc = await db["learners"].find_one({"caregiver_id": user["id"]})
+        if not l_doc:
+            l_res = await db["learners"].insert_one({
+                "caregiver_id": user["id"],
+                "name": f"{user.get('username', 'Learner')}'s Learner",
+                "created_at": datetime.utcnow()
+            })
+            user["learner_id"] = str(l_res.inserted_id)
+        else:
+            user["learner_id"] = str(l_doc["_id"])
+        await db["users"].update_one({"_id": user.get("_id")}, {"$set": {"learner_id": user["learner_id"]}})
+
     return user

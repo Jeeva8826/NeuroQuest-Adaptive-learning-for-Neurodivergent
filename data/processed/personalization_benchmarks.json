@@ -1,0 +1,62 @@
+{
+  "dataset_name": "WALS Neurodivergent Learner Personalization Dataset",
+  "total_records": 10000,
+  "session_duration_minutes": {
+    "mean": 18.18,
+    "median": 18.1,
+    "std": 7.01,
+    "p25": 13.3,
+    "p75": 22.8
+  },
+  "task_completion_rates": {
+    "overall_mean": 0.692,
+    "with_session_reminders": 0.689,
+    "without_session_reminders": 0.694
+  },
+  "font_preferences": {
+    "Standard": 0.561,
+    "Dyslexia-Friendly": 0.439
+  },
+  "font_size_pt_distribution": {
+    "11": 0.135,
+    "16": 0.112,
+    "15": 0.111,
+    "14": 0.106,
+    "17": 0.1,
+    "13": 0.091,
+    "18": 0.083,
+    "12": 0.067,
+    "19": 0.066,
+    "20": 0.053,
+    "21": 0.031,
+    "22": 0.022,
+    "23": 0.012,
+    "24": 0.005,
+    "25": 0.004,
+    "26": 0.002,
+    "27": 0.001,
+    "28": 0.0
+  },
+  "color_theme_preferences": {
+    "Default": 0.327,
+    "Low-Stimulation Pastel": 0.246,
+    "High-Contrast": 0.215,
+    "Dark Mode": 0.211
+  },
+  "layout_mode_preferences": {
+    "Distraction-Free": 0.383,
+    "Simplified": 0.322,
+    "Standard": 0.295
+  },
+  "content_format_preferences": {
+    "Multimodal": 0.305,
+    "Audio": 0.244,
+    "Text": 0.229,
+    "Visual": 0.222
+  },
+  "text_to_speech_usage_rate": 0.449,
+  "engagement_score": {
+    "mean": 6.61,
+    "median": 7.0
+  }
+}
