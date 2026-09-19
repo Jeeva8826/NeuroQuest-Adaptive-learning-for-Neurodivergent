@@ -1,0 +1,367 @@
+{
+  "last_updated": "2026-09-19T10:12:05.418219",
+  "learners": [
+    {
+      "_id": "6aacc3ecbc22009c6597d1e9",
+      "id": "6aacc3ecbc22009c6597d1e9",
+      "caretaker_id": "6aad481136cc156f74777f7c",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": "2015-05-10",
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "learning_environment": "Quiet Room with Gentle Lighting",
+      "preferred_communication": "Visual cues & simple steps",
+      "guardian_consent": true,
+      "has_completed_screening": false,
+      "created_at": "2026-09-18 14:35:04.078000"
+    },
+    {
+      "_id": "6aad4c18c54cdc2aa2c2eaa0",
+      "sql_id": 12,
+      "caretaker_id": "1",
+      "first_name": "akash",
+      "last_name": "l",
+      "name": "akash l",
+      "age": 11,
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "has_completed_screening": false,
+      "created_at": "2026-09-18 05:19:13.676000"
+    },
+    {
+      "_id": "6aad4d282e594cc272d907a8",
+      "caregiver_id": "2",
+      "name": "jeevananth's Learner",
+      "created_at": "2026-09-18 14:39:36.406000"
+    },
+    {
+      "_id": "6aad4d282e594cc272d907aa",
+      "caretaker_id": "6aad4d282e594cc272d907a9",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-18 14:39:36.644000",
+      "screening_completed_at": "2026-09-18 14:39:36.670000"
+    },
+    {
+      "_id": "6aad56af2e594cc272d908c4",
+      "caretaker_id": "6aad4d282e594cc272d907a9",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-18 15:20:15.676000",
+      "screening_completed_at": "2026-09-18 15:20:15.709000"
+    },
+    {
+      "_id": "6aae02b1dd0f4a54cf995107",
+      "caregiver_id": "6aae02b1dd0f4a54cf995106",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 03:34:09.712000"
+    },
+    {
+      "_id": "6aae0588dd0f4a54cf99510a",
+      "caregiver_id": "24",
+      "name": "thomasshelby@gmail.com's Learner",
+      "created_at": "2026-09-19 03:46:16.054000"
+    },
+    {
+      "_id": "6aae05dedd0f4a54cf99510d",
+      "caretaker_id": "6aae0588dd0f4a54cf99510b",
+      "first_name": "Maya",
+      "last_name": "",
+      "name": "Maya",
+      "age": 12,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": null,
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Puzzles & Logic",
+        "Dinosaurs & Prehistory",
+        "Animals & Wildlife",
+        "Vehicles & Aviation",
+        "Drawing & Creative Art"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": false,
+      "created_at": "2026-09-19 03:47:42.086000"
+    },
+    {
+      "_id": "6aae17ddcca8ae7a5de0509d",
+      "caregiver_id": "6aae17ddcca8ae7a5de0509c",
+      "name": "Demo Caregiver's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 05:04:29.016000"
+    },
+    {
+      "_id": "6aae1843cca8ae7a5de0509e",
+      "caretaker_id": "6aae16e5cca8ae7a5de0509a",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 05:06:11.517000",
+      "screening_completed_at": "2026-09-19 05:06:11.543000"
+    },
+    {
+      "_id": "6aae50e2ae53f8e8e6bd0cf0",
+      "caretaker_id": "6aae50e2ae53f8e8e6bd0cef",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 09:07:46.753000",
+      "screening_completed_at": "2026-09-19 09:07:46.785000"
+    },
+    {
+      "_id": "6aae5bb663d3b114bd7973db",
+      "caregiver_id": "6aae5bb663d3b114bd7973da",
+      "name": "Test Parent's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 09:53:58.180000"
+    },
+    {
+      "_id": "6aae5c0d63d3b114bd7973df",
+      "caregiver_id": "6aae5c0d63d3b114bd7973de",
+      "name": "Test Caregiver Parent's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 09:55:25.249000"
+    },
+    {
+      "_id": "6aae5c0d63d3b114bd7973e0",
+      "caretaker_id": "6aae5c0d63d3b114bd7973de",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 09:55:25.253000",
+      "screening_completed_at": "2026-09-19 09:55:25.276000"
+    },
+    {
+      "_id": "6aae5c2763d3b114bd7973e5",
+      "caregiver_id": "6aae5c2763d3b114bd7973e4",
+      "name": "Test Caregiver Parent's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 09:55:51.715000"
+    },
+    {
+      "_id": "6aae5c2763d3b114bd7973e6",
+      "caretaker_id": "6aae5c2763d3b114bd7973e4",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 09:55:51.719000",
+      "screening_completed_at": "2026-09-19 09:55:51.739000"
+    },
+    {
+      "_id": "6aae5d08fdb692edd6776f62",
+      "caregiver_id": "6aae5d08fdb692edd6776f61",
+      "name": "Test Caregiver Parent's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 09:59:36.472000"
+    },
+    {
+      "_id": "6aae5d08fdb692edd6776f63",
+      "caretaker_id": "6aae5d08fdb692edd6776f61",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 09:59:36.485000",
+      "screening_completed_at": "2026-09-19 09:59:36.508000"
+    },
+    {
+      "_id": "6aae5d89308715e6d6193f08",
+      "caregiver_id": "6aae5d89308715e6d6193f07",
+      "name": "Test Caregiver Parent's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 10:01:45.055000"
+    },
+    {
+      "_id": "6aae5d89308715e6d6193f09",
+      "caretaker_id": "6aae5d89308715e6d6193f07",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 10:01:45.089000",
+      "screening_completed_at": "2026-09-19 10:01:45.142000"
+    },
+    {
+      "_id": "6aae5e28308715e6d6193f1b",
+      "caregiver_id": "6aae5e28308715e6d6193f1a",
+      "name": "Audit Caregiver's Learner",
+      "age": null,
+      "condition": "Not Specified",
+      "created_at": "2026-09-19 10:04:24.491000"
+    },
+    {
+      "caretaker_id": "6aae5ff5557728a21cbc9092",
+      "first_name": "Divya",
+      "last_name": "Rao",
+      "name": "Divya Rao",
+      "age": 12,
+      "date_of_birth": null,
+      "grade": "Class 7",
+      "school_level": "Middle School",
+      "school_name": null,
+      "preferred_language": "English",
+      "interests": [
+        "Robotics",
+        "Animals"
+      ],
+      "learning_environment": "Quiet Room",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": false,
+      "created_at": "2026-09-19 10:12:05.404000",
+      "_id": "6aae5ff5557728a21cbc9093"
+    }
+  ],
+  "questionnaire_drafts": [],
+  "baseline_profiles": []
+}

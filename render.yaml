@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: neuroquest-api
+    runtime: python
+    region: ohio
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: python backend/run.py
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: DATABASE_URL
+        value: postgresql://neondb_owner:npg_rzHeNO6QRlX4@ep-aged-heart-b52ll5dt-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+      - key: JWT_SECRET
+        value: neuroquest_super_secret_production_key_2026
+      - key: PYTHON_VERSION
+        value: 3.11.9

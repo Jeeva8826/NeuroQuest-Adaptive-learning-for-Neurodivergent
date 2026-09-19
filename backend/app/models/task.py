@@ -31,6 +31,7 @@ class LearningTask(BaseModel):
     
     hints: List[str] = Field(default_factory=list)
     steps: List[StepGuide] = Field(default_factory=list)
+    scaffold_steps: List[str] = Field(default_factory=list)
     milestone_steps: List[MicroMilestone] = Field(default_factory=list)
     
     mission_context: Optional[str] = None # Personalized mission narrative
@@ -40,4 +41,11 @@ class LearningTask(BaseModel):
     theme_tags: List[str] = Field(default_factory=lambda: ["space", "animals", "coding", "general"])
     
     icon_name: str = "BookOpen"
+    
+    # NCERT Standard & Curriculum Alignment
+    grade: Optional[int] = Field(default=None, description="NCERT Standard / Grade (1 to 10)")
+    standard: Optional[str] = Field(default=None, description="e.g. Class 7")
+    chapter: Optional[str] = Field(default=None, description="NCERT Chapter Title")
+    standard_code: Optional[str] = Field(default=None, description="e.g. NCERT-M7-C1")
+    learning_outcomes: List[str] = Field(default_factory=list)
 

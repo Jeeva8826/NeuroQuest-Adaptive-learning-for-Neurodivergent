@@ -42,13 +42,21 @@ export const getLearnerProfile = () => api.get('/learner/profile');
 export const updateLearnerPreferences = (prefs) => api.put('/learner/preferences', prefs);
 
 // Tasks & Sessions
-export const getTasks = (subject, difficulty) => {
+export const getTasks = (subject, difficulty, grade) => {
   const params = {};
   if (subject) params.subject = subject;
   if (difficulty) params.difficulty = difficulty;
+  if (grade) params.grade = grade;
   return api.get('/tasks', { params });
 };
 export const getTaskById = (taskId) => api.get(`/tasks/${taskId}`);
+export const getNCERTSyllabus = (grade, subject) => {
+  const params = {};
+  if (grade) params.grade = grade;
+  if (subject) params.subject = subject;
+  return api.get('/tasks/syllabus', { params });
+};
+export const getNCERTStandards = () => api.get('/tasks/standards');
 
 export const startSession = () => api.post('/session/start');
 export const submitAnswer = (sessionId, data) => api.post(`/session/${sessionId}/answer`, data);

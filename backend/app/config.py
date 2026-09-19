@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/neuroquest")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://neondb_owner:npg_rzHeNO6QRlX4@ep-aged-heart-b52ll5dt-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
     JWT_SECRET: str = os.getenv("JWT_SECRET", "neuroquest_secret_key_2026_super_secure")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 7 days

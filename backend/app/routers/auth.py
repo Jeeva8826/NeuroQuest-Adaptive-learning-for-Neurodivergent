@@ -39,15 +39,18 @@ async def register(user_data: UserRegister):
     result = await db["users"].insert_one(user_doc)
     user_id = str(result.inserted_id)
     
-    # Create associated learner profile document if role is caregiver
+    # Create associated learner profile document ONLY if explicitly provided during registration
     learner_id = None
-    if user_data.role == "caregiver":
-        learner_name = user_data.learner_name or f"{full_name}'s Learner"
+    if user_data.role == "caregiver" and user_data.learner_name:
+        learner_name = user_data.learner_name.strip()
         learner_doc = {
             "caregiver_id": user_id,
+            "caretaker_id": user_id,
             "name": learner_name,
-            "age": user_data.learner_age,
+            "first_name": learner_name.split(" ")[0],
+            "age": user_data.learner_age or 11,
             "condition": user_data.primary_condition or "Not Specified",
+            "has_completed_screening": False,
             "created_at": datetime.utcnow()
         }
         learner_res = await db["learners"].insert_one(learner_doc)

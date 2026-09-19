@@ -1,11 +1,337 @@
 id,concept_id,description
-1,2,Distinguish between organisms that make their own food and those dependent on others
-2,2,Identify plants as primary autotrophic producers
-3,3,Recall the key reactants and products of photosynthesis
-4,3,Understand the essential role of chlorophyll and sunlight
-5,4,Locate microscopic stomatal pores on leaf surfaces
-6,4,Explain the opening and closing action of guard cells
-7,5,Locate negative and positive integers relative to origin zero
-8,5,"Understand directional movement: right is addition/greater, left is subtraction/less"
-9,6,"Apply sign rules: (+) x (-) = (-), and (-) x (-) = (+)"
-10,6,Solve multi-step integer multiplication problems
+1,1,Identify objects inside vs outside boundaries
+2,1,Understand spatial relationships
+3,2,Count quantities up to 9
+4,2,Associate numeral symbols with counts
+5,3,Combine two groups of items
+6,3,Compute sums up to 9
+7,4,Remove objects from a group
+8,4,Find remaining difference
+9,5,Understand bundles of ten
+10,5,Count from 10 to 20
+11,6,Sequence daily activities
+12,6,"Distinguish morning, afternoon, evening, and night"
+13,7,Compare lengths of objects directly
+14,7,Identify longer and shorter items
+15,8,Identify repeating patterns
+16,8,Predict the next element in a sequence
+17,9,Distinguish rolling objects from sliding objects
+18,9,Identify spherical vs flat shapes
+19,10,Count in pairs and bundles of 10
+20,10,Understand multiplication foundations
+21,11,Compare weights using a balance beam
+22,11,Distinguish heavier vs lighter
+23,12,Identify 2-digit place values
+24,12,Expand numbers into Tens and Ones
+25,13,Identify 2-digit number patterns
+26,13,Solve skip-counting sequences
+27,14,Compare liquid capacities
+28,14,Estimate container volumes using non-standard units
+29,15,Perform 2-digit addition without carryover
+30,15,Solve simple addition word problems
+31,16,"Identify top, side, and front views of 3D objects"
+32,16,Recognize lines of reflective symmetry
+33,17,Understand 3-digit place values
+34,17,Recognize a century equals 100
+35,18,Add 3-digit numbers with regrouping
+36,18,Solve word problems with carryover
+37,19,Convert metres to centimetres
+38,19,Understand standard metric scale: 1 m = 100 cm
+39,20,Identify edges and vertices of polygons
+40,20,Count corners of rectangles
+41,21,Read analogue clock faces
+42,21,Recognize full hour positions
+43,22,Understand multiplication as repeated addition
+44,22,Compute products using times tables
+45,23,Divide a total quantity into equal groups
+46,23,Calculate division quotients
+47,24,Identify faces of a 3D cuboid
+48,24,Count rectangular faces on a standard brick
+49,25,Convert kilometres to metres
+50,25,Understand 1 km = 1000 m
+51,26,Calculate total cost from unit rates
+52,26,Solve practical multiplication problems
+53,27,Convert 24-hour time to 12-hour PM time
+54,27,Read railway schedules
+55,28,Compute commercial profit
+56,28,Apply formula: Profit = Selling Price - Cost Price
+57,29,Identify fractions of a geometric whole
+58,29,Recognize equivalent fractions 2/4 = 1/2
+59,30,Solve word problems involving division
+60,30,Calculate items per set
+61,31,Calculate perimeter of a rectangle
+62,31,Apply formula: Perimeter = 2 * (Length + Width)
+63,32,Apply speed formula: Distance = Speed * Time
+64,32,Understand large number denominations
+65,33,Classify angles by degrees
+66,33,Recognize a right angle equals 90 degrees
+67,34,Calculate area using grid units
+68,34,Apply formula: Area = Length * Width
+69,35,Add fractions with like denominators
+70,35,Simplify fractions
+71,36,Find least common multiples (LCM)
+72,36,Identify common multiples of two integers
+73,37,Convert paise into decimal Rupees
+74,37,Understand hundredths place value: 1 Rupee = 100 paise
+75,38,Compute perimeter and area of a square
+76,38,Distinguish boundary length from surface area
+77,39,Understand Indian and International place value notation
+78,39,Round numbers to nearest hundred and thousand
+79,40,Identify predecessor and successor
+80,40,Apply closure and commutative properties of whole numbers
+81,41,Find HCF and LCM of given numbers
+82,41,"Apply divisibility rules for 3, 6, and 9"
+83,42,"Distinguish between ray, line, and line segment"
+84,42,"Identify vertices, sides, and diagonals of polygons"
+85,43,Plot negative and positive integers on a number line
+86,43,Solve additions and subtractions with directed numbers
+87,44,"Identify proper, improper, and mixed fractions"
+88,44,Compute equivalent fractions and convert to decimals
+89,45,Understand the concept of variable as an unknown quantity
+90,45,Form linear algebraic expressions from word statements
+91,46,Express comparisons as ratios in simplest form
+92,46,Solve real-world problems using the Unitary method
+93,47,Apply sign rules for integer multiplication and division
+94,47,Solve multi-step expressions following order of operations
+95,48,Multiply fractions by reciprocal for division
+96,48,Multiply decimals and place the decimal point correctly
+97,49,"Calculate arithmetic mean, median, and mode of datasets"
+98,49,Interpret bar graphs and double bar graphs
+99,50,Formulate linear equations from verbal descriptions
+100,50,Solve equations using the transposition method
+101,51,Identify complementary (sum 90°) and supplementary (sum 180°) angles
+102,51,Apply alternate interior and corresponding angle theorems
+103,52,Apply angle sum property of a triangle (sum = 180°)
+104,52,Apply Pythagoras theorem: a^2 + b^2 = c^2 in right triangles
+105,53,Convert fractions and ratios to percentages
+106,53,Calculate Simple Interest using formula I = (P * R * T) / 100
+107,54,Compute area of triangles (1/2 * b * h) and parallelograms (b * h)
+108,54,Compute circumference (2*pi*r) and area (pi*r^2) of circles
+109,55,"Identify closure, commutative, and associative properties of rational numbers"
+110,55,Find rational numbers between any two given rational numbers
+111,56,Solve linear equations with variable terms on both sides
+112,56,Formulate and solve real-world word problems
+113,57,Apply angle sum property of quadrilaterals (sum = 360°)
+114,57,"Classify parallelograms, rhombuses, rectangles, and squares by diagonal properties"
+115,58,"Identify perfect squares and Pythagorean triplets (2m, m^2 - 1, m^2 + 1)"
+116,58,Find square roots using prime factorisation and the long division method
+117,59,Compute cubes of numbers (n^3)
+118,59,Extract cube roots using prime factorisation grouping into triplets
+119,60,Apply standard identity: (a + b)^2 = a^2 + 2ab + b^2
+120,60,Apply difference of squares: (a + b)(a - b) = a^2 - b^2
+121,61,Compute total and lateral surface area of cuboids and cylinders
+122,61,Compute volume of right circular cylinder (V = pi * r^2 * h)
+123,62,Identify irrational numbers on the real number line
+124,62,Rationalise denominators containing square roots
+125,63,Apply the Remainder Theorem and Factor Theorem
+126,63,Factorise quadratic and cubic polynomials
+127,64,"Plot coordinates (x, y) on the 2D Cartesian plane"
+128,64,"Identify quadrant signs: Q1 (+,+), Q2 (-,+), Q3 (-,-), Q4 (+,-)"
+129,65,Represent linear relationships as ax + by + c = 0
+130,65,Find multiple coordinate solutions and graph the resulting straight line
+131,66,"Apply triangle congruence criteria: SAS, ASA, SSS, and RHS"
+132,66,Prove geometric properties of isosceles and equilateral triangles
+133,67,Compute curved and total surface area of cones and spheres
+134,67,Compute volume of right circular cone: V = (1/3) * pi * r^2 * h
+135,68,Construct histograms and frequency polygons for continuous grouped data
+136,68,Calculate empirical probability: P(E) = Number of favorable trials / Total trials
+137,69,Apply the Fundamental Theorem of Arithmetic for unique prime factorisation
+138,69,Prove irrationality of sqrt(2) and sqrt(3) using contradiction
+139,70,"Relate zeroes and coefficients: alpha + beta = -b/a, alpha * beta = c/a"
+140,70,Determine root nature using discriminant D = b^2 - 4ac
+141,71,"Identify consistency conditions: intersecting (unique), parallel (no solution), coincident (infinitely many)"
+142,71,Solve simultaneous linear systems using elimination and substitution
+143,72,Compute nth term: a_n = a + (n - 1)d
+144,72,Compute sum of first n terms: S_n = (n/2) * [2a + (n - 1)d]
+145,73,Apply Basic Proportionality Theorem (Thales' Theorem)
+146,73,Calculate distance between two points: d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+147,74,"Define trigonometric ratios: sin, cos, tan, cosec, sec, cot"
+148,74,Apply standard trigonometric identity: sin^2(theta) + cos^2(theta) = 1
+149,75,Distinguish angle of elevation from angle of depression
+150,75,Calculate heights of towers and widths of rivers using tan(theta)
+151,76,Compute mean of grouped continuous frequency distribution using direct method
+152,76,Apply classical probability: P(E) = n(E) / n(S)
+153,77,Identify 5 sensory organs
+154,77,Associate ears with hearing
+155,78,Classify animals by habitat and traits
+156,78,Recognize domestic and farm animals
+157,79,Identify basic plant parts
+158,79,Recognize the role of roots in absorbing water
+159,80,Differentiate daytime sky from nighttime sky
+160,80,Identify the Sun as our source of light and warmth
+161,81,Classify food by origin (plant vs animal)
+162,81,Recognize milk and eggs as animal products
+163,82,Identify primary freshwater source
+164,82,Recognize rain as the origin of rivers and lakes
+165,83,Match animals with their natural shelters
+166,83,Recognize bird nests
+167,84,Connect clothing with weather seasons
+168,84,Understand thermal insulation of woolen clothes
+169,85,Identify green pigment in plant leaves
+170,85,Understand chlorophyll role
+171,86,Identify three states of water
+172,86,Recognize ice as solid water
+173,87,Classify animals by diet
+174,87,Define herbivores
+175,88,Identify transport infrastructure
+176,88,Recognize trains require railway tracks
+177,89,Identify regional adaptations in India
+178,89,Understand why Assam uses bamboo bridges
+179,90,Identify honeybee caste roles
+180,90,Recognize the Queen bee's reproductive function
+181,91,Identify sources of river contamination
+182,91,Understand industrial runoff impact
+183,92,Identify conditions required for seed germination
+184,92,"Recognize need for moisture, air, and warmth"
+185,93,Understand animal communication
+186,93,Identify ant chemical pheromone trails
+187,94,Identify initial stage of human digestion
+188,94,Recognize saliva's role in breaking down starch
+189,95,Understand density and buoyancy
+190,95,Recognize why salt water increases buoyant force
+191,96,Understand microgravity in orbital flight
+192,96,Explain why astronauts float
+193,97,"Identify major nutrients: carbohydrates, proteins, fats, vitamins, and minerals"
+194,97,"Recognize deficiency diseases like scurvy, rickets, and beriberi"
+195,98,"Classify materials by transparency: opaque, transparent, and translucent"
+196,98,"Differentiate materials based on hardness, solubility, and density in water"
+197,99,"Identify separation methods: handpicking, threshing, winnowing, sieving, filtration"
+198,99,"Explain sedimentation, decantation, and evaporation"
+199,100,"Differentiate herbs, shrubs, and trees"
+200,100,Identify reticulate and parallel venation and relate to root types
+201,101,"Identify types of movable joints: ball and socket, hinge, and pivotal joints"
+202,101,"Explain the role of muscles, cartilage, and tendons in locomotion"
+203,102,Understand closed and open electric circuits
+204,102,Classify materials as electrical conductors or insulators
+205,103,Identify North and South magnetic poles
+206,103,State the laws of magnetic attraction and repulsion
+207,104,Formulate the chemical requirements of photosynthesis
+208,104,"Explain symbiotic relationships, saprotrophs, and insectivorous plants"
+209,105,Trace food through the human digestive tract (mouth to large intestine)
+210,105,Explain rumination and cellulose digestion in herbivores
+211,106,"Differentiate conduction, convection, and radiation"
+212,106,Explain sea breeze and land breeze mechanisms
+213,107,"Identify natural indicators: litmus, turmeric, and China rose"
+214,107,Explain neutralisation reaction: Acid + Base -> Salt + Water
+215,108,Distinguish reversible physical changes from irreversible chemical changes
+216,108,Identify rust formation: Iron + Oxygen + Water -> Iron Oxide
+217,109,Formulate cellular respiration: Glucose + Oxygen -> CO2 + H2O + Energy (ATP)
+218,109,Contrast aerobic respiration with anaerobic lactic acid buildup in muscles
+219,110,Explain the heating effect of electric current and electric fuses
+220,110,Describe the magnetic effect of current and construction of electromagnets
+221,111,Differentiate Kharif (monsoon) and Rabi (winter) crop cycles
+222,111,Compare modern irrigation techniques: drip irrigation and sprinkler systems
+223,112,"Identify four major microbe groups: bacteria, fungi, protozoa, and algae"
+224,112,Explain the role of Rhizobium in biological nitrogen fixation
+225,113,"Identify the three conditions for combustion: fuel, oxygen, and ignition temperature"
+226,113,"Describe the three zones of a candle flame (outer blue, middle yellow, inner dark)"
+227,114,Apply the pressure formula: Pressure = Force / Area
+228,114,Explain atmospheric pressure and contact vs non-contact forces
+229,115,Compare friction types: Static > Sliding > Rolling
+230,115,"Explain methods of increasing and reducing friction (ball bearings, lubricants)"
+231,116,Explain that sound is produced by vibrating bodies through a medium
+232,116,"Relate frequency (Hz) to pitch, and amplitude to loudness"
+233,117,Explain states of matter based on kinetic energy and intermolecular attraction
+234,117,Define latent heat of fusion and latent heat of vaporisation
+235,118,Apply the Law of Conservation of Mass and Law of Constant Proportions
+236,118,Write chemical formulas of ionic compounds using valency (cross-over method)
+237,119,Compare prokaryotic and eukaryotic cell anatomy
+238,119,"Identify functions of nucleus, mitochondria (ATP), and plasma membrane osmosis"
+239,120,Differentiate distance vs displacement and speed vs velocity
+240,120,"Apply equations of motion: v = u + at, s = ut + (1/2)at^2, v^2 = u^2 + 2as"
+241,121,State Newton's 3 Laws of Motion
+242,121,Apply momentum p = mv and force formula F = m * a
+243,122,Apply Newton's Universal Law of Gravitation: F = G * (M * m) / r^2
+244,122,Explain Archimedes' principle and buoyant force in fluids
+245,123,Balance chemical equations following conservation of mass
+246,123,"Differentiate reaction types: combination, decomposition, displacement, and redox"
+247,124,Explain the pH scale (0 to 14) and universal indicator colors
+248,124,"Identify chemical formulas and uses of baking soda, washing soda, and Plaster of Paris"
+249,125,Explain human double circulation: pulmonary and systemic circuits
+250,125,Describe the filtration mechanism of the functional kidney unit (nephron)
+251,126,Trace electrical impulse transmission across a neuron and synapse
+252,126,"Explain the involuntary reflex arc and endocrine hormonal regulation (insulin, thyroxine)"
+253,127,Apply Ohm's Law: V = I * R and compute equivalent resistances in series and parallel
+254,127,State Fleming's Left-Hand Rule and the working principle of electric motors
+255,128,Apply Snell's Law of Refraction: n = sin(i) / sin(r)
+256,128,Apply Lens Formula: 1/f = 1/v - 1/u and calculate power of a lens P = 1/f (in dioptres)
+257,129,Identify family relations
+258,129,Use polite conversational vocabulary
+259,130,Identify rhyming phonemic endings
+260,130,Recognize CVC word patterns
+261,131,Identify character traits in stories
+262,131,Recognize Mittu the parrot's features
+263,132,Name rainbow colors
+264,132,Use color descriptive adjectives
+265,133,Recall story details from Haldi's Adventure
+266,133,Recognize character features
+267,134,Identify rhyming structure and gratitude themes
+268,134,Express appreciation for nature
+269,135,Identify narrative moral
+270,135,Understand gentle persuasion vs brute force
+271,136,Identify magic story triggers
+272,136,Recognize magic command phrases
+273,137,Identify poetic themes
+274,137,Recognize morning greetings in poetry
+275,138,Identify character motivations
+276,138,Demonstrate empathy for animals
+277,139,Identify literary moral: power of teamwork
+278,139,Sequence collaborative story events
+279,140,Identify postal address components
+280,140,Understand PIN code function
+281,141,Understand the internal biological clock
+282,141,Identify circadian rhythm in literature
+283,142,Recall story details from Lewis Carroll's classic
+284,142,Recognize the White Rabbit's unusual traits
+285,143,Understand sensory inclusion
+286,143,Recall Helen Keller's breakthrough with Miss Sullivan
+287,144,Identify literary themes of selflessness
+288,144,Recognize reciprocity in nature
+289,145,Recall story details of Avial origin
+290,145,Value creative reuse and sustainability
+291,146,Identify the wisdom of elder advice
+292,146,Understand collective action
+293,147,Analyze literary suspense and deduction
+294,147,Examine Robinson Crusoe's discovery
+295,148,Understand relative scale and perspective
+296,148,Recognize literary parody in Brobdingnag
+297,149,Understand character motivation and narrative irony
+298,149,Identify the theme of hard work and self-reliance
+299,150,Identify the chronological sequence of animal masters
+300,150,Understand why the dog chose man as the ultimate master
+301,151,Extract factual biographical details from informational text
+302,151,Identify themes of perseverance and aerospace ambition
+303,152,Understand Miss Beam's experiential education method
+304,152,Appreciate empathy toward neurodivergent individuals and people with disabilities
+305,153,Analyze philosophical allegories in literature
+306,153,"Identify the three essential truths: right time, right person, right deed"
+307,154,Understand narrative point of view and social empathy
+308,154,Examine child morality versus adult societal conventions
+309,155,Identify satire and clever psychological distraction in storytelling
+310,155,Analyze comedic narrative structure in comic format
+311,156,Identify imaginative hyperbole and whimsical descriptive language
+312,156,Analyze characterization in Roald Dahl's fantasy literature
+313,157,Analyze historical fiction and the 1914 WWI Christmas Truce
+314,157,"Evaluate themes of universal humanity, peace, and tragic longing"
+315,158,Extract disaster response lessons from factual historical eyewitness accounts
+316,158,Examine animal sensory prescience before natural disasters
+317,159,Analyze graphic pictorial history of colonial India
+318,159,Trace causes of the 1857 First War of Independence
+319,160,Analyze autobiographical interview with Stephen Hawking
+320,160,"Appreciate disability resilience, neurodivergence, and intellect beyond physical limitations"
+321,161,Analyze science fiction narrative speculating about automated education
+322,161,Contrast robotic mechanical teachers with human social classroom learning
+323,162,Analyze biographical account of profound deafness and neurodiversity
+324,162,Examine somatic sensory perception of music through bodily vibration
+325,163,Examine biographical details of Albert Einstein's neurodivergent childhood traits
+326,163,Trace his humanitarian pacifism and opposition to nuclear warfare
+327,164,Analyze Kalam's autobiographical reflection from Wings of Fire
+328,164,"Appreciate communal harmony, paternal values, and resilience"
+329,165,Analyze dramatic situational irony in literature
+330,165,Evaluate faith versus cynicism in human relationships
+331,166,Analyze political memoir and rhetorical eloquence
+332,166,"Define courage as the triumph over fear, and evaluate the twin obligations of man"
+333,167,Analyze historical primary source diary literature
+334,167,Examine psychological resilience and adolescent introspection during war
+335,168,"Examine regional Indian cultural heritage (Goan pader, Coorg coffee, Assam tea)"
+336,168,Analyze poetic symbolism in Adrienne Rich's 'The Trees'

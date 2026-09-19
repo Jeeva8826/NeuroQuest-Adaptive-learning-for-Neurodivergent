@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, Sparkles, CheckCircle2, Rocket, ArrowRight, 
   Settings, Eye, Sliders, Volume2, BookOpen, Clock, Heart, 
-  RefreshCw, CheckCircle, Compass, Layers, Zap, AlertCircle
+  RefreshCw, CheckCircle, Compass, Layers, Zap, AlertCircle,
+  Database, Activity, Brain
 } from 'lucide-react';
 import { getStudentBaselineProfile, getStudent } from '../services/api';
 import Navbar from '../components/common/Navbar';
@@ -48,6 +49,13 @@ const StudentProfileResultPage = () => {
     localStorage.setItem('neuroquest_active_student_id', studentId);
     if (student?.name || profile?.student_name) {
       localStorage.setItem('neuroquest_active_student_name', student?.name || profile?.student_name);
+    }
+    const gradeVal = student?.grade || profile?.grade;
+    if (gradeVal) {
+      const gMatch = String(gradeVal).match(/\d+/);
+      if (gMatch) {
+        localStorage.setItem('neuroquest_active_student_grade', gMatch[0]);
+      }
     }
     
     // Launch directly into the student experience
@@ -103,6 +111,7 @@ const StudentProfileResultPage = () => {
   const dimensions = profile?.dimensions || [];
   const accommodations = profile?.recommended_accommodations || [];
   const uiConfig = profile?.initial_ui_configuration || {};
+  const clinicalIndices = profile?.clinical_domain_indices || {};
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
@@ -207,6 +216,187 @@ const StudentProfileResultPage = () => {
             ))}
           </div>
         </div>
+
+        {/* 5 Dataset-Calibrated Clinical & Behavioral Domain Indices */}
+        {clinicalIndices && Object.keys(clinicalIndices).length > 0 && (
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-indigo-100 shadow-sm space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Database className="w-5 h-5 text-indigo-600" />
+                  <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+                    Dataset-Calibrated Clinical & Behavioral Domain Indices
+                  </h2>
+                </div>
+                <p className="text-slate-500 text-xs sm:text-sm mt-0.5">
+                  Synthesized directly from Kaggle AQ-10 Child Screening Dataset, Clinical ADHD/Dyslexia Items, and WALS Learner Benchmarks.
+                </p>
+              </div>
+              <span className="self-start sm:self-auto px-3.5 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold border border-indigo-200/80 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                Empirical Clinical Provenance
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* 1. Sensory Reactivity */}
+              {clinicalIndices.sensory_reactivity_index && (
+                <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Sensory Reactivity</span>
+                      <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-lg">
+                        {clinicalIndices.sensory_reactivity_index.score}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {clinicalIndices.sensory_reactivity_index.level}
+                    </h3>
+                    <p className="text-xs text-indigo-700 font-medium bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100">
+                      <span className="font-bold">Accommodation:</span> {clinicalIndices.sensory_reactivity_index.accommodation}
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200/60">
+                    <div className="text-[11px] text-slate-400 font-semibold mb-1.5">Dataset Evidence Items:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {clinicalIndices.sensory_reactivity_index.items_analyzed?.map((itm, i) => (
+                        <span key={i} className="text-[10px] bg-white text-slate-700 border border-slate-200 rounded-md px-2 py-0.5 font-medium">
+                          {itm}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 2. Cognitive Flexibility */}
+              {clinicalIndices.cognitive_flexibility_index && (
+                <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Cognitive Flexibility</span>
+                      <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-lg">
+                        {clinicalIndices.cognitive_flexibility_index.score}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {clinicalIndices.cognitive_flexibility_index.level}
+                    </h3>
+                    <p className="text-xs text-indigo-700 font-medium bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100">
+                      <span className="font-bold">Accommodation:</span> {clinicalIndices.cognitive_flexibility_index.accommodation}
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200/60">
+                    <div className="text-[11px] text-slate-400 font-semibold mb-1.5">Dataset Evidence Items:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {clinicalIndices.cognitive_flexibility_index.items_analyzed?.map((itm, i) => (
+                        <span key={i} className="text-[10px] bg-white text-slate-700 border border-slate-200 rounded-md px-2 py-0.5 font-medium">
+                          {itm}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Reading & Decoding */}
+              {clinicalIndices.reading_and_decoding_index && (
+                <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Reading & Decoding</span>
+                      <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-lg">
+                        {clinicalIndices.reading_and_decoding_index.score}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {clinicalIndices.reading_and_decoding_index.level}
+                    </h3>
+                    <p className="text-xs text-indigo-700 font-medium bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100">
+                      <span className="font-bold">Accommodation:</span> {clinicalIndices.reading_and_decoding_index.accommodation}
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200/60">
+                    <div className="text-[11px] text-slate-400 font-semibold mb-1.5">Dataset Evidence Items:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {clinicalIndices.reading_and_decoding_index.items_analyzed?.map((itm, i) => (
+                        <span key={i} className="text-[10px] bg-white text-slate-700 border border-slate-200 rounded-md px-2 py-0.5 font-medium">
+                          {itm}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 4. Attention & Pacing */}
+              {clinicalIndices.attention_and_pacing_index && (
+                <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Attention & Pacing Priority</span>
+                      <span className="px-2.5 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-bold rounded-lg">
+                        {clinicalIndices.attention_and_pacing_index.score}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {clinicalIndices.attention_and_pacing_index.level}
+                    </h3>
+                    <p className="text-xs text-indigo-700 font-medium bg-indigo-50/70 p-2.5 rounded-xl border border-indigo-100">
+                      <span className="font-bold">Accommodation:</span> {clinicalIndices.attention_and_pacing_index.accommodation}
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200/60">
+                    <div className="text-[11px] text-slate-400 font-semibold mb-1.5">Dataset Evidence Items:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {clinicalIndices.attention_and_pacing_index.items_analyzed?.map((itm, i) => (
+                        <span key={i} className="text-[10px] bg-white text-slate-700 border border-slate-200 rounded-md px-2 py-0.5 font-medium">
+                          {itm}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 5. Medical & Developmental Profile */}
+              {clinicalIndices.medical_developmental_profile && (
+                <div className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-3 md:col-span-2 lg:col-span-2 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Medical & Developmental Profile</span>
+                      <span className={`px-2.5 py-0.5 text-xs font-bold rounded-lg ${
+                        clinicalIndices.medical_developmental_profile.neurodevelopmental_history_flag
+                          ? 'bg-amber-100 text-amber-900 border border-amber-200'
+                          : 'bg-emerald-100 text-emerald-800'
+                      }`}>
+                        {clinicalIndices.medical_developmental_profile.status}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold text-slate-900">
+                      {clinicalIndices.medical_developmental_profile.neurodevelopmental_history_flag
+                        ? 'Documented Family / Early Development Traits'
+                        : 'Standard Baseline Course'}
+                    </h3>
+                    <p className="text-xs text-slate-600">
+                      Analyzes early jaundice and family neurodivergence factors from the Kaggle dataset to calibrate fatigue sensitivity thresholds in real-time WebGazer telemetry.
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200/60">
+                    <div className="text-[11px] text-slate-400 font-semibold mb-1.5">Dataset Clinical Evidence:</div>
+                    <div className="flex flex-wrap gap-1">
+                      {clinicalIndices.medical_developmental_profile.items_analyzed?.map((itm, i) => (
+                        <span key={i} className="text-[10px] bg-white text-slate-700 border border-slate-200 rounded-md px-2 py-0.5 font-medium">
+                          {itm}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* 10 Educational Dimensions Grid */}
         <div className="space-y-4">

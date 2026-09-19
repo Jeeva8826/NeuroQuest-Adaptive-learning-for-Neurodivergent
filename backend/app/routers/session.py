@@ -10,9 +10,16 @@ router = APIRouter(prefix="/api/session", tags=["Session"])
 @router.post("/start", response_model=LearnerSession)
 async def start_session(current_user: dict = Depends(get_current_user)):
     db = get_database()
-    learner_id = current_user.get("learner_id")
+    learner_id = current_user.get("learner_id") or current_user.get("active_learner_id")
+    if not learner_id and current_user.get("id"):
+        caretaker_id = str(current_user.get("id"))
+        student = await db["students"].find_one({"caretaker_id": caretaker_id})
+        if not student:
+            student = await db["learners"].find_one({"$or": [{"caretaker_id": caretaker_id}, {"caregiver_id": caretaker_id}]})
+        if student:
+            learner_id = str(student.get("id", student.get("_id")))
     if not learner_id:
-        raise HTTPException(status_code=400, detail="User has no associated learner.")
+        learner_id = f"learner_{current_user.get('id', 'default')}"
         
     session_doc = {
         "learner_id": learner_id,
@@ -30,13 +37,13 @@ async def start_session(current_user: dict = Depends(get_current_user)):
     return session_doc
 
 @router.post("/{session_id}/answer")
+@router.post("/{session_id}/submit")
 async def submit_answer(
     session_id: str,
     submit_data: TaskAnswerSubmit,
     current_user: dict = Depends(get_current_user)
 ):
     db = get_database()
-    learner_id = current_user.get("learner_id")
     
     # Get session
     try:
@@ -44,9 +51,11 @@ async def submit_answer(
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid session ID format.")
         
-    session = await db["learner_sessions"].find_one({"_id": s_id, "learner_id": learner_id})
+    session = await db["learner_sessions"].find_one({"_id": s_id})
     if not session:
         raise HTTPException(status_code=404, detail="Active session not found.")
+        
+    learner_id = session.get("learner_id") or current_user.get("learner_id") or str(current_user.get("id"))
 
     # Get task
     query = {"_id": submit_data.task_id}

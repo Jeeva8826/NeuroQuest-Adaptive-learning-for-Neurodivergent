@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { 
   Sparkles, Home, BookOpen, Award, Settings, LogOut, Heart, 
-  ShieldCheck, Gamepad2, Menu, X, ZoomIn, ZoomOut, RotateCcw, Type
+  ShieldCheck, Gamepad2, Menu, X, ZoomIn, ZoomOut, RotateCcw, Type, Compass
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -118,6 +118,20 @@ const Navbar = () => {
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>Caregiver View</span>
                 </Link>
+
+                {user?.role === 'educator' && (
+                  <Link
+                    to="/dashboard/educator"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all ${
+                      isActive('/dashboard/educator')
+                        ? 'bg-white text-indigo-700 shadow-sm font-bold'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+                    }`}
+                  >
+                    <Compass className="w-4 h-4 text-purple-600" />
+                    <span>Educator Map</span>
+                  </Link>
+                )}
 
                 <Link
                   to="/settings"
@@ -334,6 +348,18 @@ const Navbar = () => {
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Caregiver View</span>
           </Link>
+          {user?.role === 'educator' && (
+            <Link
+              to="/dashboard/educator"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold ${
+                isActive('/dashboard/educator') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-700 hover:bg-slate-50'
+              }`}
+            >
+              <Compass className="w-4 h-4 text-purple-600" />
+              <span>Educator Map</span>
+            </Link>
+          )}
           <Link
             to="/settings"
             onClick={() => setMobileMenuOpen(false)}

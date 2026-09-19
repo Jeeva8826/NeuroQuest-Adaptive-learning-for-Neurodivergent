@@ -116,16 +116,40 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user["user_id"] = user["id"]
 
     if not user.get("learner_id") and db is not None:
-        l_doc = await db["learners"].find_one({"caregiver_id": user["id"]})
-        if not l_doc:
-            l_res = await db["learners"].insert_one({
-                "caregiver_id": user["id"],
-                "name": f"{user.get('username', 'Learner')}'s Learner",
-                "created_at": datetime.utcnow()
-            })
-            user["learner_id"] = str(l_res.inserted_id)
+        l_doc = await db["learners"].find_one({"$or": [{"caregiver_id": user["id"]}, {"caretaker_id": user["id"]}]})
+        if l_doc:
+            user["learner_id"] = str(l_doc.get("_id", l_doc.get("id")))
+            await db["users"].update_one({"_id": user.get("_id")}, {"$set": {"learner_id": user["learner_id"]}})
         else:
-            user["learner_id"] = str(l_doc["_id"])
-        await db["users"].update_one({"_id": user.get("_id")}, {"$set": {"learner_id": user["learner_id"]}})
+            user["learner_id"] = None
 
     return user
+
+oauth2_scheme_optional = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
+
+async def get_optional_current_user(token: Optional[str] = Depends(oauth2_scheme_optional)) -> Optional[dict]:
+    if not token:
+        return None
+    try:
+        payload = jwt.decode(token, settings.JWT_SECRET, algorithms=[settings.ALGORITHM])
+        sub = payload.get("sub")
+        if not sub:
+            return None
+        db = get_database()
+        if db is None:
+            return None
+        user = await db["users"].find_one({
+            "$or": [
+                {"_id": sub},
+                {"email": sub},
+                {"username": sub},
+                {"id": sub}
+            ]
+        })
+        if user:
+            user["id"] = str(user.get("_id", user.get("id", "")))
+            user["user_id"] = user["id"]
+        return user
+    except Exception:
+        return None
+

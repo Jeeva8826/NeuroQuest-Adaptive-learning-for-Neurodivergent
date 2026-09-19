@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Award, Coffee, RefreshCw, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Award, Coffee, RefreshCw, ShieldCheck, Camera, CameraOff } from 'lucide-react';
 import { 
   getTasks, startSession, submitAnswer, endSession, 
   generatePersonalizedTask, getAIScaffold, getAdaptationExplanation 
@@ -42,8 +42,11 @@ const SessionPage = () => {
   const [scaffoldData, setScaffoldData] = useState(null);
   const [explainerData, setExplainerData] = useState(null);
   const [attemptCount, setAttemptCount] = useState(0);
+  const [isCameraActive, setIsCameraActive] = useState(false);
 
   const filterSubject = location.state?.subject || null;
+  const filterGrade = location.state?.grade || parseInt(localStorage.getItem('neuroquest_active_student_grade'), 10) || 6;
+  const filterChapter = location.state?.chapter || null;
   const initialTaskId = location.state?.taskId || null;
 
   useEffect(() => {
@@ -62,36 +65,27 @@ const SessionPage = () => {
       const sId = sRes.data.id;
       setSessionId(sId);
 
-      // 2. Fetch seed or personalized AI task
+      // 2. Fetch NCERT tasks for this subject and grade
       let taskList = [];
-      if (filterSubject) {
-        try {
-          const aiTaskRes = await generatePersonalizedTask({
-            subject: filterSubject,
-            difficulty: 1,
-            base_objective: `Master ${filterSubject} challenges`
-          });
-          if (aiTaskRes.data && aiTaskRes.data.question) {
-            taskList = [{
-              id: 'ai_task_1',
-              title: aiTaskRes.data.title || `Mission: ${filterSubject}`,
-              subject: filterSubject,
-              difficulty: 1,
-              question: aiTaskRes.data.question,
-              options: aiTaskRes.data.options || ["Option 1", "Option 2", "Option 3", "Option 4"],
-              correct_answer: aiTaskRes.data.correct_answer || aiTaskRes.data.options?.[0],
-              explanation: aiTaskRes.data.explanation || "Great job!",
-              hints: [aiTaskRes.data.hint || "Take your time and look for clues."]
-            }];
-          }
-        } catch (e) {
-          console.log("Personalized AI task fallback:", e);
+      const tRes = await getTasks(filterSubject, null, filterGrade);
+      taskList = tRes.data || [];
+
+      // If chapter filter specified, prioritize matching chapter tasks
+      if (filterChapter && taskList.length > 0) {
+        const matchingChapterTasks = taskList.filter(t => 
+          (t.chapter && t.chapter.toLowerCase() === filterChapter.toLowerCase()) ||
+          (t.title && t.title.toLowerCase().includes(filterChapter.toLowerCase())) ||
+          (t.chapter && filterChapter.toLowerCase().includes(t.chapter.toLowerCase()))
+        );
+        if (matchingChapterTasks.length > 0) {
+          taskList = [...matchingChapterTasks, ...taskList.filter(t => !matchingChapterTasks.includes(t))];
         }
       }
 
+      // If subject query yielded 0, load all available authentic NCERT tasks for this grade
       if (taskList.length === 0) {
-        const tRes = await getTasks(filterSubject, null);
-        taskList = tRes.data || [];
+        const gradeFallbackRes = await getTasks(null, null, filterGrade);
+        taskList = gradeFallbackRes.data || [];
       }
 
       if (initialTaskId) {
@@ -111,6 +105,7 @@ const SessionPage = () => {
 
   const handleCalibrationComplete = ({ useCamera }) => {
     setShowCalibration(false);
+    setIsCameraActive(Boolean(useCamera));
     
     // Start real-time browser telemetry evaluation loop
     if (sessionId) {
@@ -272,7 +267,20 @@ const SessionPage = () => {
             <span>Return Home</span>
           </button>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            {isCameraActive ? (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-xs font-bold text-emerald-800 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <Camera className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Gaze Assist Active</span>
+              </div>
+            ) : (
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-600">
+                <CameraOff className="w-3.5 h-3.5 text-slate-400" />
+                <span>Non-Camera Telemetry</span>
+              </div>
+            )}
+
             <button
               onClick={() => setShowPrivacyModal(true)}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs font-extrabold text-emerald-800 hover:bg-emerald-100 transition-all"

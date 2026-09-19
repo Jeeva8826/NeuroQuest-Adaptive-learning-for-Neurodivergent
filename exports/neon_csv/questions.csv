@@ -1,17 +1,169 @@
 id,objective_id,base_text,question_type,difficulty
-1,1,Organisms that can prepare their own food from simple substances are called:,multiple_choice,1.0
-2,1,"A deer grazes on prairie grass, while the grass uses sunlight to grow. Which statement accurately describes their nutritional modes?",multiple_choice,2.0
-3,2,Organisms that can prepare their own food from simple substances are called:,multiple_choice,1.0
-4,2,"A deer grazes on prairie grass, while the grass uses sunlight to grow. Which statement accurately describes their nutritional modes?",multiple_choice,2.0
-5,3,"During photosynthesis in plant leaves, which gas is released into the atmosphere?",multiple_choice,2.0
-6,3,"If a healthy green potted plant is kept inside a completely dark closet for two weeks with regular watering, what will happen and why?",multiple_choice,3.0
-7,4,"During photosynthesis in plant leaves, which gas is released into the atmosphere?",multiple_choice,2.0
-8,4,"If a healthy green potted plant is kept inside a completely dark closet for two weeks with regular watering, what will happen and why?",multiple_choice,3.0
-9,5,The tiny breathing pores present on the surface of plant leaves are called:,multiple_choice,1.0
-10,6,The tiny breathing pores present on the surface of plant leaves are called:,multiple_choice,1.0
-11,7,Which of the following integers has the greatest value?,multiple_choice,1.0
-12,7,"At midnight, the temperature in Dras was -7°C. By morning, it rose by 4°C. What was the morning temperature?",multiple_choice,2.0
-13,8,Which of the following integers has the greatest value?,multiple_choice,1.0
-14,8,"At midnight, the temperature in Dras was -7°C. By morning, it rose by 4°C. What was the morning temperature?",multiple_choice,2.0
-15,9,Calculate the product: (-6) × (-7),multiple_choice,2.0
-16,10,Calculate the product: (-6) × (-7),multiple_choice,2.0
+1,1,The puppy is sleeping on its soft bed inside the dog house. Where is the puppy resting?,multiple_choice,1.0
+2,3,An astronaut spotted 4 blue planets and 3 green planets through the telescope. How many planets did the astronaut count in total?,multiple_choice,1.0
+3,5,Riya has 5 red balloons. Her friend gives her 3 more yellow balloons. How many balloons does Riya have altogether?,multiple_choice,1.0
+4,7,There are 7 ripe mangoes on a branch. A mischievous monkey plucks 2 mangoes. How many mangoes are left on the branch?,multiple_choice,1.0
+5,9,A bundle contains 10 wooden sticks. Next to it are 4 loose sticks. What number do they represent together?,multiple_choice,1.0
+6,11,Which activity do children typically do in the MORNING right after waking up?,multiple_choice,1.0
+7,13,Rohan places a long wooden ruler (30 cm) and an eraser (4 cm) side by side. Which object is LONGER?,multiple_choice,1.0
+8,15,"Look at the pattern: Circle, Triangle, Circle, Triangle, Circle, __. Which shape comes next?",multiple_choice,1.0
+9,17,"Which of the following common objects will smoothly ROLL across the floor because it has a round, curved surface?",multiple_choice,2.0
+10,19,"Karan arranged his shoes neatly in pairs. If there are 5 pairs of shoes on the rack, how many individual shoes are there?",multiple_choice,2.0
+11,21,"When comparing two objects on a two-pan balance scale, what happens to the pan holding the HEAVIER object?",multiple_choice,2.0
+12,23,How is the number 46 broken down into Tens and Ones?,multiple_choice,2.0
+13,25,"Look at the jumping sequence: 10, 20, 30, 40, __. What number comes next?",multiple_choice,2.0
+14,27,Which container can hold the LARGEST volume of drinking water?,multiple_choice,2.0
+15,29,"Anusha scored 23 points in a ring toss game. In the second round, she scored 14 more points. What is her total score?",multiple_choice,2.0
+16,31,"When standing on the 4th floor balcony looking down at a parked car on the street, which view of the car do you observe?",multiple_choice,2.0
+17,33,"In cricket, a batsman scores a glorious 'Century'. Exactly how many runs did the batsman score?",multiple_choice,2.0
+18,35,A school library has 136 Hindi storybooks and 245 English storybooks. How many storybooks are in the library in total?,multiple_choice,2.0
+19,37,How many centimetres (cm) are there in exactly 1 full metre (m)?,multiple_choice,2.0
+20,39,How many straight edges and pointed corners (vertices) does a standard rectangular notebook cover have?,multiple_choice,2.0
+21,41,"On an analogue wall clock, the short hour hand points directly at 4, and the long minute hand points at 12. What time is it?",multiple_choice,2.0
+22,43,A gardener planted 4 neat rows of sunflower plants. Each row has 5 sunflowers. How many sunflowers are planted in total?,multiple_choice,2.0
+23,45,Grandmother has 15 delicious lollipops to distribute EQUALLY among her 3 grandchildren. How many lollipops does each grandchild receive?,multiple_choice,2.0
+24,47,How many flat rectangular faces does a standard construction brick (a 3D cuboid) have in total?,multiple_choice,3.0
+25,49,"If an athlete completes a 3-kilometre cross-country race, how many metres (m) did they run in total?",multiple_choice,3.0
+26,51,"A family buys 4 bus tickets to visit the Bhopal boat club. If each bus ticket costs ₹50, what is the total cost of all 4 tickets?",multiple_choice,3.0
+27,53,A railway departure display shows the train departure time as 17:30. What is this time on a standard 12-hour PM clock?,multiple_choice,3.0
+28,55,Kiran buys old newspapers for ₹10 per kg and sells them to a recycling depot for ₹14 per kg. How much profit does she earn per kg?,multiple_choice,3.0
+29,57,"A round chapati is cut into 4 equal quarters. If you eat 2 of the quarters, what fraction of the chapati have you eaten?",multiple_choice,3.0
+30,59,A teacher distributes 28 colorful craft papers equally among 4 student groups. How many craft papers does each group receive?,multiple_choice,3.0
+31,61,A rectangular vegetable patch is 8 metres long and 5 metres wide. What length of wire fence is needed to enclose the entire boundary?,multiple_choice,3.0
+32,63,A fisherman's motorboat travels across the sea at a steady speed of 20 kilometres per hour. How far will the boat travel in 3 hours?,multiple_choice,3.0
+33,65,What is the exact name of an angle that forms a perfect 'L' square corner and measures exactly 90 degrees?,multiple_choice,3.0
+34,67,A rectangular bookmark is 6 cm long and 4 cm wide. How many square centimetres (sq cm) of paper are there on its surface area?,multiple_choice,3.0
+35,69,Reena ate 1/4 of a chocolate bar in the morning and 2/4 of the same bar in the afternoon. What total fraction did she eat?,multiple_choice,3.0
+36,71,What is the SMALLEST positive common multiple (LCM) shared by both the numbers 4 and 6?,multiple_choice,3.0
+37,73,"If a postage stamp costs 75 paise, how is this amount correctly written in Indian Rupees using a decimal point?",multiple_choice,3.0
+38,75,A square tile has side length of 5 cm. What are its PERIMETER (boundary) and its AREA (surface)?,multiple_choice,3.0
+39,77,"According to the Indian place value system, how is the number 7,54,320 written in words, and what is its value when rounded to the nearest thousand?",multiple_choice,2.0
+40,79,Which of the following statements about whole numbers is TRUE?,multiple_choice,2.0
+41,81,"Two neon signs blink at intervals of 12 seconds and 18 seconds respectively. If they blink together at 8:00 PM, after how many seconds will they next blink together simultaneously?",multiple_choice,2.0
+42,83,Which of the following geometric figures has exactly ONE endpoint and extends infinitely in the other direction?,multiple_choice,2.0
+43,85,"In Leh Ladakh, the temperature on Monday night was -4°C. On Tuesday, the temperature dropped by another 6°C. What was the temperature on Tuesday?",multiple_choice,2.0
+44,87,A carpenter cuts 3/5 of a wooden plank. Which of the following is equivalent to 3/5 in decimal notation?,multiple_choice,2.0
+45,89,"Raju makes triangular shapes using matchsticks. Each triangle requires 3 matchsticks. If 'n' represents the number of triangles made, which expression gives the total number of matchsticks required?",multiple_choice,2.0
+46,91,"A recipe calls for 2 cups of sugar for every 3 cups of flour. If a baker uses 9 cups of flour, how many cups of sugar are needed to maintain the exact same ratio?",multiple_choice,2.0
+47,93,Evaluate the mathematical expression: (-12) * (-5) + (-30) / 6,multiple_choice,3.0
+48,95,A rope of length 7/2 meters is cut into smaller pieces of length 1/4 meter each. How many pieces of rope are obtained?,multiple_choice,3.0
+49,97,"Find the median of the following test scores: 12, 18, 11, 25, 19, 14, 15.",multiple_choice,3.0
+50,99,Solve for x in the equation: 4x - 7 = 25,multiple_choice,3.0
+51,101,"Two angles are supplementary. If one angle measures 65°, what is the measure of the other angle?",multiple_choice,3.0
+52,103,A right-angled triangle has legs of lengths 6 cm and 8 cm. What is the length of its hypotenuse?,multiple_choice,3.0
+53,105,"A sum of Rs 5,000 is borrowed at an annual simple interest rate of 6% for 3 years. What is the total simple interest accrued?",multiple_choice,3.0
+54,107,"A circular flowerbed has a radius of 7 meters. Using pi = 22/7, what is the circumference (boundary perimeter) of the flowerbed?",multiple_choice,3.0
+55,109,Which of the following operations is NOT closed for the entire set of rational numbers?,multiple_choice,3.0
+56,111,Solve the linear equation for x: 5x - 7 = 2x + 8,multiple_choice,3.0
+57,113,"In a parallelogram ABCD, angle A measures 75°. What is the measure of adjacent angle B?",multiple_choice,3.0
+58,115,"What is the square root of the number 1,225?",multiple_choice,3.0
+59,117,"Find the cube root of the integer 3,375 using prime factorisation.",multiple_choice,3.0
+60,119,Expand the algebraic expression (2x + 3y)^2 using the standard algebraic identity.,multiple_choice,3.0
+61,121,"A solid right circular cylinder has a base radius of 7 cm and a height of 10 cm. Using pi = 22/7, what is its volume?",multiple_choice,3.0
+62,123,Rationalise the denominator of the radical expression: 1 / (sqrt(5) + sqrt(2)),multiple_choice,3.0
+63,125,Find the remainder when polynomial p(x) = 2x^3 - 3x^2 + 4x - 5 is divided by (x - 2).,multiple_choice,3.0
+64,127,"In which quadrant of the Cartesian coordinate plane does the point P(-4, 5) lie?",multiple_choice,3.0
+65,129,"Which of the following ordered pairs (x, y) is a valid solution to the linear equation 3x + 2y = 18?",multiple_choice,3.0
+66,131,Which of the following is NOT a valid mathematical criterion for establishing the CONGRUENCE of two triangles?,multiple_choice,3.0
+67,133,A right circular cone has a base radius of 6 cm and a vertical height of 8 cm. What is its slant height (l)?,multiple_choice,3.0
+68,135,"A coin is tossed 500 times with observed frequencies: Head: 240 times, Tail: 260 times. What is the empirical probability of getting a Head?",multiple_choice,3.0
+69,137,"If HCF(306, 657) = 9, what is the LCM(306, 657)?",multiple_choice,4.0
+70,139,What is the nature of the roots of the quadratic equation 2x^2 - 4x + 3 = 0?,multiple_choice,4.0
+71,141,Under what condition does a pair of linear equations a1*x + b1*y + c1 = 0 and a2*x + b2*y + c2 = 0 represent PARALLEL lines with NO solution?,multiple_choice,4.0
+72,143,"Find the 12th term of the Arithmetic Progression (AP): 3, 8, 13, 18, ...",multiple_choice,4.0
+73,145,"Find the distance between the two coordinate points A(2, 3) and B(6, 6) in the Cartesian plane.",multiple_choice,4.0
+74,147,"If sin(theta) = 3/5 for an acute angle theta, what is the value of cos(theta)?",multiple_choice,4.0
+75,149,"A person stands 30 meters away from the base of a vertical mobile tower. If the angle of elevation of the top of the tower is 45°, what is the height of the tower?",multiple_choice,4.0
+76,151,One card is drawn at random from a well-shuffled standard deck of 52 playing cards. What is the probability of drawing a Queen?,multiple_choice,4.0
+77,153,Which wonderful sensory organ allows you to listen to school bells ringing and your favorite music?,multiple_choice,1.0
+78,155,"Which gentle domestic animal provides us with fresh, calcium-rich milk every day?",multiple_choice,1.0
+79,157,Which part of a plant grows underground and drinks water from the soil to help the plant grow?,multiple_choice,1.0
+80,159,"What bright celestial body shines in the daytime sky, giving our planet Earth bright light and warmth?",multiple_choice,1.0
+81,161,Which of the following healthy foods is obtained directly from domestic farm ANIMALS?,multiple_choice,2.0
+82,163,"What is the primary natural source of fresh water on Earth that fills our rivers, lakes, and ponds?",multiple_choice,2.0
+83,165,"Which cozy shelter does a mother bird carefully build with twigs, grass, and leaves to protect her fragile eggs?",multiple_choice,2.0
+84,167,"During which chilly season do people wear warm woolen sweaters, woolen caps, and jackets?",multiple_choice,2.0
+85,169,What special green substance inside plant leaves traps sunlight so the plant can prepare its own food?,multiple_choice,2.0
+86,171,"When liquid water is placed in a deep freezer and becomes freezing cold, which solid form does it turn into?",multiple_choice,2.0
+87,173,"What scientific term describes animals like cows, horses, and deer that eat ONLY grass, leaves, and plants?",multiple_choice,2.0
+88,175,Which specialized pathway does a heavy passenger train need to travel safely across long distances?,multiple_choice,2.0
+89,177,In which northeastern state of India do children walk across elevated bamboo and rope bridges to reach school because of heavy monsoon rain?,multiple_choice,3.0
+90,179,"In a honeybee colony, which single specialized female bee is responsible for laying all the eggs to grow the colony?",multiple_choice,3.0
+91,181,"As a clear mountain river flows past large cities and industrial zones, what primarily causes its water to turn dirty and unsafe for drinking?",multiple_choice,3.0
+92,183,Which combination of essential environmental conditions does a dormant bean seed need to successfully sprout (germinate)?,multiple_choice,3.0
+93,185,"When marching in an organized straight line toward sugar, what do worker ants leave on the ground for other ants to follow?",multiple_choice,3.0
+94,187,Where in the human body does the very FIRST step of digestion begin as food is chewed and mixed with saliva?,multiple_choice,3.0
+95,189,A fresh egg sinks to the bottom in plain tap water. What happens when you dissolve plenty of table salt into the water?,multiple_choice,3.0
+96,191,"When astronaut Sunita Williams lived aboard the International Space Station, why did her hair stand up and her food float in mid-air?",multiple_choice,3.0
+97,193,A child has bleeding gums and wounds that take an unusually long time to heal. Which nutrient deficiency is the child most likely suffering from?,multiple_choice,2.0
+98,195,An oily patch on a sheet of notebook paper allows you to see the light of an electric bulb dimly and blurred. The oily paper is classified as:,multiple_choice,2.0
+99,197,A farmer drops a mixture of harvested wheat grains and dry husk from a height in the direction of blowing wind. The lighter husk blows away while grains fall straight down. What is this process called?,multiple_choice,2.0
+100,199,A student observes that grass leaves have veins running parallel to one another. What type of root system will this grass plant have?,multiple_choice,2.0
+101,201,Which joint in the human skeleton allows maximum movement in all directions (full rotational swinging)?,multiple_choice,2.0
+102,203,An electrician wears thick rubber gloves while repairing a live electric switchboard. Why are rubber gloves used?,multiple_choice,2.0
+103,205,"When the North pole of a bar magnet is brought close to the North pole of another freely suspended bar magnet, what happens?",multiple_choice,2.0
+104,207,Why does a pitcher plant trap and digest insects even though it has green leaves and performs photosynthesis?,multiple_choice,3.0
+105,209,Which organ in the human digestive system is primarily responsible for the absorption of digested nutrients into the bloodstream via villi?,multiple_choice,3.0
+106,211,How does heat energy travel from the Sun across empty space to reach Earth?,multiple_choice,3.0
+107,213,"When a drop of lemon juice (acid) is placed on moist turmeric paper, what color change is observed?",multiple_choice,3.0
+108,215,Which of the following processes represents a CHEMICAL change?,multiple_choice,3.0
+109,217,"During an intense 100-meter sprint, an athlete experiences severe cramps in their leg muscles. What substance accumulation causes these cramps?",multiple_choice,3.0
+110,219,An electric safety fuse wire melts and breaks the circuit whenever excessive current flows. What property makes fuse wire suitable for this safety function?,multiple_choice,3.0
+111,221,Which of the following agricultural crops is classified as a RABI (winter) crop in India?,multiple_choice,3.0
+112,223,Which bacterium lives in the root nodules of leguminous plants and fixes atmospheric nitrogen to enrich soil fertility?,multiple_choice,3.0
+113,225,"Which zone of a candle flame is the HOTTEST, where complete combustion of fuel occurs?",multiple_choice,3.0
+114,227,"Why do heavy school bags and luggage backpacks have broad, wide shoulder straps instead of thin strings?",multiple_choice,3.0
+115,229,Arrange the three types of friction in order of DECREASING magnitude (from strongest to weakest):,multiple_choice,3.0
+116,231,Which wave characteristic of a sound determines its PITCH (shrillness or gravitas)?,multiple_choice,3.0
+117,233,Why does the temperature of water remain CONSTANT at 100°C while it is vigorously boiling into steam?,multiple_choice,3.0
+118,235,"Using the valencies of Aluminium (Al^3+) and Oxide (O^2-), what is the correct chemical formula for aluminium oxide?",multiple_choice,3.0
+119,237,Which cellular organelle is known as the 'Powerhouse of the Cell' because it synthesizes cellular energy in the form of ATP molecules?,multiple_choice,3.0
+120,239,A train starts from rest (u = 0) and accelerates uniformly at 2 m/s^2 for 10 seconds. What distance does the train cover in this time?,multiple_choice,3.0
+121,241,Why does a cricket fielder pull their hands backward while catching a fast-moving cricket ball?,multiple_choice,3.0
+122,243,"According to Archimedes' Principle, what is the magnitude of the upward buoyant force acting on an object submerged in water?",multiple_choice,3.0
+123,245,"In the chemical reaction: CuO + H2 -> Cu + H2O, which substance is being REDUCED?",multiple_choice,4.0
+124,247,What is the chemical formula and name of the salt commonly used as Baking Soda to make cakes soft and fluffy?,multiple_choice,4.0
+125,249,Why does the human heart have four distinct chambers separating oxygen-rich blood from deoxygenated blood?,multiple_choice,4.0
+126,251,What is the correct pathway followed by a nerve impulse in a spinal REFLEX ARC when touching a hot object?,multiple_choice,4.0
+127,253,Two resistors of resistances 6 ohms and 12 ohms are connected in PARALLEL across a 12V battery. What is the equivalent resistance of the circuit?,multiple_choice,4.0
+128,255,A convex lens has a focal length of +50 cm (+0.5 meters). What is the optical power of this lens in Dioptres?,multiple_choice,4.0
+129,257,What do you call your father's father in your loving family?,multiple_choice,1.0
+130,259,Which word rhymes with the word 'CAT' because it ends with the exact same sound?,multiple_choice,1.0
+131,261,"In the delightful story 'Mittu and the Yellow Mango', what color was clever Mittu the parrot?",multiple_choice,1.0
+132,263,How many vibrant colors can you count in a glorious sky rainbow after a rain shower?,multiple_choice,1.0
+133,265,"In the story 'Haldi's Adventure', what unusual accessory was Smiley the friendly giraffe wearing?",multiple_choice,2.0
+134,267,"In the joyful poem 'I am Lucky', what is the butterfly thankful for?",multiple_choice,2.0
+135,269,"In the classic fable 'The Wind and the Sun', how did the Sun successfully make the man take off his heavy coat?",multiple_choice,2.0
+136,271,"In the folktale 'The Magic Porridge Pot', what magic words did little Tara say to make the pot start cooking sweet porridge?",multiple_choice,2.0
+137,273,"In the uplifting poem 'Good Morning', who does the happy child joyfully greet as the new day begins?",multiple_choice,2.0
+138,275,"In the story 'Nina and the Baby Sparrows', why was gentle Nina crying and unwilling to attend the family wedding in Delhi?",multiple_choice,2.0
+139,277,What important moral lesson does the story 'The Enormous Turnip' teach young readers?,multiple_choice,2.0
+140,279,"When writing a letter to your friend, what important 6-digit numerical code on the envelope helps the postman find the exact delivery zone?",multiple_choice,2.0
+141,281,"In the charming story 'Neha's Alarm Clock', what mysterious internal clock wakes up Neha at 6:00 AM even when her alarm clock is turned off?",multiple_choice,3.0
+142,283,"In 'Alice in Wonderland', what extraordinary item did the White Rabbit pull out of his waistcoat pocket that astonished Alice?",multiple_choice,3.0
+143,285,What life-changing word did dedicated teacher Anne Sullivan spell onto Helen Keller's palm while cool water pumped over her hand?,multiple_choice,3.0
+144,287,"In the moving story 'The Giving Tree', what was the tree's emotional state whenever it gave its gifts to the boy?",multiple_choice,3.0
+145,289,"In the delightful Kerala folktale 'Wonderful Waste!', which famous traditional feast dish was invented by creatively cooking leftover vegetable scraps?",multiple_choice,3.0
+146,291,"In the fable 'Flying Together', why did the wise old goose urge the flock to destroy the tender young creeper at the foot of the tree?",multiple_choice,3.0
+147,293,"In the gripping adventure story, what startling discovery on the sandy beach filled solitary Robinson Crusoe with astonishment and fear?",multiple_choice,3.0
+148,295,"In Jonathan Swift's classic adventure 'Gulliver's Travels', what was extraordinary about the people in the land of Brobdingnag?",multiple_choice,3.0
+149,297,Who actually completed Patrick's homework throughout the story?,multiple_choice,2.0
+150,299,"In the story 'How the Dog Found Himself a Master!', whom did the dog finally choose to serve faithfully forever?",multiple_choice,2.0
+151,301,"In which city in Haryana, India was astronaut Kalpana Chawla born?",multiple_choice,2.0
+152,303,What was the core educational purpose of the 'Blind Day' and 'Lame Day' at Miss Beam's school?,multiple_choice,2.0
+153,305,"According to the wise hermit in Leo Tolstoy's parable 'Three Questions', what is the ONLY most important time?",multiple_choice,3.0
+154,307,Why did Ravi and the children decide to give away the music master's chappals to the beggar?,multiple_choice,3.0
+155,309,How did Gopal successfully enter the royal court without anyone mentioning or discussing the giant Hilsa fish he bought?,multiple_choice,3.0
+156,311,"According to Mr. Willy Wonka in Roald Dahl's story, which of the following is the oldest living organism on Earth from which he collected sap?",multiple_choice,3.0
+157,313,What extraordinary event occurred on Christmas Day in 1914 between British and German soldiers in No Man's Land?,multiple_choice,3.0
+158,315,"How was 10-year-old schoolgirl Tilly Smith able to save dozens of tourists on a beach in Phuket, Thailand during the 2004 tsunami?",multiple_choice,3.0
+159,317,"In the graphic history 'Glimpses of the Past', which Indian soldier fired the first shot of open mutiny at Barrackpore against British grease-cartridges in 1857?",multiple_choice,3.0
+160,319,"In 'A Visit to Cambridge', what powerful life advice did astrophysicist Stephen Hawking give to disabled people?",multiple_choice,3.0
+161,321,"In Isaac Asimov's story 'The Fun They Had', why did Margie hate her mechanical teacher?",multiple_choice,3.0
+162,323,How does deaf virtuoso percussionist Evelyn Glennie perceive musical pitch and rhythm without using auditory ear hearing?,multiple_choice,3.0
+163,325,"Why did Albert Einstein clash with teachers and leave his high school in Munich, Germany at age 15?",multiple_choice,3.0
+164,327,"In 'My Childhood', how did head priest Lakshmana Sastry handle the new school teacher who forced Kalam to move away from his Brahmin friend Ramanadha?",multiple_choice,3.0
+165,329,What profound situational irony concludes the story 'A Letter to God'?,multiple_choice,4.0
+166,331,"According to Nelson Mandela in 'Long Walk to Freedom', how is TRUE COURAGE defined?",multiple_choice,4.0
+167,333,What famous observation did Anne Frank record in her diary regarding why she preferred writing to confiding in acquaintances?,multiple_choice,4.0
+168,335,"In 'Glimpses of India', what traditional title is given to the beloved village bread baker in Goa?",multiple_choice,4.0

@@ -1,3 +1,169 @@
 id,subject_id,title,order_index
-1,1,Nutrition in Plants,1
-2,2,Integers,1
+1,1,Class 1 - Chapter 1: Shapes and Space,1
+2,1,Class 1 - Chapter 2: Numbers from One to Nine,2
+3,1,Class 1 - Chapter 3: Addition (Sum up to 9),3
+4,1,Class 1 - Chapter 4: Subtraction (Take Away),4
+5,1,Class 1 - Chapter 5: Numbers from Ten to Twenty,5
+6,1,Class 1 - Chapter 6: Time & Daily Routine,6
+7,1,Class 1 - Chapter 7: Measurement,7
+8,1,Class 1 - Chapter 8: Patterns,8
+9,1,"Class 2 - Chapter 1: What is Long, What is Round?",1
+10,1,Class 2 - Chapter 2: Counting in Groups,2
+11,1,Class 2 - Chapter 3: How Much Can You Carry?,3
+12,1,Class 2 - Chapter 4: Counting in Tens & Tens and Ones,4
+13,1,Class 2 - Chapter 5: Patterns in Nature and Numbers,5
+14,1,Class 2 - Chapter 6: Jugs and Mugs (Liquid Capacity),6
+15,1,Class 2 - Chapter 7: Add Our Points & Give and Take,7
+16,1,Class 3 - Chapter 1: Where to Look From (Perspective),1
+17,1,Class 3 - Chapter 2: Fun with Numbers (3-Digit Numbers),2
+18,1,Class 3 - Chapter 3: Give and Take (Addition & Subtraction),3
+19,1,Class 3 - Chapter 4: Long and Short (Metric Measurement),4
+20,1,Class 3 - Chapter 5: Shapes and Designs,5
+21,1,Class 3 - Chapter 6: Time Goes On (Clocks & Calendar),6
+22,1,Class 3 - Chapter 7: How Many Times? (Multiplication),7
+23,1,Class 3 - Chapter 8: Can We Share? (Division),8
+24,1,Class 4 - Chapter 1: Building with Bricks (3D Shapes & Patterns),1
+25,1,Class 4 - Chapter 2: Long and Short (Distance & Conversion),2
+26,1,Class 4 - Chapter 3: A Trip to Bhopal (Multi-Operation Math),3
+27,1,"Class 4 - Chapter 4: Tick-Tick-Tick (Clocks, 24-Hour Time & Elapsed Time)",4
+28,1,"Class 4 - Chapter 5: The Junk Seller (Currency, Invoices & Multiplication)",5
+29,1,Class 4 - Chapter 6: Halves and Quarters (Fraction Basics),6
+30,1,Class 4 - Chapter 7: Tables and Shares (Division & Word Problems),7
+31,1,Class 4 - Chapter 8: Fields and Fences (Perimeter & Area Intro),8
+32,1,Class 5 - Chapter 1: The Fish Tale (Large Numbers & Speed-Time),1
+33,1,Class 5 - Chapter 2: Shapes and Angles,2
+34,1,Class 5 - Chapter 3: How Many Squares? (Area & Grid Units),3
+35,1,Class 5 - Chapter 4: Parts and Wholes (Advanced Fractions),4
+36,1,"Class 5 - Chapter 5: Be My Multiple, I'll be Your Factor",5
+37,1,Class 5 - Chapter 6: Tenths and Hundredths (Decimals),6
+38,1,Class 5 - Chapter 7: Area and its Boundary,7
+39,1,Class 6 - Chapter 1: Knowing Our Numbers,1
+40,1,Class 6 - Chapter 2: Whole Numbers,2
+41,1,Class 6 - Chapter 3: Playing with Numbers,3
+42,1,Class 6 - Chapter 4: Basic Geometrical Ideas,4
+43,1,Class 6 - Chapter 5: Integers,5
+44,1,Class 6 - Chapter 6: Fractions and Decimals,6
+45,1,Class 6 - Chapter 7: Introduction to Algebra,7
+46,1,Class 6 - Chapter 8: Ratio and Proportion,8
+47,1,Class 7 - Chapter 1: Integers,1
+48,1,Class 7 - Chapter 2: Fractions and Decimals,2
+49,1,Class 7 - Chapter 3: Data Handling,3
+50,1,Class 7 - Chapter 4: Simple Equations,4
+51,1,Class 7 - Chapter 5: Lines and Angles,5
+52,1,Class 7 - Chapter 6: The Triangle and its Properties,6
+53,1,Class 7 - Chapter 7: Comparing Quantities,7
+54,1,Class 7 - Chapter 8: Perimeter and Area,8
+55,1,Class 8 - Chapter 1: Rational Numbers,1
+56,1,Class 8 - Chapter 2: Linear Equations in One Variable,2
+57,1,Class 8 - Chapter 3: Understanding Quadrilaterals,3
+58,1,Class 8 - Chapter 4: Squares and Square Roots,4
+59,1,Class 8 - Chapter 5: Cubes and Cube Roots,5
+60,1,Class 8 - Chapter 6: Algebraic Expressions and Identities,6
+61,1,Class 8 - Chapter 7: Mensuration (Surface Area & Volume),7
+62,1,Class 9 - Chapter 1: Number Systems,1
+63,1,Class 9 - Chapter 2: Polynomials,2
+64,1,Class 9 - Chapter 3: Coordinate Geometry,3
+65,1,Class 9 - Chapter 4: Linear Equations in Two Variables,4
+66,1,"Class 9 - Chapter 5: Lines, Angles & Triangles",5
+67,1,Class 9 - Chapter 6: Surface Areas and Volumes,6
+68,1,Class 9 - Chapter 7: Statistics & Probability,7
+69,1,Class 10 - Chapter 1: Real Numbers,1
+70,1,Class 10 - Chapter 2: Polynomials & Quadratic Equations,2
+71,1,Class 10 - Chapter 3: Pair of Linear Equations in Two Variables,3
+72,1,Class 10 - Chapter 4: Arithmetic Progressions (AP),4
+73,1,Class 10 - Chapter 5: Triangles & Coordinate Geometry,5
+74,1,Class 10 - Chapter 6: Introduction to Trigonometry,6
+75,1,Class 10 - Chapter 7: Applications of Trigonometry (Heights & Distances),7
+76,1,Class 10 - Chapter 8: Statistics and Probability,8
+77,2,Class 1 - Chapter 1: My Body & Senses,1
+78,2,Class 1 - Chapter 2: Animals Around Us,2
+79,2,Class 1 - Chapter 3: Plants & Green Friends,3
+80,2,"Class 1 - Chapter 4: Sun, Moon and Stars",4
+81,2,Class 2 - Chapter 1: Our Food & Healthy Eating,1
+82,2,Class 2 - Chapter 2: Water - Every Drop Counts,2
+83,2,Class 2 - Chapter 3: Shelters of Living Things,3
+84,2,Class 2 - Chapter 4: Seasons and Weather,4
+85,2,Class 3 - Chapter 1: The Plant Fairy & Green Friends,1
+86,2,Class 3 - Chapter 2: Water O' Water!,2
+87,2,Class 3 - Chapter 3: Our Friends - Animals,3
+88,2,Class 3 - Chapter 4: From Here to There (Transport & Energy),4
+89,2,Class 4 - Chapter 1: Going to School & Geography,1
+90,2,Class 4 - Chapter 2: Anita and the Honeybees,2
+91,2,Class 4 - Chapter 3: A River's Tale (Aquatic Ecology),3
+92,2,Class 4 - Chapter 4: From Seed to Sprout (Plant Life Cycle),4
+93,2,Class 5 - Chapter 1: Super Senses (Animal Sensory Biology),1
+94,2,Class 5 - Chapter 2: From Tasting to Digesting,2
+95,2,Class 5 - Chapter 3: Experiments with Water (Density & Buoyancy),3
+96,2,Class 5 - Chapter 4: Sunita in Space (Gravitation & Astronomy),4
+97,2,Class 6 - Chapter 1: Components of Food & Nutrition,1
+98,2,Class 6 - Chapter 2: Sorting Materials into Groups,2
+99,2,Class 6 - Chapter 3: Separation of Substances,3
+100,2,Class 6 - Chapter 4: Getting to Know Plants,4
+101,2,Class 6 - Chapter 5: Body Movements & Skeletal System,5
+102,2,Class 6 - Chapter 6: Electricity and Circuits,6
+103,2,Class 6 - Chapter 7: Fun with Magnets,7
+104,2,Class 7 - Chapter 1: Nutrition in Plants,1
+105,2,Class 7 - Chapter 2: Nutrition in Animals,2
+106,2,Class 7 - Chapter 3: Heat & Temperature,3
+107,2,"Class 7 - Chapter 4: Acids, Bases and Salts",4
+108,2,Class 7 - Chapter 5: Physical and Chemical Changes,5
+109,2,Class 7 - Chapter 6: Respiration in Organisms,6
+110,2,Class 7 - Chapter 7: Electric Current and its Effects,7
+111,2,Class 8 - Chapter 1: Crop Production and Management,1
+112,2,Class 8 - Chapter 2: Microorganisms: Friend and Foe,2
+113,2,Class 8 - Chapter 3: Combustion and Flame,3
+114,2,Class 8 - Chapter 4: Force and Pressure,4
+115,2,Class 8 - Chapter 5: Friction,5
+116,2,Class 8 - Chapter 6: Sound (Acoustics),6
+117,2,Class 9 - Chapter 1: Matter in Our Surroundings,1
+118,2,Class 9 - Chapter 2: Atoms and Molecules,2
+119,2,Class 9 - Chapter 3: The Fundamental Unit of Life (Cell Biology),3
+120,2,Class 9 - Chapter 4: Motion (Kinematics),4
+121,2,Class 9 - Chapter 5: Force and Laws of Motion,5
+122,2,Class 9 - Chapter 6: Gravitation,6
+123,2,Class 10 - Chapter 1: Chemical Reactions and Equations,1
+124,2,"Class 10 - Chapter 2: Acids, Bases and Salts",2
+125,2,Class 10 - Chapter 3: Life Processes (Biochemistry & Physiology),3
+126,2,Class 10 - Chapter 4: Control and Coordination (Neurobiology),4
+127,2,Class 10 - Chapter 5: Electricity & Magnetic Effects,5
+128,2,Class 10 - Chapter 6: Light - Reflection and Refraction (Optics),6
+129,3,Class 1 - Chapter 1: My Family and Me,1
+130,3,Class 1 - Chapter 2: Fun with Words & Rhymes,2
+131,3,Class 1 - Chapter 3: Animals and Nature Tales,3
+132,3,Class 1 - Chapter 4: Colors of the Rainbow,4
+133,3,Class 2 - Chapter 1: First Day at School & Adventure,1
+134,3,Class 2 - Chapter 2: I am Lucky! & Animal Smiles,2
+135,3,Class 2 - Chapter 3: Elements of Nature,3
+136,3,Class 2 - Chapter 4: Stories of Magic and Humor,4
+137,3,Class 3 - Chapter 1: Nature Wonders & Morning Songs,1
+138,3,Class 3 - Chapter 2: Empathy and Animal Tales,2
+139,3,Class 3 - Chapter 3: Curiosity and Exploration,3
+140,3,Class 3 - Chapter 4: Communication and Letters,4
+141,3,Class 4 - Chapter 1: Wake Up! & Neha's Alarm Clock,1
+142,3,Class 4 - Chapter 2: Alice in Wonderland & Curiosity,2
+143,3,Class 4 - Chapter 3: Courage and Inclusion - Helen Keller,3
+144,3,Class 4 - Chapter 4: The Giving Tree & Environment,4
+145,3,Class 5 - Chapter 1: Ice-Cream Man & Wonderful Waste!,1
+146,3,Class 5 - Chapter 2: Teamwork & Flying Together,2
+147,3,Class 5 - Chapter 3: Robinson Crusoe & Survival Logic,3
+148,3,Class 5 - Chapter 4: Gulliver's Travels & Perspectives,4
+149,3,Class 6 - Chapter 1: Who Did Patrick's Homework?,1
+150,3,Class 6 - Chapter 2: How the Dog Found Himself a Master!,2
+151,3,Class 6 - Chapter 3: Kalpana Chawla - Woman in Space,3
+152,3,Class 6 - Chapter 4: A Different Kind of School (Inclusion & Empathy),4
+153,3,Class 7 - Chapter 1: Three Questions (Leo Tolstoy),1
+154,3,Class 7 - Chapter 2: A Gift of Chappals,2
+155,3,Class 7 - Chapter 3: Gopal and the Hilsa Fish,3
+156,3,Class 7 - Chapter 4: The Invention of Vita-Wonk (Roald Dahl),4
+157,3,Class 8 - Chapter 1: The Best Christmas Present in the World,1
+158,3,Class 8 - Chapter 2: The Tsunami & Disaster Resilience,2
+159,3,Class 8 - Chapter 3: Glimpses of the Past (1757 - 1857),3
+160,3,Class 8 - Chapter 4: A Visit to Cambridge (Stephen Hawking),4
+161,3,Class 9 - Chapter 1: The Fun They Had (Isaac Asimov),1
+162,3,Class 9 - Chapter 2: The Sound of Music - Evelyn Glennie,2
+163,3,Class 9 - Chapter 3: A Truly Beautiful Mind - Albert Einstein,3
+164,3,Class 9 - Chapter 4: My Childhood - A.P.J. Abdul Kalam,4
+165,3,Class 10 - Chapter 1: A Letter to God (G.L. Fuentes),1
+166,3,Class 10 - Chapter 2: Nelson Mandela: Long Walk to Freedom,2
+167,3,Class 10 - Chapter 3: From the Diary of Anne Frank,3
+168,3,Class 10 - Chapter 4: Glimpses of India & The Trees,4

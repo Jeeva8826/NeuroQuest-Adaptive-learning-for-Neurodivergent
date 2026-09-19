@@ -6,6 +6,7 @@ import AudioButton from '../common/AudioButton';
 const SessionCalibration = ({ onCalibrationComplete }) => {
   const [step, setStep] = useState(0); // 0: Camera Choice, 1: Target Clicks, 2: Complete
   const [useCamera, setUseCamera] = useState(false);
+  const [cameraStatus, setCameraStatus] = useState(null); // 'granted', 'denied', 'unsupported'
   const [clickCount, setClickCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -16,15 +17,42 @@ const SessionCalibration = ({ onCalibrationComplete }) => {
   ];
 
   const handleCameraChoice = async (enableCam) => {
-    setUseCamera(enableCam);
     setLoading(true);
 
     if (enableCam) {
-      const success = await initWebGazer();
-      if (!success) {
-        console.warn('WebGazer init failed or permission denied. Proceeding in non-camera mode.');
+      let camGranted = false;
+      try {
+        if (navigator?.mediaDevices?.getUserMedia) {
+          // Direct native browser API call to immediately open browser permission dialog
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' }
+          });
+          // Permission granted! Safely stop the test tracks so WebGazer can attach cleanly
+          stream.getTracks().forEach(track => track.stop());
+          camGranted = true;
+          setUseCamera(true);
+          setCameraStatus('granted');
+        } else {
+          console.warn('getUserMedia is not supported by this browser.');
+          setUseCamera(false);
+          setCameraStatus('unsupported');
+        }
+      } catch (camErr) {
+        console.warn('Camera access denied or device not found:', camErr);
         setUseCamera(false);
+        setCameraStatus('denied');
       }
+
+      if (camGranted) {
+        try {
+          await initWebGazer();
+        } catch (wgErr) {
+          console.warn('WebGazer init note:', wgErr);
+        }
+      }
+    } else {
+      setUseCamera(false);
+      setCameraStatus('skipped');
     }
 
     setLoading(false);
@@ -116,6 +144,20 @@ const SessionCalibration = ({ onCalibrationComplete }) => {
         {/* STEP 1: TARGET CLICK CALIBRATION */}
         {step === 1 && (
           <div className="space-y-4 text-center animate-fadeIn py-4">
+            <div className="flex justify-center">
+              {useCamera ? (
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full text-xs font-bold border border-emerald-200">
+                  <Camera className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Camera Access Connected for Gaze Assist</span>
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-medium border border-slate-200">
+                  <CameraOff className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Non-Camera Telemetry Active</span>
+                </div>
+              )}
+            </div>
+
             <p className="text-sm font-bold text-slate-800">
               Click the glowing star to calibrate your pointer! ({clickCount + 1} / {targets.length})
             </p>

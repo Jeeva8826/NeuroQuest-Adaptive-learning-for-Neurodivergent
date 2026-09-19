@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShieldCheck, Eye, EyeOff, AlertCircle, ArrowRight, UserCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -15,6 +15,13 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Reset active student sessions on register page so new user starts completely clean
+    localStorage.removeItem('neuroquest_active_student_id');
+    localStorage.removeItem('neuroquest_active_student_name');
+    localStorage.removeItem('neuroquest_active_student_grade');
+  }, []);
 
   // Smart input syncing: if user enters an email in the username field, auto-populate email
   const handleUsernameChange = (val) => {
@@ -91,6 +98,10 @@ export default function RegisterPage() {
       // Store token under both keys for cross-compatibility
       localStorage.setItem('neuroquest_token', data.access_token);
       localStorage.setItem('token', data.access_token);
+      // Clean up previous student context so new user starts completely fresh
+      localStorage.removeItem('neuroquest_active_student_id');
+      localStorage.removeItem('neuroquest_active_student_name');
+      localStorage.removeItem('neuroquest_active_student_grade');
       
       if (refreshUser) {
         await refreshUser();
@@ -143,16 +154,17 @@ export default function RegisterPage() {
             </div>
           )}
           
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form className="space-y-5" onSubmit={handleSubmit} autoComplete="off">
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1">
                 Full Name <span className="text-xs font-normal text-slate-500">(Caregiver / Parent)</span>
               </label>
               <input
                 type="text"
+                autoComplete="off"
                 value={formData.full_name}
-                placeholder="e.g. Jeevananth"
-                className="appearance-none block w-full px-3.5 py-2.5 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                placeholder="e.g. Alex Morgan"
+                className="appearance-none block w-full px-3.5 py-2.5 bg-white text-slate-900 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
                 onChange={e => setFormData({...formData, full_name: e.target.value})}
               />
             </div>
@@ -164,9 +176,10 @@ export default function RegisterPage() {
               <input
                 type="text"
                 required
+                autoComplete="off"
                 value={formData.username}
-                placeholder="e.g. jeevananth or user@example.com"
-                className="appearance-none block w-full px-3.5 py-2.5 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                placeholder="e.g. alex_caregiver or parent@example.com"
+                className="appearance-none block w-full px-3.5 py-2.5 bg-white text-slate-900 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
                 onChange={e => handleUsernameChange(e.target.value)}
               />
             </div>
@@ -177,9 +190,10 @@ export default function RegisterPage() {
               </label>
               <input
                 type="email"
+                autoComplete="off"
                 value={formData.email}
-                placeholder="your.email@example.com"
-                className="appearance-none block w-full px-3.5 py-2.5 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                placeholder="alex.morgan@example.com"
+                className="appearance-none block w-full px-3.5 py-2.5 bg-white text-slate-900 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
                 onChange={e => handleEmailChange(e.target.value)}
               />
             </div>
@@ -190,9 +204,10 @@ export default function RegisterPage() {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
+                  autoComplete="new-password"
                   value={formData.password}
                   placeholder="Enter a secure password"
-                  className="appearance-none block w-full px-3.5 py-2.5 pr-11 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                  className="appearance-none block w-full px-3.5 py-2.5 pr-11 bg-white text-slate-900 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
                   onChange={e => setFormData({...formData, password: e.target.value})}
                 />
                 <button
@@ -210,7 +225,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-800 disabled:opacity-50 transition-colors"
+                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
               >
                 {loading ? 'Creating Caregiver Account...' : (
                   <>

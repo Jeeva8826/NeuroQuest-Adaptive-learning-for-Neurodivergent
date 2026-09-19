@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, HelpCircle, CheckCircle2, RefreshCw, ArrowRight, Lightbulb, Volume2 } from 'lucide-react';
+import { Sparkles, HelpCircle, CheckCircle2, XCircle, RefreshCw, ArrowRight, Lightbulb, Volume2 } from 'lucide-react';
 import AudioButton from '../common/AudioButton';
 import { useTheme } from '../../context/ThemeContext';
 import { getAIExplanation } from '../../services/api';
@@ -57,6 +57,11 @@ const TaskCard = ({ task, onAnswerSubmit, loading }) => {
           >
             {task.subject}
           </span>
+          {task.standard && (
+            <span className="px-2.5 py-1 rounded-xl text-xs font-bold bg-amber-50 text-amber-900 border border-amber-200/80">
+              NCERT {task.standard} {task.chapter ? `• ${task.chapter}` : ''}
+            </span>
+          )}
           <span className="text-xs font-semibold text-slate-500">
             Difficulty {task.difficulty}/5 • ~{task.estimated_duration} mins
           </span>
@@ -76,19 +81,25 @@ const TaskCard = ({ task, onAnswerSubmit, loading }) => {
       </div>
 
       {/* Step-by-Step Guide if present */}
-      {task.steps && task.steps.length > 0 && (
+      {((task.steps && task.steps.length > 0) || (task.scaffold_steps && task.scaffold_steps.length > 0)) && (
         <div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-2">
           <div className="text-xs font-bold text-indigo-900 uppercase tracking-wider flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-            Step-by-Step Helper
+            Step-by-Step Guided Helper
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {task.steps.map(step => (
-              <div key={step.step_number} className="bg-white p-3 rounded-xl border border-indigo-100/80 text-xs">
-                <span className="font-bold text-indigo-600">Step {step.step_number}:</span> {step.title}
-                <div className="text-slate-500 mt-0.5">{step.description}</div>
-              </div>
-            ))}
+            {((task.steps && task.steps.length > 0) ? task.steps : task.scaffold_steps).map((step, idx) => {
+              const isObj = typeof step === 'object' && step !== null;
+              const stepNum = isObj ? (step.step_number || idx + 1) : (idx + 1);
+              const title = isObj ? step.title : (step.includes(':') ? step.split(':')[0].trim() : `Step ${stepNum}`);
+              const desc = isObj ? step.description : (step.includes(':') ? step.split(':').slice(1).join(':').trim() : step);
+              return (
+                <div key={idx} className="bg-white p-3 rounded-xl border border-indigo-100/80 text-xs">
+                  <span className="font-bold text-indigo-600">{title}:</span>{' '}
+                  <span className="text-slate-600">{desc}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -97,20 +108,63 @@ const TaskCard = ({ task, onAnswerSubmit, loading }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
         {task.options.map((opt, idx) => {
           const isSelected = selectedOption === opt;
+          const isTargetCorrect = feedback && (
+            opt.trim().toLowerCase() === (feedback.correct_answer || task.correct_answer || '').trim().toLowerCase()
+          );
+
+          let buttonClasses = 'p-4 rounded-2xl text-left font-bold text-sm sm:text-base border-2 transition-all flex items-center justify-between ';
+          let icon = null;
+          let badge = null;
+
+          if (!feedback) {
+            // Before submission
+            if (isSelected) {
+              buttonClasses += 'border-indigo-600 bg-indigo-50/70 text-indigo-950 shadow-md ring-2 ring-indigo-400';
+              icon = <CheckCircle2 className="w-5 h-5 text-indigo-600 fill-indigo-100 shrink-0" />;
+            } else {
+              buttonClasses += 'border-slate-200 bg-white hover:bg-slate-50 text-slate-800';
+            }
+          } else {
+            // After submission
+            if (feedback.is_correct) {
+              if (isSelected) {
+                buttonClasses += 'border-emerald-500 bg-emerald-50 text-emerald-950 shadow-md ring-2 ring-emerald-400';
+                icon = <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100 shrink-0" />;
+                badge = <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md ml-2">Correct</span>;
+              } else {
+                buttonClasses += 'border-slate-200 bg-slate-50/40 text-slate-400 opacity-60';
+              }
+            } else {
+              // Answer was INCORRECT
+              if (isSelected) {
+                // The student picked this WRONG option
+                buttonClasses += 'border-rose-500 bg-rose-50 text-rose-950 shadow-md ring-2 ring-rose-400';
+                icon = <XCircle className="w-5 h-5 text-rose-600 fill-rose-100 shrink-0" />;
+                badge = <span className="text-[11px] font-extrabold uppercase tracking-wider text-rose-700 bg-rose-100 px-2 py-0.5 rounded-md ml-2">Your Choice (Incorrect)</span>;
+              } else if (isTargetCorrect) {
+                // Highlight the authentic correct answer
+                buttonClasses += 'border-emerald-500 bg-emerald-50/90 text-emerald-950 ring-2 ring-emerald-400 shadow-sm';
+                icon = <CheckCircle2 className="w-5 h-5 text-emerald-600 fill-emerald-100 shrink-0" />;
+                badge = <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md ml-2">Correct Answer</span>;
+              } else {
+                buttonClasses += 'border-slate-200 bg-slate-50/40 text-slate-400 opacity-50';
+              }
+            }
+          }
+
           return (
             <button
               key={idx}
               type="button"
               onClick={() => handleOptionSelect(opt)}
               disabled={!!feedback}
-              className={`p-4 rounded-2xl text-left font-bold text-sm sm:text-base border-2 transition-all flex items-center justify-between ${
-                isSelected
-                  ? 'border-indigo-600 bg-indigo-50/70 text-indigo-950 shadow-md ring-2 ring-indigo-400'
-                  : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-800'
-              }`}
+              className={buttonClasses}
             >
-              <span>{opt}</span>
-              {isSelected && <CheckCircle2 className="w-5 h-5 text-indigo-600 fill-indigo-100" />}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span>{opt}</span>
+                {badge}
+              </div>
+              {icon}
             </button>
           );
         })}
@@ -179,26 +233,73 @@ const TaskCard = ({ task, onAnswerSubmit, loading }) => {
         </div>
       )}
 
-      {/* Non-punitive Feedback Banner */}
+      {/* Feedback Banner */}
       {feedback && (
         <div
           className={`p-5 rounded-2xl border-2 space-y-3 transition-all ${
             feedback.is_correct
               ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
-              : 'bg-indigo-50 border-indigo-300 text-indigo-950'
+              : 'bg-rose-50 border-rose-300 text-rose-950'
           }`}
         >
           <div className="flex items-center justify-between">
             <span className="font-extrabold text-base flex items-center gap-2">
-              {feedback.is_correct ? '🎉 Splendid Work!' : '🌟 Wonderful Exploration!'}
+              {feedback.is_correct ? (
+                <>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                  <span>🎉 Splendid Work! Correct!</span>
+                </>
+              ) : (
+                <>
+                  <XCircle className="w-5 h-5 text-rose-600 shrink-0" />
+                  <span>❌ Not Quite Right — Let's Review</span>
+                </>
+              )}
             </span>
-            <AudioButton text={feedback.feedback_message + ' ' + feedback.explanation} label="Read Feedback" />
+            <AudioButton
+              text={
+                feedback.is_correct
+                  ? `Correct! ${feedback.explanation || task.explanation}`
+                  : `Incorrect. You chose ${selectedOption}, but the correct answer is ${feedback.correct_answer || task.correct_answer}. ${feedback.explanation || task.explanation}`
+              }
+              label="Read Feedback"
+            />
           </div>
 
-          <p className="text-sm font-medium">{feedback.feedback_message}</p>
-          <p className="text-xs text-slate-700 bg-white/70 p-3 rounded-xl border border-slate-200/60 font-semibold">
-            {feedback.explanation}
-          </p>
+          {!feedback.is_correct ? (
+            <div className="space-y-2.5">
+              <p className="text-sm font-semibold text-rose-900 leading-normal">
+                You selected <span className="line-through font-bold text-rose-950">"{selectedOption}"</span>, but the correct answer is <span className="font-extrabold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded border border-emerald-200">"{feedback.correct_answer || task.correct_answer}"</span>.
+              </p>
+              <div className="text-xs text-slate-800 bg-white/90 p-3.5 rounded-xl border border-rose-200 font-medium leading-relaxed">
+                <span className="font-bold text-rose-800 block mb-1">Curriculum Concept Explanation:</span>
+                {feedback.explanation || task.explanation}
+              </div>
+              <div className="pt-1 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFeedback(null);
+                    setSelectedOption('');
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-300 hover:bg-slate-100 transition-colors shadow-sm"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-slate-600" />
+                  <span>Try Answering Again</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-emerald-900">
+                {feedback.feedback_message || `Great job! "${selectedOption}" is correct.`}
+              </p>
+              <div className="text-xs text-slate-800 bg-white/90 p-3.5 rounded-xl border border-emerald-200 font-medium leading-relaxed">
+                <span className="font-bold text-emerald-800 block mb-1">Explanation:</span>
+                {feedback.explanation || task.explanation}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

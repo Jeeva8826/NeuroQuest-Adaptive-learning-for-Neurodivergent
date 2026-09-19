@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, Save, 
-  Sparkles, Info, HelpCircle, BookOpen, Clock, AlertTriangle, ArrowRight
+  Sparkles, Info, HelpCircle, BookOpen, Clock, AlertTriangle, ArrowRight, Database
 } from 'lucide-react';
 import { 
   getStudentQuestionnaire, 
   saveStudentQuestionnaireDraft, 
-  completeStudentQuestionnaire 
+  completeStudentQuestionnaire,
+  getStudents
 } from '../services/api';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
@@ -67,7 +68,21 @@ const StudentScreeningPage = () => {
       setAnswers(initialAnswers);
     } catch (err) {
       console.error('Failed to load student questionnaire:', err);
-      setError('Could not load questionnaire. Please verify your caretaker session.');
+      // Attempt auto-recovery: fetch registered students for this caregiver
+      try {
+        const studListRes = await getStudents();
+        const list = studListRes.data || [];
+        if (list.length > 0) {
+          const target = list.find(s => s.id === studentId) || list[0];
+          if (target && target.id !== studentId) {
+            navigate(`/student-screening/${target.id}`, { replace: true });
+            return;
+          }
+        }
+      } catch (recoveryErr) {
+        console.warn('Auto-recovery student lookup notice:', recoveryErr);
+      }
+      setError('Could not load questionnaire. Please verify your caretaker session or select a student from the dashboard.');
     } finally {
       setLoading(false);
     }
@@ -166,7 +181,39 @@ const StudentScreeningPage = () => {
     );
   }
 
-  const questions = schema?.questions || [];
+  if (!schema || !schema.questions || schema.questions.length === 0) {
+    return (
+      <div className="min-h-screen flex flex-col bg-slate-50">
+        <Navbar />
+        <main className="flex-1 max-w-2xl mx-auto px-4 py-16 w-full text-center space-y-6">
+          <div className="p-8 bg-white rounded-3xl border border-slate-200/90 shadow-md space-y-4">
+            <div className="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto">
+              <AlertTriangle className="w-7 h-7" />
+            </div>
+            <h2 className="text-2xl font-black text-slate-900">Student Assessment Unavailable</h2>
+            <p className="text-sm text-slate-600 font-medium">
+              {error || "Could not load questionnaire for this student ID. Please check your caregiver dashboard."}
+            </p>
+            <div className="pt-4 flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => fetchQuestionnaire()}
+                className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all"
+              >
+                Retry Loading
+              </button>
+              <button
+                onClick={() => navigate('/caregiver')}
+                className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl border border-slate-200 transition-all"
+              >
+                Return to Caregiver Dashboard
+              </button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
   const currentQuestion = questions[currentIndex] || {};
   const totalQuestions = questions.length || 20;
   const progressPercent = Math.round(((currentIndex + 1) / totalQuestions) * 100);
@@ -270,23 +317,40 @@ const StudentScreeningPage = () => {
 
         {/* Active Question Card */}
         <div className="bg-white rounded-3xl border border-slate-200 shadow-md p-6 sm:p-9 space-y-7 transition-all">
-          {/* Category Badge & Audio Read-Aloud */}
-          <div className="flex items-center justify-between gap-4 border-b border-slate-100 pb-4">
-            <span className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-xl text-xs font-extrabold uppercase tracking-wider border border-indigo-100">
-              Dimension: {currentQuestion.category || 'Educational Support'}
-            </span>
+          {/* Category Badge, Dataset Provenance & Audio Read-Aloud */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-xl text-xs font-extrabold uppercase tracking-wider border border-indigo-100">
+                Dimension: {currentQuestion.category || 'Educational Support'}
+              </span>
+              {currentQuestion.dataset_source && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-900 border border-amber-200/80 rounded-xl text-xs font-semibold">
+                  <Database className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <span className="text-slate-500 font-normal">Provenance:</span> {currentQuestion.dataset_source}
+                </span>
+              )}
+            </div>
 
             <AudioButton
-              text={`Question ${currentIndex + 1}. ${currentQuestion.prompt}`}
+              text={`Question ${currentIndex + 1}. ${currentQuestion.prompt}. ${currentQuestion.personalization_impact ? `Impact: ${currentQuestion.personalization_impact}` : ''}`}
               label="Listen Question"
             />
           </div>
 
-          {/* Question Prompt */}
-          <div className="space-y-2">
+          {/* Question Prompt & Personalization Impact */}
+          <div className="space-y-3">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug">
               {currentQuestion.prompt}
             </h2>
+            {currentQuestion.personalization_impact && (
+              <div className="p-3.5 bg-indigo-50/70 border border-indigo-100 rounded-2xl text-xs text-indigo-950 flex items-start gap-2.5">
+                <Sparkles className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-extrabold text-indigo-900">Personalized Learning Impact: </span>
+                  <span className="text-indigo-800 font-medium">{currentQuestion.personalization_impact}</span>
+                </div>
+              </div>
+            )}
             <p className="text-slate-500 text-xs sm:text-sm">
               Select the option that best reflects observed learning behavior during educational activities.
             </p>

@@ -37,6 +37,12 @@ const CaregiverDashboardPage = () => {
   const handleLaunchStudent = (student) => {
     localStorage.setItem('neuroquest_active_student_id', student.id);
     localStorage.setItem('neuroquest_active_student_name', student.name);
+    if (student.grade) {
+      const gMatch = String(student.grade).match(/\d+/);
+      if (gMatch) {
+        localStorage.setItem('neuroquest_active_student_grade', gMatch[0]);
+      }
+    }
     navigate('/home');
   };
 

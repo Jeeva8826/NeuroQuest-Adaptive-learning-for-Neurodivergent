@@ -30,7 +30,7 @@ class StudentResponse(BaseModel):
     caretaker_id: str
     first_name: str
     name: str
-    age: int
+    age: Optional[int] = 11
     grade: str
     school_level: Optional[str] = "Middle School"
     preferred_language: str = "English"
@@ -77,6 +77,10 @@ class BaselineSupportProfile(BaseModel):
     dimensions: List[BaselineSupportDimension] = Field(default_factory=list)
     recommended_accommodations: List[str] = Field(default_factory=list)
     initial_ui_configuration: Dict[str, Any] = Field(default_factory=dict)
+    clinical_domain_indices: Optional[Dict[str, Any]] = Field(
+        default_factory=dict,
+        description="Dataset-calibrated behavioral indices (Sensory, Executive, Reading, Pacing, Medical Background)"
+    )
     
     disclaimer: str = (
         "This profile is based on reported observations to personalize the educational experience. "

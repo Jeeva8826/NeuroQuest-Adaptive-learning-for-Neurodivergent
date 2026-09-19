@@ -122,19 +122,24 @@ async def register_user(user_in: UserRegister, db: Session = Depends(get_db)):
         if mongo_db is not None:
             existing_mongo = await mongo_db["users"].find_one({"$or": [{"email": u_email}, {"username": u_name}]})
             if not existing_mongo:
-                learner_doc = {
-                    "caregiver_id": str(user_id),
-                    "name": user_in.learner_name or f"{u_name}'s Learner",
-                    "created_at": datetime.utcnow()
-                }
-                l_res = await mongo_db["learners"].insert_one(learner_doc)
+                learner_id = None
+                if user_in.learner_name:
+                    learner_doc = {
+                        "caregiver_id": str(user_id),
+                        "caretaker_id": str(user_id),
+                        "name": user_in.learner_name.strip(),
+                        "created_at": datetime.utcnow()
+                    }
+                    l_res = await mongo_db["learners"].insert_one(learner_doc)
+                    learner_id = str(l_res.inserted_id)
+
                 await mongo_db["users"].insert_one({
                     "email": u_email,
                     "username": u_name,
                     "password_hash": db_user.hashed_password,
                     "full_name": u_name,
                     "role": user_role.value if hasattr(user_role, 'value') else str(user_role),
-                    "learner_id": str(l_res.inserted_id),
+                    "learner_id": learner_id,
                     "created_at": datetime.utcnow()
                 })
     except Exception as e:
@@ -349,23 +354,55 @@ async def whoami(credentials: HTTPAuthorizationCredentials = Depends(security), 
         identifier = (payload.get("username") or payload.get("sub") or payload.get("email") or "").strip().lower()
         if not identifier:
             raise HTTPException(status_code=401, detail="Invalid token")
-        db_user = db.query(User).filter(
-            or_(
-                func.lower(User.username) == identifier,
-                func.lower(User.email) == identifier
-            )
-        ).first()
-        if not db_user:
-            raise HTTPException(status_code=401, detail="User not found")
-        return {
-            "id": db_user.id,
-            "username": db_user.username,
-            "email": db_user.email,
-            "role": db_user.role.value if hasattr(db_user.role, 'value') else str(db_user.role),
-            "created_at": str(db_user.created_at)
-        }
+
+        db_user = None
+        if db is not None:
+            try:
+                db_user = db.query(User).filter(
+                    or_(
+                        func.lower(User.username) == identifier,
+                        func.lower(User.email) == identifier
+                    )
+                ).first()
+            except Exception:
+                db_user = None
+
+        if db_user:
+            return {
+                "id": db_user.id,
+                "username": db_user.username,
+                "email": db_user.email,
+                "full_name": db_user.username,
+                "role": db_user.role.value if hasattr(db_user.role, 'value') else str(db_user.role),
+                "created_at": str(db_user.created_at)
+            }
+
+        # Fallback to MongoDB
+        from app.database import get_database
+        mongo_db = get_database()
+        if mongo_db is not None:
+            mongo_user = await mongo_db["users"].find_one({
+                "$or": [
+                    {"email": {"$regex": f"^{identifier}$", "$options": "i"}},
+                    {"username": {"$regex": f"^{identifier}$", "$options": "i"}}
+                ]
+            })
+            if mongo_user:
+                return {
+                    "id": str(mongo_user.get("_id", "")),
+                    "username": mongo_user.get("username", identifier),
+                    "email": mongo_user.get("email", identifier),
+                    "full_name": mongo_user.get("full_name", mongo_user.get("username", identifier)),
+                    "role": mongo_user.get("role", "caregiver"),
+                    "learner_id": mongo_user.get("learner_id"),
+                    "created_at": str(mongo_user.get("created_at", ""))
+                }
+
+        raise HTTPException(status_code=401, detail="User not found")
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token expired")
+    except HTTPException:
+        raise
     except Exception:
         raise HTTPException(status_code=401, detail="Invalid token")
 

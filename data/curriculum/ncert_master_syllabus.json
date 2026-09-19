@@ -1,0 +1,2191 @@
+{
+  "board": "NCERT",
+  "curriculum_framework": "NEP 2020 / NCF",
+  "last_updated": "2026",
+  "total_standards": 10,
+  "standards": [
+    {
+      "grade": 1,
+      "standard_name": "Class 1",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Math-Magic / Joyful Mathematics 1",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Shapes and Space",
+              "topics": [
+                "Inside-Outside",
+                "Bigger-Smaller",
+                "Top-Bottom",
+                "Nearer-Farther",
+                "On-Under"
+              ],
+              "learning_outcomes": [
+                "Identifies spatial relationships and basic geometric shapes in daily life"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Numbers from One to Nine",
+              "topics": [
+                "As many as",
+                "Counting 1 to 9",
+                "More or Less",
+                "Making groups",
+                "Zero (0)"
+              ],
+              "learning_outcomes": [
+                "Counts objects up to 9 and associates numbers with quantities"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Addition (Sum up to 9)",
+              "topics": [
+                "One more",
+                "Adding together",
+                "Addition on number line",
+                "Word problems"
+              ],
+              "learning_outcomes": [
+                "Combines two collections to find total count up to 9"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Subtraction (Take Away)",
+              "topics": [
+                "Take away",
+                "Subtracting zero",
+                "Counting remaining items"
+              ],
+              "learning_outcomes": [
+                "Understands taking away from a collection up to 9"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Numbers from Ten to Twenty",
+              "topics": [
+                "Making a group of 10",
+                "Counting 10 to 20",
+                "Tens and Ones",
+                "Addition & Subtraction"
+              ],
+              "learning_outcomes": [
+                "Understands place value foundation of Tens and Ones"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Time & Daily Routine",
+              "topics": [
+                "Morning, Afternoon, Evening, Night",
+                "Sequencing daily activities"
+              ],
+              "learning_outcomes": [
+                "Orders daily events chronologically"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Measurement",
+              "topics": [
+                "Longer-Shorter",
+                "Longest-Shortest",
+                "Taller-Shorter",
+                "Heavier-Lighter",
+                "Handspan"
+              ],
+              "learning_outcomes": [
+                "Compares lengths and weights using non-standard units"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Patterns",
+              "topics": [
+                "Shape patterns",
+                "Number sequences (1, 2, 3...)"
+              ],
+              "learning_outcomes": [
+                "Identifies, extends, and creates simple repeating patterns"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Joyful Environmental Studies (EVS 1)",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "My Body & Senses",
+              "topics": [
+                "Five senses (Sight, Hearing, Smell, Taste, Touch)",
+                "Keeping clean"
+              ],
+              "learning_outcomes": [
+                "Identifies body parts and recognizes role of five senses"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Animals Around Us",
+              "topics": [
+                "Pet animals",
+                "Farm animals",
+                "Wild animals",
+                "Bird feathers & sounds"
+              ],
+              "learning_outcomes": [
+                "Recognizes common domestic and wild animals and their sounds"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Plants & Green Friends",
+              "topics": [
+                "Big trees",
+                "Small plants",
+                "Leaves & flowers",
+                "Watering plants"
+              ],
+              "learning_outcomes": [
+                "Observes plant parts and appreciates living nature"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Sun, Moon and Stars",
+              "topics": [
+                "Day sky and Sun",
+                "Night sky, Moon and twinkling stars"
+              ],
+              "learning_outcomes": [
+                "Distinguishes between day and night celestial objects"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Mridang / Marigold 1",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "My Family and Me",
+              "topics": [
+                "Self-introduction",
+                "Family members",
+                "A Happy Child poem"
+              ],
+              "learning_outcomes": [
+                "Expresses basic personal identity and family relationships"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Fun with Words & Rhymes",
+              "topics": [
+                "Phonics sounds A to Z",
+                "Three Little Pigs story",
+                "Rhyming sounds"
+              ],
+              "learning_outcomes": [
+                "Recognizes alphabet letter-sound associations and basic rhymes"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Animals and Nature Tales",
+              "topics": [
+                "Lalu and Peelu",
+                "Mittu and the Yellow Mango",
+                "Animal movements"
+              ],
+              "learning_outcomes": [
+                "Follows short picture stories and identifies key character actions"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Colors of the Rainbow",
+              "topics": [
+                "Anandi's Rainbow",
+                "Color names",
+                "Descriptive adjectives"
+              ],
+              "learning_outcomes": [
+                "Identifies and names colors in English"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 2,
+      "standard_name": "Class 2",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Math-Magic 2",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "What is Long, What is Round?",
+              "topics": [
+                "Rolling and Sliding objects",
+                "Round shapes vs flat faces"
+              ],
+              "learning_outcomes": [
+                "Distinguishes between rolling and sliding properties of 3D objects"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Counting in Groups",
+              "topics": [
+                "Pairs of shoes",
+                "Bundles of sticks",
+                "Grouping by 2s, 5s, 10s"
+              ],
+              "learning_outcomes": [
+                "Counts efficiently using equal groupings"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "How Much Can You Carry?",
+              "topics": [
+                "Heavier and Lighter",
+                "Comparing capacities and weights"
+              ],
+              "learning_outcomes": [
+                "Estimates and compares relative weights of familiar objects"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Counting in Tens & Tens and Ones",
+              "topics": [
+                "Place value of 2-digit numbers",
+                "Expanded form (24 = 20 + 4)"
+              ],
+              "learning_outcomes": [
+                "Breaks two-digit numbers into tens and ones"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Patterns in Nature and Numbers",
+              "topics": [
+                "Odd-even patterns",
+                "Growing patterns"
+              ],
+              "learning_outcomes": [
+                "Identifies rules governing visual and numerical sequences"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Jugs and Mugs (Liquid Capacity)",
+              "topics": [
+                "Measuring water in cups, glasses, jugs"
+              ],
+              "learning_outcomes": [
+                "Compares volume and capacity using non-standard containers"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Add Our Points & Give and Take",
+              "topics": [
+                "2-digit addition and subtraction",
+                "Regrouping with bundles"
+              ],
+              "learning_outcomes": [
+                "Performs addition and subtraction within 99"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Environmental Studies 2",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Our Food & Healthy Eating",
+              "topics": [
+                "Food from plants",
+                "Food from animals",
+                "Clean eating habits"
+              ],
+              "learning_outcomes": [
+                "Understands nutritional diversity and source of everyday foods"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Water - Every Drop Counts",
+              "topics": [
+                "Sources of water",
+                "Uses of water",
+                "Saving clean water"
+              ],
+              "learning_outcomes": [
+                "Identifies water sources and importance of conservation"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Shelters of Living Things",
+              "topics": [
+                "Types of houses (pucca, kutcha)",
+                "Animal shelters (burrow, nest, hive)"
+              ],
+              "learning_outcomes": [
+                "Classifies habitats and human homes"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Seasons and Weather",
+              "topics": [
+                "Summer, Monsoon, Winter, Spring",
+                "Clothes and food for each season"
+              ],
+              "learning_outcomes": [
+                "Relates weather changes with clothing and dietary habits"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Mridang / Marigold 2",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "First Day at School & Adventure",
+              "topics": [
+                "First Day at School poem",
+                "Haldi's Adventure",
+                "Friendly dialogue"
+              ],
+              "learning_outcomes": [
+                "Reads short narrative sentences and describes school experiences"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "I am Lucky! & Animal Smiles",
+              "topics": [
+                "I am Lucky poem",
+                "A Smile",
+                "Gratitude and positive emotion words"
+              ],
+              "learning_outcomes": [
+                "Expresses emotional states and self-appreciation"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Elements of Nature",
+              "topics": [
+                "The Wind and the Sun",
+                "Rain poem",
+                "Storm in the Garden"
+              ],
+              "learning_outcomes": [
+                "Identifies cause-and-effect in fable stories"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Stories of Magic and Humor",
+              "topics": [
+                "Curlylocks and the Three Bears",
+                "The Magic Porridge Pot",
+                "Story sequencing"
+              ],
+              "learning_outcomes": [
+                "Sequences events in classic children stories"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 3,
+      "standard_name": "Class 3",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Math-Magic 3",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Where to Look From (Perspective)",
+              "topics": [
+                "Top view, side view, front view",
+                "Dot grid drawings",
+                "Symmetry"
+              ],
+              "learning_outcomes": [
+                "Visualizes 3D objects from different 2D viewpoints"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Fun with Numbers (3-Digit Numbers)",
+              "topics": [
+                "Numbers up to 1000",
+                "Place value (Hundreds, Tens, Ones)",
+                "Skip counting"
+              ],
+              "learning_outcomes": [
+                "Reads, writes, and compares numbers up to 999"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Give and Take (Addition & Subtraction)",
+              "topics": [
+                "Mental addition tricks",
+                "Addition with carryover",
+                "Word problems"
+              ],
+              "learning_outcomes": [
+                "Applies strategies for mental computation and formal column addition"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Long and Short (Metric Measurement)",
+              "topics": [
+                "Centimetres, metres, kilometres",
+                "Using a ruler"
+              ],
+              "learning_outcomes": [
+                "Measures length using standard metric units"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Shapes and Designs",
+              "topics": [
+                "2D shapes: Triangles, squares, rectangles, circles",
+                "Edges and corners",
+                "Tiling patterns"
+              ],
+              "learning_outcomes": [
+                "Analyzes properties of geometric shapes and plane tessellations"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Time Goes On (Clocks & Calendar)",
+              "topics": [
+                "Reading analogue clocks",
+                "Days of the week",
+                "Months of the year"
+              ],
+              "learning_outcomes": [
+                "Tells time to hour and minute and interprets calendar dates"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "How Many Times? (Multiplication)",
+              "topics": [
+                "Repeated addition",
+                "Times tables (2, 3, 4, 5, 10)",
+                "Grid multiplication"
+              ],
+              "learning_outcomes": [
+                "Understands multiplication as repeated equal additions"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Can We Share? (Division)",
+              "topics": [
+                "Equal sharing",
+                "Repeated subtraction",
+                "Division notation"
+              ],
+              "learning_outcomes": [
+                "Solves equal sharing and grouping word problems"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Looking Around (EVS 3)",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "The Plant Fairy & Green Friends",
+              "topics": [
+                "Leaf shapes and textures",
+                "Herbs, shrubs, and trees",
+                "Chlorophyll and sunlight"
+              ],
+              "learning_outcomes": [
+                "Classifies plants by physical structure and leaf margins"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Water O' Water!",
+              "topics": [
+                "Water cycle in daily life",
+                "Forms of water (ice, liquid, vapor)",
+                "Clean drinking water"
+              ],
+              "learning_outcomes": [
+                "Explains states of water and importance of potable supply"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Our Friends - Animals",
+              "topics": [
+                "Animal feeding habits (herbivores, carnivores, omnivores)",
+                "Care of pets and farm animals"
+              ],
+              "learning_outcomes": [
+                "Categorizes animals by their dietary habits and ecological roles"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "From Here to There (Transport & Energy)",
+              "topics": [
+                "Land, water, and air transport",
+                "Vehicles powered by animals, fuel, and electricity"
+              ],
+              "learning_outcomes": [
+                "Understands transportation evolution and environmental impact"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Santoor / Marigold 3",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Nature Wonders & Morning Songs",
+              "topics": [
+                "Good Morning poem",
+                "The Magic Garden",
+                "Vocabulary of blooms and pollinators"
+              ],
+              "learning_outcomes": [
+                "Appreciates descriptive poetic rhythm and nature vocabulary"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Empathy and Animal Tales",
+              "topics": [
+                "Nina and the Baby Sparrows",
+                "A Little Fish Story",
+                "Reading with empathy"
+              ],
+              "learning_outcomes": [
+                "Draws inferences about emotional states of animal characters"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Curiosity and Exploration",
+              "topics": [
+                "Little by Little",
+                "The Enormous Turnip",
+                "Teamwork and perseverance"
+              ],
+              "learning_outcomes": [
+                "Identifies central themes of cooperative problem-solving"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Communication and Letters",
+              "topics": [
+                "What's in the Mailbox?",
+                "Writing friendly letters",
+                "Postman and communication tools"
+              ],
+              "learning_outcomes": [
+                "Understands purpose of epistolary writing and communicative exchange"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 4,
+      "standard_name": "Class 4",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Math-Magic 4",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Building with Bricks (3D Shapes & Patterns)",
+              "topics": [
+                "Brick arch patterns",
+                "Faces, edges, vertices of cuboids",
+                "Floor patterns"
+              ],
+              "learning_outcomes": [
+                "Recognizes 3D spatial properties and architectural geometry"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Long and Short (Distance & Conversion)",
+              "topics": [
+                "Centimetres to metres (100 cm = 1 m)",
+                "Metres to kilometres (1000 m = 1 km)"
+              ],
+              "learning_outcomes": [
+                "Converts metric units and calculates athletic marathon distances"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "A Trip to Bhopal (Multi-Operation Math)",
+              "topics": [
+                "Real-world budget calculation",
+                "Time calculation for bus travel",
+                "Estimation"
+              ],
+              "learning_outcomes": [
+                "Solves complex multi-step real-world arithmetic problems"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Tick-Tick-Tick (Clocks, 24-Hour Time & Elapsed Time)",
+              "topics": [
+                "12-hour vs 24-hour railway time",
+                "Calculating elapsed time intervals"
+              ],
+              "learning_outcomes": [
+                "Converts between 12-hour and 24-hour clock and computes duration"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "The Junk Seller (Currency, Invoices & Multiplication)",
+              "topics": [
+                "Indian Rupee transactions",
+                "Making simple bills and calculating total cost"
+              ],
+              "learning_outcomes": [
+                "Applies arithmetic to commerce, profit, and invoice tallying"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Halves and Quarters (Fraction Basics)",
+              "topics": [
+                "1/2, 1/4, 3/4 fractions of a whole and collection",
+                "Equivalent fractions"
+              ],
+              "learning_outcomes": [
+                "Visualizes fractions as equal parts of an area or set"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Tables and Shares (Division & Word Problems)",
+              "topics": [
+                "Division algorithms",
+                "Word problems involving quotients and remainders"
+              ],
+              "learning_outcomes": [
+                "Executes division and interprets quotient and remainder in context"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Fields and Fences (Perimeter & Area Intro)",
+              "topics": [
+                "Boundary measurement (Perimeter)",
+                "Comparing boundary lengths"
+              ],
+              "learning_outcomes": [
+                "Calculates perimeter of regular and irregular geometric polygons"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Looking Around (EVS 4)",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Going to School & Geography",
+              "topics": [
+                "Bamboo bridges in Assam",
+                "Vallam boats in Kerala",
+                "Overcoming barriers"
+              ],
+              "learning_outcomes": [
+                "Appreciates geographical diversity and community resilience"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Anita and the Honeybees",
+              "topics": [
+                "Bee colony social structure (Queen, worker, drone)",
+                "Ecology of pollination"
+              ],
+              "learning_outcomes": [
+                "Describes social insect behavior and role of pollinators in agriculture"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "A River's Tale (Aquatic Ecology)",
+              "topics": [
+                "Source to ocean journey",
+                "River pollution and dissolved impurities",
+                "Water purification"
+              ],
+              "learning_outcomes": [
+                "Analyzes environmental degradation of freshwater ecosystems"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "From Seed to Sprout (Plant Life Cycle)",
+              "topics": [
+                "Seed germination requirements (air, water, warmth)",
+                "Root functions"
+              ],
+              "learning_outcomes": [
+                "Explains scientific conditions necessary for angiosperm seed sprouting"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Marigold 4",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Wake Up! & Neha's Alarm Clock",
+              "topics": [
+                "Wake Up! poem",
+                "Neha's Alarm Clock story",
+                "Body clocks and circadian routines"
+              ],
+              "learning_outcomes": [
+                "Reads narratives fluently and infers character motivations"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Alice in Wonderland & Curiosity",
+              "topics": [
+                "Alice in Wonderland excerpt",
+                "Adverbs of manner",
+                "Fantasy vocabulary"
+              ],
+              "learning_outcomes": [
+                "Encounter figurative imagery and expressive adverbial phrases"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Courage and Inclusion - Helen Keller",
+              "topics": [
+                "Biography of Helen Keller",
+                "Braille script and tactile communication"
+              ],
+              "learning_outcomes": [
+                "Understands accessibility, neurodiversity, and alternative sensory modalities"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "The Giving Tree & Environment",
+              "topics": [
+                "The Giving Tree fable",
+                "Values of reciprocity with nature"
+              ],
+              "learning_outcomes": [
+                "Engages in critical ecological and moral discussions through literature"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 5,
+      "standard_name": "Class 5",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Math-Magic 5",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "The Fish Tale (Large Numbers & Speed-Time)",
+              "topics": [
+                "Lakhs and Crores",
+                "Speed, Distance, Time word problems",
+                "Commercial calculations"
+              ],
+              "learning_outcomes": [
+                "Computes with numbers up to seven digits and applies speed formula"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Shapes and Angles",
+              "topics": [
+                "Right angle (90\u00b0), Acute angle (<90\u00b0), Obtuse angle (>90\u00b0)",
+                "Using protractor"
+              ],
+              "learning_outcomes": [
+                "Measures, classifies, and draws geometric angles"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "How Many Squares? (Area & Grid Units)",
+              "topics": [
+                "Square centimetre grid",
+                "Calculating area by counting unit squares"
+              ],
+              "learning_outcomes": [
+                "Estimates and calculates 2D surface area using square grid meshes"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Parts and Wholes (Advanced Fractions)",
+              "topics": [
+                "Fraction addition",
+                "Mixed fractions",
+                "Fraction of a currency or quantity"
+              ],
+              "learning_outcomes": [
+                "Operates on fractions with like and unlike denominators"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Be My Multiple, I'll be Your Factor",
+              "topics": [
+                "Common multiples (LCM)",
+                "Common factors (HCF)",
+                "Prime and composite numbers"
+              ],
+              "learning_outcomes": [
+                "Determines prime factors, LCM, and HCF for number pairs"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Tenths and Hundredths (Decimals)",
+              "topics": [
+                "Metric decimals (rupees & paise, cm & mm)",
+                "Decimal place value system"
+              ],
+              "learning_outcomes": [
+                "Converts between fractions and decimal notation (0.1, 0.01)"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Area and its Boundary",
+              "topics": [
+                "Formulas for Area = L x W",
+                "Perimeter = 2(L + W)",
+                "Irregular shape boundaries"
+              ],
+              "learning_outcomes": [
+                "Applies standard formulas to compute area and perimeter of rectangles"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Looking Around (EVS 5)",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Super Senses (Animal Sensory Biology)",
+              "topics": [
+                "Ant chemical pheromone trails",
+                "Eagle high-resolution vision",
+                "Dog olfactory sensitivity"
+              ],
+              "learning_outcomes": [
+                "Compares hyper-sensory adaptations in animal species"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "From Tasting to Digesting",
+              "topics": [
+                "Tongue taste buds (sweet, sour, salty, bitter)",
+                "Alimentary digestive canal"
+              ],
+              "learning_outcomes": [
+                "Traces the pathway of food digestion and nutrient absorption"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Experiments with Water (Density & Buoyancy)",
+              "topics": [
+                "Floating vs sinking",
+                "Soluble vs insoluble substances",
+                "Dead Sea high salinity"
+              ],
+              "learning_outcomes": [
+                "Formulates hypotheses on liquid density and object buoyancy"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Sunita in Space (Gravitation & Astronomy)",
+              "topics": [
+                "Weightlessness in ISS orbit",
+                "Earth spherical curvature",
+                "Atmosphere"
+              ],
+              "learning_outcomes": [
+                "Understands microgravity principles and space exploration basics"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Marigold 5",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Ice-Cream Man & Wonderful Waste!",
+              "topics": [
+                "Sensory poetry",
+                "Culinary upcycling story (Avial dish)",
+                "Creative reuse"
+              ],
+              "learning_outcomes": [
+                "Identifies descriptive sensory adjectives and culinary heritage"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Teamwork & Flying Together",
+              "topics": [
+                "Teamwork poem",
+                "Flock of geese fable",
+                "Collective wisdom and planning"
+              ],
+              "learning_outcomes": [
+                "Analyzes interpersonal collaboration in literary parables"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Robinson Crusoe & Survival Logic",
+              "topics": [
+                "Footprint on the island beach",
+                "Observation and logical deduction"
+              ],
+              "learning_outcomes": [
+                "Practices deductive inference from narrative textual evidence"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Gulliver's Travels & Perspectives",
+              "topics": [
+                "Brobdingnag giant land adventure",
+                "Comparative size and proportions"
+              ],
+              "learning_outcomes": [
+                "Explores relative scale, perspective shifts, and satirical fantasy"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 6,
+      "standard_name": "Class 6",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Mathematics Class 6",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Knowing Our Numbers",
+              "topics": [
+                "Indian and International place value system",
+                "Rounding off",
+                "Roman Numerals"
+              ],
+              "learning_outcomes": [
+                "Reads large numbers up to eight digits and understands comparative place value systems"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Whole Numbers",
+              "topics": [
+                "Successor and predecessor",
+                "Number line arithmetic",
+                "Properties of whole numbers"
+              ],
+              "learning_outcomes": [
+                "Applies fundamental algebraic properties to simplify arithmetic operations"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Playing with Numbers",
+              "topics": [
+                "Divisibility rules",
+                "Prime factorisation",
+                "HCF & LCM"
+              ],
+              "learning_outcomes": [
+                "Applies divisibility rules and calculates HCF and LCM for multi-term expressions"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Basic Geometrical Ideas",
+              "topics": [
+                "Points, lines, rays, line segments",
+                "Polygons, angles, circles"
+              ],
+              "learning_outcomes": [
+                "Classifies 1D and 2D geometric constructs with formal notation"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Integers",
+              "topics": [
+                "Negative numbers introduction",
+                "Integers on number line",
+                "Signed arithmetic"
+              ],
+              "learning_outcomes": [
+                "Visualizes directional values and executes signed integer arithmetic"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Fractions and Decimals",
+              "topics": [
+                "Proper, improper, mixed fractions",
+                "Equivalent fractions",
+                "Decimals"
+              ],
+              "learning_outcomes": [
+                "Simplifies, compares, and performs operations on fractions and decimals"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Introduction to Algebra",
+              "topics": [
+                "Variables and constants",
+                "Matchstick patterns",
+                "Algebraic expressions"
+              ],
+              "learning_outcomes": [
+                "Translates verbal statements into symbolic algebraic expressions"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Ratio and Proportion",
+              "topics": [
+                "Concept of ratio",
+                "Proportion and Unitary method"
+              ],
+              "learning_outcomes": [
+                "Solves comparative rate and unitary method problems"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Science Class 6 (Curiosity)",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Components of Food & Nutrition",
+              "topics": [
+                "Nutrients: Carbs, proteins, fats, vitamins, minerals",
+                "Deficiency diseases"
+              ],
+              "learning_outcomes": [
+                "Conducts laboratory starch/protein tests and identifies nutritional deficiency diseases"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Sorting Materials into Groups",
+              "topics": [
+                "Hardness, solubility, density, transparency (opaque, transparent, translucent)"
+              ],
+              "learning_outcomes": [
+                "Classifies everyday substances based on optical and mechanical physical properties"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Separation of Substances",
+              "topics": [
+                "Threshing, winnowing, sieving",
+                "Sedimentation, filtration, evaporation"
+              ],
+              "learning_outcomes": [
+                "Selects appropriate physical separation methods for heterogeneous mixtures"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Getting to Know Plants",
+              "topics": [
+                "Stem, leaf venation, flower structure (sepals, petals, stamens, pistil)"
+              ],
+              "learning_outcomes": [
+                "Dissects anatomical parts of angiosperm plants and relates leaf venation with root types"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Body Movements & Skeletal System",
+              "topics": [
+                "Human skeleton",
+                "Joint types (Ball and socket, hinge, pivotal)",
+                "Gait of animals"
+              ],
+              "learning_outcomes": [
+                "Differentiates articulated synovial joint types and biomechanics of locomotion"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Electricity and Circuits",
+              "topics": [
+                "Electric cell (+ and -)",
+                "Closed vs open circuit",
+                "Switch",
+                "Conductors vs insulators"
+              ],
+              "learning_outcomes": [
+                "Constructs operational series circuits and identifies electrical conductivity of materials"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Fun with Magnets",
+              "topics": [
+                "Poles of a magnet (North and South)",
+                "Attraction and repulsion",
+                "Magnetic compass"
+              ],
+              "learning_outcomes": [
+                "Demonstrates magnetic polarity and explains terrestrial geomagnetic navigation"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Poorvi / Honeysuckle 6",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Who Did Patrick's Homework?",
+              "topics": [
+                "Self-reliance theme",
+                "Compound sentences",
+                "Active vocabulary"
+              ],
+              "learning_outcomes": [
+                "Appreciates themes of intrinsic motivation and personal responsibility"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "How the Dog Found Himself a Master!",
+              "topics": [
+                "Domestication story",
+                "Collective nouns"
+              ],
+              "learning_outcomes": [
+                "Identifies evolutionary and historical narrative motifs"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Kalpana Chawla - Woman in Space",
+              "topics": [
+                "Biography of Indian-American astronaut",
+                "STEM inspiration"
+              ],
+              "learning_outcomes": [
+                "Extracts key factual data from scientific biographical chronicles"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "A Different Kind of School (Inclusion & Empathy)",
+              "topics": [
+                "Miss Beam's school experiment",
+                "Experiencing disability",
+                "Empathy"
+              ],
+              "learning_outcomes": [
+                "Develops profound perspective-taking and empathy for diverse sensory experiences"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 7,
+      "standard_name": "Class 7",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Mathematics Class 7",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Integers",
+              "topics": [
+                "Properties of integer addition/subtraction",
+                "Multiplication & division of signed integers"
+              ],
+              "learning_outcomes": [
+                "Performs multidirectional operations on integers and applies closure/distributive properties"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Fractions and Decimals",
+              "topics": [
+                "Multiplication & division of fractions",
+                "Multiplication & division of decimals"
+              ],
+              "learning_outcomes": [
+                "Solves complex fractional proportions and decimal scaling equations"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Data Handling",
+              "topics": [
+                "Arithmetic Mean, Median, Mode",
+                "Bar graphs & Double bar graphs"
+              ],
+              "learning_outcomes": [
+                "Calculates statistical measures of central tendency and constructs comparative bar charts"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Simple Equations",
+              "topics": [
+                "Linear equations in one variable",
+                "Solving by transposition"
+              ],
+              "learning_outcomes": [
+                "Formulates and solves single-variable algebraic equations using systematic transposition"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Lines and Angles",
+              "topics": [
+                "Complementary/supplementary angles",
+                "Parallel lines and transversals"
+              ],
+              "learning_outcomes": [
+                "Computes unknown angle measures using geometric parallel transversal postulates"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "The Triangle and its Properties",
+              "topics": [
+                "Angle sum property (180\u00b0)",
+                "Exterior angle theorem",
+                "Pythagoras theorem"
+              ],
+              "learning_outcomes": [
+                "Applies Pythagoras theorem and interior angle sum to solve geometric proofs"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Comparing Quantities",
+              "topics": [
+                "Ratios to percentages",
+                "Profit and Loss %",
+                "Simple Interest (I = PRT/100)"
+              ],
+              "learning_outcomes": [
+                "Computes financial percentages, profit/loss margins, and annual simple interest"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Perimeter and Area",
+              "topics": [
+                "Parallelograms and triangles",
+                "Circumference and area of circles (pi * r^2)"
+              ],
+              "learning_outcomes": [
+                "Calculates circular areas and boundary perimeters of composite planar figures"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Science Class 7",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Nutrition in Plants",
+              "topics": [
+                "Autotrophs vs heterotrophs",
+                "Photosynthesis formula",
+                "Stomata & chlorophyll",
+                "Symbiosis"
+              ],
+              "learning_outcomes": [
+                "Explains biochemical photosynthesis and symbiotic ecological relationships"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Nutrition in Animals",
+              "topics": [
+                "Human digestive system",
+                "Ruminants digestion"
+              ],
+              "learning_outcomes": [
+                "Traces enzymatic chemical breakdown across human and ruminant gastrointestinal tracts"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Heat & Temperature",
+              "topics": [
+                "Conduction, convection, radiation",
+                "Sea breeze and land breeze",
+                "Thermometers"
+              ],
+              "learning_outcomes": [
+                "Analyzes thermodynamic energy transfer modes and meteorological convective currents"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Acids, Bases and Salts",
+              "topics": [
+                "Litmus, turmeric, China rose indicators",
+                "Neutralisation reactions"
+              ],
+              "learning_outcomes": [
+                "Classifies chemical substances using pH indicators and balances neutralization equations"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Physical and Chemical Changes",
+              "topics": [
+                "Rusting of iron",
+                "Crystallisation",
+                "Reversible vs irreversible"
+              ],
+              "learning_outcomes": [
+                "Differentiates molecular compositional changes from macroscopic physical state changes"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Respiration in Organisms",
+              "topics": [
+                "Aerobic vs anaerobic",
+                "Cellular respiration formula",
+                "Breathing mechanism"
+              ],
+              "learning_outcomes": [
+                "Compares cellular aerobic respiration with anaerobic fermentation and mechanical ventilation"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Electric Current and its Effects",
+              "topics": [
+                "Circuit symbols",
+                "Heating effect (fuses)",
+                "Electromagnets & electric bell"
+              ],
+              "learning_outcomes": [
+                "Explains electro-thermal heating and constructs operational electromagnets"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Honeycomb 7",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Three Questions (Leo Tolstoy)",
+              "topics": [
+                "Tolstoy philosophical parable",
+                "Right time, right people, right deed"
+              ],
+              "learning_outcomes": [
+                "Synthesizes moral philosophies and character actions in classical world literature"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "A Gift of Chappals",
+              "topics": [
+                "Compassion for needy",
+                "Direct and indirect speech basics"
+              ],
+              "learning_outcomes": [
+                "Analyzes interpersonal empathy and socioeconomic awareness through fiction"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Gopal and the Hilsa Fish",
+              "topics": [
+                "Comic strip narrative",
+                "Witty problem solving"
+              ],
+              "learning_outcomes": [
+                "Interprets graphic narrative conventions and humorous literary wordplay"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "The Invention of Vita-Wonk (Roald Dahl)",
+              "topics": [
+                "Roald Dahl fantasy",
+                "Nonsense words and descriptive flair"
+              ],
+              "learning_outcomes": [
+                "Deconstructs whimsical imaginative prose and morphological linguistic structures"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 8,
+      "standard_name": "Class 8",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Mathematics Class 8",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Rational Numbers",
+              "topics": [
+                "Closure, Commutative, Associative properties",
+                "Rational numbers on number line"
+              ],
+              "learning_outcomes": [
+                "Operates on rational fractions and identifies density of rational numbers on number line"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Linear Equations in One Variable",
+              "topics": [
+                "Variables on both sides",
+                "Word problems"
+              ],
+              "learning_outcomes": [
+                "Models complex real-world relationships into algebraic linear equations"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Understanding Quadrilaterals",
+              "topics": [
+                "Parallelogram, Rhombus, Rectangle, Square, Trapezium properties"
+              ],
+              "learning_outcomes": [
+                "Proves geometric properties of special quadrilaterals using congruent triangle logic"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Squares and Square Roots",
+              "topics": [
+                "Pythagorean triplets",
+                "Long division square root algorithm"
+              ],
+              "learning_outcomes": [
+                "Extracts square roots of whole numbers and decimals via division algorithm"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Cubes and Cube Roots",
+              "topics": [
+                "Cube numbers",
+                "Prime factorisation for cube roots"
+              ],
+              "learning_outcomes": [
+                "Determines exact and approximate cube roots using prime factors"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Algebraic Expressions and Identities",
+              "topics": [
+                "Standard identities: (a+b)^2, (a-b)^2, (a+b)(a-b)"
+              ],
+              "learning_outcomes": [
+                "Applies standard binomial identities to expand and factorise algebraic terms"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Mensuration (Surface Area & Volume)",
+              "topics": [
+                "Surface area & volume of cubes, cuboids, cylinders"
+              ],
+              "learning_outcomes": [
+                "Calculates 3D surface areas and volumetric capacities of solid prisms and cylinders"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Science Class 8",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Crop Production and Management",
+              "topics": [
+                "Kharif and Rabi crops",
+                "Irrigation (drip & sprinkler)",
+                "Harvesting"
+              ],
+              "learning_outcomes": [
+                "Explains scientific agronomy and modern water-conserving irrigation methods"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Microorganisms: Friend and Foe",
+              "topics": [
+                "Bacteria, fungi, viruses",
+                "Antibiotics",
+                "Nitrogen cycle"
+              ],
+              "learning_outcomes": [
+                "Details industrial/medical microbiology and biochemical nitrogen fixation cycle"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Combustion and Flame",
+              "topics": [
+                "Ignition temperature",
+                "Fire extinguishers",
+                "Structure of flame"
+              ],
+              "learning_outcomes": [
+                "Analyzes exothermic oxidation reactions and thermal efficiency of combustion zones"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Force and Pressure",
+              "topics": [
+                "Contact vs non-contact forces",
+                "Pressure formula (P = F / A)",
+                "Atmospheric pressure"
+              ],
+              "learning_outcomes": [
+                "Computes pressure and demonstrates atmospheric pressure effects using barometric principles"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Friction",
+              "topics": [
+                "Static, sliding, rolling friction",
+                "Lubricants and ball bearings"
+              ],
+              "learning_outcomes": [
+                "Evaluates coefficient factors in kinetic friction and engineering friction reduction techniques"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Sound (Acoustics)",
+              "topics": [
+                "Vocal cords & ear drum",
+                "Amplitude, frequency (pitch)",
+                "Audible range 20-20000 Hz"
+              ],
+              "learning_outcomes": [
+                "Correlates wave amplitude with loudness and frequency with acoustic pitch"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Honeydew 8",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "The Best Christmas Present in the World",
+              "topics": [
+                "WWI Christmas Truce historical fiction",
+                "Letter writing format"
+              ],
+              "learning_outcomes": [
+                "Analyzes historical context and epistolary storytelling techniques"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "The Tsunami & Disaster Resilience",
+              "topics": [
+                "2004 Tsunami accounts",
+                "Animal prescience",
+                "Disaster preparedness"
+              ],
+              "learning_outcomes": [
+                "Extracts chronological sequences from real-world journalistic eyewitness reports"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Glimpses of the Past (1757 - 1857)",
+              "topics": [
+                "Independence struggle graphic history",
+                "Colonial impact"
+              ],
+              "learning_outcomes": [
+                "Interprets multimodal graphic-historical texts and sociopolitical developments"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "A Visit to Cambridge (Stephen Hawking)",
+              "topics": [
+                "Meeting with Stephen Hawking",
+                "Living with motor neurone disability"
+              ],
+              "learning_outcomes": [
+                "Appreciates neurodivergent and physical disability advocacy, resilience, and brilliance"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 9,
+      "standard_name": "Class 9",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Mathematics Class 9",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Number Systems",
+              "topics": [
+                "Irrational numbers",
+                "Real numbers decimal expansions",
+                "Rationalisation"
+              ],
+              "learning_outcomes": [
+                "Proves irrationality and rationalises algebraic surd denominators"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Polynomials",
+              "topics": [
+                "Zeroes of polynomial",
+                "Remainder & Factor Theorem",
+                "Identities"
+              ],
+              "learning_outcomes": [
+                "Factorises cubic polynomials using factor theorem and standard identities"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Coordinate Geometry",
+              "topics": [
+                "Cartesian coordinate plane (x, y)",
+                "Quadrants"
+              ],
+              "learning_outcomes": [
+                "Plots and analyzes geometric coordinates in the 2D Cartesian plane"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Linear Equations in Two Variables",
+              "topics": [
+                "Standard form ax + by + c = 0",
+                "Graphing straight lines"
+              ],
+              "learning_outcomes": [
+                "Graphs linear equations and solves simultaneous graphical relationships"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Lines, Angles & Triangles",
+              "topics": [
+                "Parallel lines axioms",
+                "Triangle congruence criteria (SAS, ASA, SSS, RHS)"
+              ],
+              "learning_outcomes": [
+                "Constructs deductive mathematical proofs of triangle congruencies"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Surface Areas and Volumes",
+              "topics": [
+                "Cones, spheres, hemispheres"
+              ],
+              "learning_outcomes": [
+                "Derives and applies geometric volume and surface area equations for conical and spherical solids"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Statistics & Probability",
+              "topics": [
+                "Histograms",
+                "Frequency polygons",
+                "Central tendency"
+              ],
+              "learning_outcomes": [
+                "Constructs continuous grouped data frequency histograms and interprets normal distribution"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Science Class 9",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Matter in Our Surroundings",
+              "topics": [
+                "Kinetic theory",
+                "States of matter",
+                "Latent heat of fusion & vaporisation"
+              ],
+              "learning_outcomes": [
+                "Explains kinetic molecular theory and latent thermodynamic phase transitions"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Atoms and Molecules",
+              "topics": [
+                "Conservation of mass",
+                "Dalton theory",
+                "Writing chemical formulas with valency"
+              ],
+              "learning_outcomes": [
+                "Balances chemical stoichiometries and derives molecular formulas using valency cross-over"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "The Fundamental Unit of Life (Cell Biology)",
+              "topics": [
+                "Plasma membrane, osmosis",
+                "Mitochondria (ATP), nucleus, organelles"
+              ],
+              "learning_outcomes": [
+                "Compares ultrastructures of animal and plant cells and explains ATP synthesis in mitochondria"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Motion (Kinematics)",
+              "topics": [
+                "Velocity and acceleration",
+                "Equations of motion (v = u + at, s = ut + 1/2at^2)"
+              ],
+              "learning_outcomes": [
+                "Solves kinematic trajectory problems using velocity-time graphs and equations of motion"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Force and Laws of Motion",
+              "topics": [
+                "Newton's 3 Laws of Motion",
+                "Momentum (p = mv)",
+                "F = ma"
+              ],
+              "learning_outcomes": [
+                "Applies Newtonian dynamics to solve linear momentum conservation and impact impulse problems"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Gravitation",
+              "topics": [
+                "Universal law of gravitation",
+                "g = 9.8 m/s^2",
+                "Archimedes' principle"
+              ],
+              "learning_outcomes": [
+                "Calculates gravitational attraction between celestial bodies and solves buoyant displacement problems"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "Beehive 9",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "The Fun They Had (Isaac Asimov)",
+              "topics": [
+                "Sci-Fi futuristic robotic school (2157)",
+                "Human vs AI teachers"
+              ],
+              "learning_outcomes": [
+                "Critically evaluates educational technology, AI pedagogy, and collective social interaction"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "The Sound of Music - Evelyn Glennie",
+              "topics": [
+                "Deaf percussionist Evelyn Glennie",
+                "Perceiving sound as body vibration"
+              ],
+              "learning_outcomes": [
+                "Analyzes sensory adaptation, somatic resonance, and triumphs of neurodiverse/disabled artists"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "A Truly Beautiful Mind - Albert Einstein",
+              "topics": [
+                "Biography of Einstein",
+                "Neurodivergent traits and spatial thinking in youth"
+              ],
+              "learning_outcomes": [
+                "Understands non-conformist cognitive styles, spatial imagination, and ethics of scientific discovery"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "My Childhood - A.P.J. Abdul Kalam",
+              "topics": [
+                "Autobiographical account from Wings of Fire",
+                "Resilience and values"
+              ],
+              "learning_outcomes": [
+                "Identifies autobiographical reflection, socioeconomic resilience, and cultural inclusivity"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": 10,
+      "standard_name": "Class 10",
+      "subjects": [
+        {
+          "subject": "Mathematics",
+          "textbook": "Mathematics Class 10",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Real Numbers",
+              "topics": [
+                "Fundamental Theorem of Arithmetic",
+                "Irrationality proofs (sqrt 2, sqrt 3)"
+              ],
+              "learning_outcomes": [
+                "Applies unique prime factorisation theorem and constructs rigorous proofs by contradiction"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Polynomials & Quadratic Equations",
+              "topics": [
+                "Zeroes & coefficients",
+                "Standard quadratic ax^2 + bx + c = 0",
+                "Discriminant formula"
+              ],
+              "learning_outcomes": [
+                "Solves quadratic equations using discriminant analysis and finds vertex extrema"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Pair of Linear Equations in Two Variables",
+              "topics": [
+                "Substitution & elimination methods",
+                "Consistency conditions"
+              ],
+              "learning_outcomes": [
+                "Determines algebraic solvability criteria for simultaneous linear systems"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Arithmetic Progressions (AP)",
+              "topics": [
+                "nth term (a_n = a + (n-1)d)",
+                "Sum of n terms (S_n)"
+              ],
+              "learning_outcomes": [
+                "Models discrete uniform growth sequences and computes cumulative progression sums"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Triangles & Coordinate Geometry",
+              "topics": [
+                "Basic Proportionality Theorem (Thales)",
+                "Distance & section formulas"
+              ],
+              "learning_outcomes": [
+                "Applies similarity theorems to geometric scale models and computes Cartesian midpoint/ratios"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Introduction to Trigonometry",
+              "topics": [
+                "Trigonometric ratios (sin, cos, tan)",
+                "Standard angles (30\u00b0, 45\u00b0, 60\u00b0)",
+                "sin^2 + cos^2 = 1"
+              ],
+              "learning_outcomes": [
+                "Proves trigonometric identities and solves right-triangle navigation vectors"
+              ]
+            },
+            {
+              "chapter_number": 7,
+              "title": "Applications of Trigonometry (Heights & Distances)",
+              "topics": [
+                "Angle of elevation & depression",
+                "Surveying heights"
+              ],
+              "learning_outcomes": [
+                "Calculates astronomical, architectural, and geographic heights using tangent and sine ratios"
+              ]
+            },
+            {
+              "chapter_number": 8,
+              "title": "Statistics and Probability",
+              "topics": [
+                "Grouped continuous mean, median, mode",
+                "P(E) = n(E) / n(S)"
+              ],
+              "learning_outcomes": [
+                "Conducts parametric statistical calculations and computes probability spaces"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "Science",
+          "textbook": "Science Class 10",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "Chemical Reactions and Equations",
+              "topics": [
+                "Balancing equations",
+                "Combination, decomposition, displacement, redox reactions"
+              ],
+              "learning_outcomes": [
+                "Balances stoichiometry of inorganic chemical reactions and classifies oxidation-reduction mechanisms"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Acids, Bases and Salts",
+              "topics": [
+                "pH scale (0-14)",
+                "Baking soda, washing soda, plaster of Paris"
+              ],
+              "learning_outcomes": [
+                "Explains ionic dissociation in aqueous solutions and chemical synthesis of industrial salts"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "Life Processes (Biochemistry & Physiology)",
+              "topics": [
+                "Autotrophic vs heterotrophic",
+                "Aerobic respiration",
+                "Double circulation heart",
+                "Nephron excretion"
+              ],
+              "learning_outcomes": [
+                "Details molecular cellular respiration, cardiopulmonary double circulation, and nephron renal filtration"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Control and Coordination (Neurobiology)",
+              "topics": [
+                "Neuron structure & synapse",
+                "Brain anatomy (cerebrum, cerebellum)",
+                "Reflex arc",
+                "Endocrine hormones"
+              ],
+              "learning_outcomes": [
+                "Explains electrical and neurotransmitter synaptic signaling, neuroendocrine axes, and reflex arcs"
+              ]
+            },
+            {
+              "chapter_number": 5,
+              "title": "Electricity & Magnetic Effects",
+              "topics": [
+                "Ohm's Law (V = IR)",
+                "Series & parallel circuits",
+                "Fleming's Left-Hand Rule",
+                "Electric motor"
+              ],
+              "learning_outcomes": [
+                "Designs equivalent electrical resistance circuits and applies Lorentz magnetic force rules"
+              ]
+            },
+            {
+              "chapter_number": 6,
+              "title": "Light - Reflection and Refraction (Optics)",
+              "topics": [
+                "Concave/convex mirrors",
+                "Snell's Law",
+                "Lens formula (1/f = 1/v - 1/u)",
+                "Dioptre power"
+              ],
+              "learning_outcomes": [
+                "Constructs optical ray diagrams and computes focal lengths, magnifications, and lens dioptres"
+              ]
+            }
+          ]
+        },
+        {
+          "subject": "English",
+          "textbook": "First Flight 10",
+          "chapters": [
+            {
+              "chapter_number": 1,
+              "title": "A Letter to God (G.L. Fuentes)",
+              "topics": [
+                "Faith vs irony",
+                "Satire and figurative language"
+              ],
+              "learning_outcomes": [
+                "Critiques literary irony, dramatic paradox, and character intentions"
+              ]
+            },
+            {
+              "chapter_number": 2,
+              "title": "Nelson Mandela: Long Walk to Freedom",
+              "topics": [
+                "Inaugural address",
+                "Anti-apartheid struggle",
+                "Rhetorical oratory"
+              ],
+              "learning_outcomes": [
+                "Deconstructs rhetorical oratory, sociopolitical resilience, and human rights history"
+              ]
+            },
+            {
+              "chapter_number": 3,
+              "title": "From the Diary of Anne Frank",
+              "topics": [
+                "Holocaust testimony",
+                "Interior adolescent monologue",
+                "Journal intimate prose"
+              ],
+              "learning_outcomes": [
+                "Analyzes biographical primary sources, introspective prose, and historical memory"
+              ]
+            },
+            {
+              "chapter_number": 4,
+              "title": "Glimpses of India & The Trees",
+              "topics": [
+                "Goa, Coorg coffee, Assam tea",
+                "Cultural geography and nature poetry"
+              ],
+              "learning_outcomes": [
+                "Synthesizes regional cultural geography and metaphorical environmental literature"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

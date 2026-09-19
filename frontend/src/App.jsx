@@ -144,10 +144,36 @@ function AppRoutes() {
       />
 
       {/* Gamification & Dashboards */}
-      <Route path="/games" element={<GamesContainer />} />
-      <Route path="/dashboard/learner" element={<LearnerDashboard />} />
-      <Route path="/dashboard/caregiver" element={<CaregiverDashboard />} />
-      <Route path="/dashboard/educator" element={<EducatorDashboard />} />
+      <Route path="/games" element={
+        <ProtectedRoute>
+          <GamesContainer />
+        </ProtectedRoute>
+      } />
+      <Route path="/dashboard" element={<Navigate to="/caregiver" replace />} />
+      <Route
+        path="/dashboard/learner"
+        element={
+          <ProtectedRoute>
+            <LearnerDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/caregiver"
+        element={
+          <ProtectedRoute>
+            <CaregiverDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard/educator"
+        element={
+          <ProtectedRoute>
+            <EducatorDashboard />
+          </ProtectedRoute>
+        }
+      />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

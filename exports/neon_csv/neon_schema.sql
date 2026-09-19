@@ -101,6 +101,9 @@ CREATE TABLE IF NOT EXISTS curriculum_tasks (
     id VARCHAR(100) PRIMARY KEY,
     title VARCHAR(255),
     subject VARCHAR(100),
+    grade INTEGER,
+    standard VARCHAR(50),
+    chapter VARCHAR(255),
     difficulty INTEGER,
     estimated_duration INTEGER,
     question TEXT,
@@ -109,6 +112,7 @@ CREATE TABLE IF NOT EXISTS curriculum_tasks (
     correct_answer TEXT,
     explanation TEXT,
     hints JSONB,
+    scaffold_steps JSONB,
     supported_learning_modes JSONB,
     theme_tags JSONB,
     icon_name VARCHAR(100)

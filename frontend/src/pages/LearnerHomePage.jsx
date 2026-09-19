@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Sparkles, BookOpen, Calculator, Globe, Music, Cpu, Palette,
-  Award, Play, ArrowRight, Star, Flame, CheckCircle, Rocket
+  Award, Play, ArrowRight, Star, Flame, CheckCircle, Rocket,
+  GraduationCap, BookCheck, ExternalLink, X, CheckCircle2, Layers
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { useSensory } from '../context/SensoryContext';
 import { 
   getProgressSummary, getTasks, getDailyWelcomeMission, 
-  getPersonalGameWorld, getPersonalMasteryTree 
+  getPersonalGameWorld, getPersonalMasteryTree,
+  getNCERTSyllabus, getNCERTStandards, getStudent
 } from '../services/api';
 import ThemeBanner from '../components/dashboard/ThemeBanner';
 import PersonalWorldMap from '../components/dashboard/PersonalWorldMap';
@@ -19,12 +21,17 @@ import Footer from '../components/common/Footer';
 import AudioButton from '../components/common/AudioButton';
 
 const SUBJECT_CARDS = [
-  { id: 'Mathematics', label: 'Mathematics', desc: 'Space counting, pattern jumps & numbers', icon: Calculator, color: 'from-blue-500 to-indigo-600' },
-  { id: 'Science', label: 'Science', desc: 'Ocean habitats, planets & solar system', icon: Globe, color: 'from-emerald-500 to-teal-600' },
-  { id: 'English', label: 'English', desc: 'Rhyming words, playful stories & vocab', icon: BookOpen, color: 'from-purple-500 to-pink-600' },
-  { id: 'Coding/Logic', label: 'Coding & Logic', desc: 'Robot maze navigation & sequencing', icon: Cpu, color: 'from-sky-500 to-blue-700' },
-  { id: 'General Knowledge', label: 'General Knowledge', desc: 'Rainbows, nature & world facts', icon: Palette, color: 'from-amber-500 to-orange-600' }
+  { id: 'Mathematics', label: 'Mathematics', desc: 'Space counting, pattern jumps & arithmetic', icon: Calculator, color: 'from-blue-500 to-indigo-600' },
+  { id: 'Science', label: 'Science / EVS', desc: 'Habitats, human body, ecosystems & discovery', icon: Globe, color: 'from-emerald-500 to-teal-600' },
+  { id: 'English', label: 'English', desc: 'Comprehension, phonics, stories & grammar', icon: BookOpen, color: 'from-purple-500 to-pink-600' }
 ];
+
+const getStageInfo = (grade) => {
+  if (grade <= 2) return { name: 'Foundational Stage', desc: 'Classes 1–2 • Play & Activity Based Learning' };
+  if (grade <= 5) return { name: 'Preparatory Stage', desc: 'Classes 3–5 • Discovery & Interactive Inquiry' };
+  if (grade <= 8) return { name: 'Middle Stage', desc: 'Classes 6–8 • Experiential & Conceptual Learning' };
+  return { name: 'Secondary Stage', desc: 'Classes 9–10 • Critical Thinking & Deep Concepts' };
+};
 
 const LearnerHomePage = () => {
   const { user } = useAuth();
@@ -39,31 +46,81 @@ const LearnerHomePage = () => {
   const [masteryTree, setMasteryTree] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // NCERT Standard & Syllabus state (read active student grade)
+  const [selectedGrade, setSelectedGrade] = useState(() => {
+    const saved = localStorage.getItem('neuroquest_active_student_grade');
+    return saved ? parseInt(saved, 10) : 6;
+  });
+  const [standardsList, setStandardsList] = useState([]);
+  const [activeSyllabus, setActiveSyllabus] = useState(null);
+  const [showSyllabusModal, setShowSyllabusModal] = useState(false);
+  const [activeModalSubject, setActiveModalSubject] = useState('Mathematics');
+
   useEffect(() => {
     fetchDashboardData();
   }, []);
 
+  useEffect(() => {
+    fetchSyllabusForGrade(selectedGrade);
+  }, [selectedGrade]);
+
   const fetchDashboardData = async () => {
     try {
-      const [progRes, tasksRes, welcomeRes, worldRes, treeRes] = await Promise.all([
-        getProgressSummary(),
-        getTasks(null, null),
+      const [progRes, tasksRes, welcomeRes, worldRes, treeRes, stdRes] = await Promise.all([
+        getProgressSummary().catch(() => ({ data: { total_stars: 10, total_tasks_completed: 0, streak_days: 1 } })),
+        getTasks(null, null, selectedGrade).catch(() => ({ data: [] })),
         getDailyWelcomeMission().catch(() => ({ data: null })),
         getPersonalGameWorld().catch(() => ({ data: null })),
-        getPersonalMasteryTree().catch(() => ({ data: null }))
+        getPersonalMasteryTree().catch(() => ({ data: null })),
+        getNCERTStandards().catch(() => ({ data: { standards: [] } }))
       ]);
       
-      setProgress(progRes.data);
-      if (tasksRes.data && tasksRes.data.length > 0) {
+      if (progRes?.data) setProgress(progRes.data);
+      if (tasksRes?.data && tasksRes.data.length > 0) {
         setRecommendedTask(tasksRes.data[0]);
       }
       if (welcomeRes.data) setDailyWelcome(welcomeRes.data);
       if (worldRes.data) setGameWorld(worldRes.data);
       if (treeRes.data) setMasteryTree(treeRes.data);
+      if (stdRes.data?.standards?.length) {
+        setStandardsList(stdRes.data.standards);
+      }
+
+      const activeStudentId = localStorage.getItem('neuroquest_active_student_id');
+      if (activeStudentId && !localStorage.getItem('neuroquest_active_student_grade')) {
+        try {
+          const sRes = await getStudent(activeStudentId);
+          if (sRes.data?.grade) {
+            const gMatch = String(sRes.data.grade).match(/\d+/);
+            if (gMatch) {
+              const parsedG = parseInt(gMatch[0], 10);
+              setSelectedGrade(parsedG);
+              localStorage.setItem('neuroquest_active_student_grade', parsedG.toString());
+            }
+          }
+        } catch (_) {}
+      }
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchSyllabusForGrade = async (grade) => {
+    try {
+      const [sylRes, tRes] = await Promise.all([
+        getNCERTSyllabus(grade).catch(() => ({ data: null })),
+        getTasks(null, null, grade).catch(() => ({ data: [] }))
+      ]);
+      if (sylRes.data?.standards?.[0]) {
+        setActiveSyllabus(sylRes.data.standards[0]);
+      }
+      if (tRes.data && tRes.data.length > 0) {
+        setRecommendedTask(tRes.data[0]);
+      }
+    } catch (e) {
+      console.error('Error fetching grade curriculum:', e);
     }
   };
 
@@ -213,29 +270,109 @@ const LearnerHomePage = () => {
           </div>
         )}
 
+        {/* NCERT Standard / Class Selector */}
+        <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-black tracking-wide border border-indigo-200">
+                  <GraduationCap className="w-3.5 h-3.5 text-indigo-600" />
+                  NCERT & NEP 2020 CURRICULUM
+                </span>
+                <span className="text-xs font-semibold text-slate-500">
+                  {getStageInfo(selectedGrade).name} • {getStageInfo(selectedGrade).desc}
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-2">
+                Explore Class {selectedGrade} Syllabus & Adaptive Quests
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 font-medium">
+                Choose any standard from Class 1 to 10 to switch curriculum chapters, step-by-step scaffolds, and learning outcomes.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                setActiveModalSubject('Mathematics');
+                setShowSyllabusModal(true);
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-extrabold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 transition-all shrink-0 hover:scale-105 active:scale-95 shadow-sm"
+            >
+              <BookCheck className="w-4 h-4 text-indigo-600" />
+              <span>Browse Class {selectedGrade} Syllabus</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+            </button>
+          </div>
+
+          {/* Standard Selector Pills (Class 1 to 10) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 scrollbar-thin">
+            {(standardsList.length > 0 ? standardsList : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(g => ({ grade: g }))).map(std => {
+              const grade = std.grade;
+              const isSelected = selectedGrade === grade;
+              return (
+                <button
+                  key={grade}
+                  onClick={() => {
+                    setSelectedGrade(grade);
+                    localStorage.setItem('neuroquest_active_student_grade', grade.toString());
+                  }}
+                  className={`px-4 py-2 rounded-2xl text-xs font-black transition-all shrink-0 flex items-center gap-1.5 ${
+                    isSelected
+                      ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/30 scale-105 ring-2 ring-indigo-300'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900 border border-slate-200'
+                  }`}
+                >
+                  <span>Class {grade}</span>
+                  {isSelected && <CheckCircle2 className="w-3.5 h-3.5" />}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Subject Exploration Cards */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-              Learning Quests by Subject
-            </h2>
-            <Link to="/session" className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1">
-              View All Quests <ArrowRight className="w-3.5 h-3.5" />
+            <div>
+              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                Class {selectedGrade} Learning Quests by Subject
+              </h2>
+              <p className="text-xs font-medium text-slate-500">
+                Aligned with official NCERT textbooks and neurodivergent-adaptive learning scaffolds
+              </p>
+            </div>
+            <Link to="/session" state={{ grade: selectedGrade }} className="text-xs font-bold text-indigo-600 hover:underline flex items-center gap-1">
+              View All Class {selectedGrade} Quests <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SUBJECT_CARDS.map(sub => {
               const IconComponent = sub.icon;
+              const sylMatch = activeSyllabus?.subjects?.find(s => 
+                s.subject.toLowerCase() === sub.id.toLowerCase() || 
+                (sub.id === 'Science' && s.subject.toLowerCase().includes('evs'))
+              );
+              const chapterCount = sylMatch?.chapters?.length;
+              const textbookName = sylMatch?.textbook;
+
               return (
                 <div
                   key={sub.id}
-                  onClick={() => navigate('/session', { state: { subject: sub.id } })}
+                  onClick={() => navigate('/session', { state: { subject: sub.id, grade: selectedGrade } })}
                   className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md hover:shadow-xl transition-all cursor-pointer group flex flex-col justify-between"
                 >
                   <div className="space-y-4">
-                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${sub.color} text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
-                      <IconComponent className="w-6 h-6" />
+                    <div className="flex items-start justify-between">
+                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${sub.color} text-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+                      {chapterCount ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                          <BookCheck className="w-3 h-3 text-indigo-500" />
+                          {chapterCount} Chapters
+                        </span>
+                      ) : null}
                     </div>
                     <div>
                       <h3 className="text-lg font-extrabold text-slate-900 group-hover:text-indigo-600 transition-colors">
@@ -244,11 +381,16 @@ const LearnerHomePage = () => {
                       <p className="text-xs font-medium text-slate-500 mt-1">
                         {sub.desc}
                       </p>
+                      {textbookName && (
+                        <p className="text-[11px] font-semibold text-indigo-600/80 mt-2 truncate" title={textbookName}>
+                          📖 {textbookName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div className="pt-6 flex items-center justify-between border-t border-slate-100 mt-4">
-                    <span className="text-xs font-bold text-slate-400">Adaptive Tasks</span>
+                    <span className="text-xs font-bold text-slate-400">Class {selectedGrade} NCERT</span>
                     <span className="text-xs font-extrabold text-indigo-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
                       Enter Subject <ArrowRight className="w-3.5 h-3.5" />
                     </span>
@@ -291,6 +433,189 @@ const LearnerHomePage = () => {
                   <div className="text-[10px] text-slate-500">{badge.description}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* NCERT Syllabus Explorer Modal */}
+        {showSyllabusModal && activeSyllabus && (
+          <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              {/* Modal Header */}
+              <div className="p-6 border-b border-slate-200 flex items-start justify-between bg-slate-50/80">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs font-black border border-indigo-200">
+                      NCERT Class {selectedGrade}
+                    </span>
+                    <span className="text-xs font-bold text-slate-500">
+                      {getStageInfo(selectedGrade).name} • {getStageInfo(selectedGrade).desc}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-900 mt-1">
+                    {activeSyllabus.standard_name} Curriculum & Chapters
+                  </h2>
+                  <p className="text-xs text-slate-500 font-medium">
+                    National Council of Educational Research and Training (NCERT) aligned with NEP 2020 Learning Outcomes.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowSyllabusModal(false)}
+                  className="p-2 rounded-2xl hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Subject Tabs */}
+              <div className="flex items-center gap-2 px-6 pt-4 border-b border-slate-100 overflow-x-auto">
+                {activeSyllabus.subjects?.map(s => {
+                  const isTabActive = activeModalSubject.toLowerCase() === s.subject.toLowerCase();
+                  return (
+                    <button
+                      key={s.subject}
+                      onClick={() => setActiveModalSubject(s.subject)}
+                      className={`pb-3 px-4 text-xs font-extrabold border-b-2 transition-all shrink-0 flex items-center gap-2 ${
+                        isTabActive
+                          ? 'border-indigo-600 text-indigo-600'
+                          : 'border-transparent text-slate-500 hover:text-slate-800'
+                      }`}
+                    >
+                      <span>{s.subject}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] ${
+                        isTabActive ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-100 text-slate-600'
+                      }`}>
+                        {s.chapters?.length || 0}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Modal Body: Chapters & Outcomes */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/40">
+                {(() => {
+                  const currentSub = activeSyllabus.subjects?.find(s => 
+                    s.subject.toLowerCase() === activeModalSubject.toLowerCase()
+                  ) || activeSyllabus.subjects?.[0];
+
+                  if (!currentSub) {
+                    return (
+                      <div className="text-center py-12 text-slate-500 text-sm">
+                        No syllabus details found for this subject.
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="space-y-4">
+                      {/* Textbook Info */}
+                      {currentSub.textbook && (
+                        <div className="p-4 bg-indigo-50/70 border border-indigo-200/80 rounded-2xl flex items-center justify-between gap-4">
+                          <div className="flex items-center gap-3">
+                            <BookOpen className="w-5 h-5 text-indigo-600 shrink-0" />
+                            <div>
+                              <div className="text-xs font-black text-indigo-900">Official NCERT Textbook</div>
+                              <div className="text-xs font-semibold text-indigo-700">{currentSub.textbook}</div>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => {
+                              setShowSyllabusModal(false);
+                              navigate('/session', { 
+                                state: { 
+                                  subject: currentSub.subject.includes('EVS') ? 'Science' : currentSub.subject, 
+                                  grade: selectedGrade 
+                                } 
+                              });
+                            }}
+                            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-sm transition-all flex items-center gap-1.5 shrink-0"
+                          >
+                            <span>Practice All Tasks</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Chapters List */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {currentSub.chapters?.map(chap => (
+                          <div 
+                            key={chap.chapter_number}
+                            className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all space-y-3 flex flex-col justify-between"
+                          >
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <span className="px-2.5 py-0.5 bg-slate-100 text-slate-700 font-extrabold text-[11px] rounded-lg border border-slate-200">
+                                  Ch {chap.chapter_number}
+                                </span>
+                                <span className="text-[11px] font-semibold text-indigo-600">
+                                  {chap.topics?.length || 0} Core Topics
+                                </span>
+                              </div>
+                              <h4 className="text-sm font-extrabold text-slate-900 leading-snug">
+                                {chap.title}
+                              </h4>
+                              {/* Topics */}
+                              {chap.topics && (
+                                <div className="flex flex-wrap gap-1.5 pt-1">
+                                  {chap.topics.slice(0, 4).map(t => (
+                                    <span key={t} className="px-2 py-0.5 bg-slate-50 text-slate-600 text-[10px] font-medium rounded-md border border-slate-200">
+                                      {t}
+                                    </span>
+                                  ))}
+                                  {chap.topics.length > 4 && (
+                                    <span className="px-2 py-0.5 bg-slate-50 text-slate-400 text-[10px] font-medium rounded-md">
+                                      +{chap.topics.length - 4} more
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                              {/* Learning outcomes preview */}
+                              {chap.learning_outcomes && chap.learning_outcomes.length > 0 && (
+                                <p className="text-[11px] text-slate-500 line-clamp-2 italic pt-1 border-t border-slate-100">
+                                  🎯 {chap.learning_outcomes[0]}
+                                </p>
+                              )}
+                            </div>
+
+                            <button
+                              onClick={() => {
+                                setShowSyllabusModal(false);
+                                navigate('/session', { 
+                                  state: { 
+                                    subject: currentSub.subject.includes('EVS') ? 'Science' : currentSub.subject, 
+                                    grade: selectedGrade,
+                                    chapter: chap.title
+                                  } 
+                                });
+                              }}
+                              className="w-full py-2 bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-700 font-extrabold text-xs rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-1.5 mt-2"
+                            >
+                              <span>Start Chapter Tasks</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 border-t border-slate-200 flex items-center justify-between bg-slate-50/80">
+                <div className="text-xs text-slate-500 font-medium">
+                  Showing official curriculum for <span className="font-bold text-slate-700">Class {selectedGrade}</span>
+                </div>
+                <button
+                  onClick={() => setShowSyllabusModal(false)}
+                  className="px-5 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-all"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}

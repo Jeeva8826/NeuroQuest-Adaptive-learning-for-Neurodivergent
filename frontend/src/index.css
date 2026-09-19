@@ -72,3 +72,15 @@
 .theme-motif-fantasy {
   background-image: radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.15) 0%, transparent 45%);
 }
+
+/* Autofill styling overrides to maintain crisp accessible light input fields across all browsers */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #0f172a !important;
+  caret-color: #0f172a !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+

@@ -219,7 +219,7 @@ export default function LoginPage() {
                 type="text"
                 required
                 value={formData.username}
-                className="appearance-none block w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                className="appearance-none block w-full px-4 py-3 bg-white border border-slate-300 rounded-lg shadow-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm font-medium transition-colors"
                 onChange={e => setFormData({...formData, username: e.target.value})}
                 placeholder="Enter your username or email"
               />
@@ -234,7 +234,7 @@ export default function LoginPage() {
                     setResetIdentifier(formData.username);
                     setShowResetModal(true);
                   }}
-                  className="text-xs font-semibold text-emerald-700 hover:text-emerald-800"
+                  className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
                 >
                   Forgot password?
                 </button>
@@ -244,7 +244,7 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={formData.password}
-                  className="appearance-none block w-full px-4 py-3 pr-11 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm font-medium transition-colors"
+                  className="appearance-none block w-full px-4 py-3 pr-11 bg-white border border-slate-300 rounded-lg shadow-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 sm:text-sm font-medium transition-colors"
                   onChange={e => setFormData({...formData, password: e.target.value})}
                   placeholder="••••••••"
                 />
@@ -263,7 +263,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-800 disabled:opacity-50 transition-colors"
+                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors"
               >
                 {loading ? 'Authenticating...' : (
                   <>
@@ -278,23 +278,16 @@ export default function LoginPage() {
           {/* Quick Demo Credentials for Testing & Evaluation */}
           <div className="mt-6 pt-5 border-t border-slate-100">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-500 mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Quick Demo Logins (Click to Autofill):</span>
+              <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+              <span>Demo Quick Sign-In:</span>
             </div>
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
-                onClick={() => fillQuickLogin('jeevananth1234@gmail.com', '123')}
-                className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-2.5 py-1.5 rounded border border-slate-200 transition-colors"
+                onClick={() => fillQuickLogin('caregiver@neuroquest.local', 'Password123!')}
+                className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-lg border border-slate-200 transition-colors"
               >
-                jeevananth (Pass: 123)
-              </button>
-              <button
-                type="button"
-                onClick={() => fillQuickLogin('testparent@example.com', 'Password123!')}
-                className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-2.5 py-1.5 rounded border border-slate-200 transition-colors"
-              >
-                testparent (Pass: Password123!)
+                Demo Caregiver (Pass: Password123!)
               </button>
             </div>
           </div>

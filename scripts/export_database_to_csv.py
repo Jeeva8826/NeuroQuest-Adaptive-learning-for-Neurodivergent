@@ -1,15 +1,23 @@
+"""
+Database Exporter for Neon Cloud PostgreSQL & Local Ingestion
+Exports all relational PostgreSQL tables, MongoDB collections, and the 168-chapter
+NCERT Knowledge Graph into clean, standard .csv files and generates neon_schema.sql.
+"""
+
 import os
 import sys
 import csv
 import json
 
 # Add backend directory to sys.path
-sys.path.insert(0, os.path.join(os.getcwd(), "backend"))
+backend_dir = os.path.join(os.getcwd(), "backend")
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
 
 import pandas as pd
 from sqlalchemy import create_engine, text, inspect
 from app.config import settings
-from app.database import engine, get_database
+from app.database import engine, get_database, connect_to_mongo, close_mongo_connection
 from app.services.seed_service import seed_database_content, SEED_TASKS, SEED_BADGES, DEMO_PROFILES
 from app.routers.students import compute_baseline_support_dimensions
 import asyncio
@@ -45,11 +53,136 @@ def export_postgres_tables():
 
     return exported_files
 
+def export_knowledge_graph_relational():
+    print("\n=== Exporting 168 NCERT Knowledge Graph Chapters to Relational CSVs ===")
+    kg_path = os.path.join(os.getcwd(), "data", "curriculum", "ncert_knowledge_graph.json")
+    if not os.path.exists(kg_path):
+        print("  [WARN] ncert_knowledge_graph.json not found.")
+        return []
+
+    with open(kg_path, "r", encoding="utf-8") as f:
+        kg = json.load(f)
+
+    subjects_rows = []
+    chapters_rows = []
+    concepts_rows = []
+    objectives_rows = []
+    questions_rows = []
+    variants_rows = []
+
+    sub_id = 0
+    ch_id = 0
+    con_id = 0
+    obj_id = 0
+    q_id = 0
+    var_id = 0
+
+    for sub in kg.get("subjects", []):
+        sub_id += 1
+        s_name = sub.get("subject_name", "")
+        subjects_rows.append({
+            "id": sub_id,
+            "name": s_name,
+            "description": f"NCERT Curriculum Subject: {s_name}"
+        })
+
+        for ch in sub.get("chapters", []):
+            ch_id += 1
+            grade = ch.get("grade", 1)
+            std = ch.get("standard", f"Class {grade}")
+            ch_title = ch.get("title", "")
+            ch_num = ch.get("chapter_number", 1)
+            
+            chapters_rows.append({
+                "id": ch_id,
+                "subject_id": sub_id,
+                "title": f"{std} - Chapter {ch_num}: {ch_title}",
+                "order_index": ch_num
+            })
+
+            for top in ch.get("topics", []):
+                for con in top.get("concepts", []):
+                    con_id += 1
+                    c_name = con.get("concept_name", "")
+                    diff = con.get("difficulty", 1.0)
+                    std_exp = con.get("explanation", {}).get("standard", "")
+                    
+                    concepts_rows.append({
+                        "id": con_id,
+                        "chapter_id": ch_id,
+                        "name": c_name,
+                        "description": std_exp,
+                        "difficulty_level": diff
+                    })
+
+                    first_obj_id = None
+                    for obj_text in con.get("learning_objectives", []):
+                        obj_id += 1
+                        if first_obj_id is None:
+                            first_obj_id = obj_id
+                        objectives_rows.append({
+                            "id": obj_id,
+                            "concept_id": con_id,
+                            "description": obj_text
+                        })
+
+                    if first_obj_id is None:
+                        obj_id += 1
+                        first_obj_id = obj_id
+                        objectives_rows.append({
+                            "id": obj_id,
+                            "concept_id": con_id,
+                            "description": f"Master competencies of {c_name}"
+                        })
+
+                    for q in con.get("questions", []):
+                        q_id += 1
+                        q_prompt = q.get("prompt", "")
+                        q_diff = q.get("difficulty", 1)
+                        
+                        questions_rows.append({
+                            "id": q_id,
+                            "objective_id": first_obj_id,
+                            "base_text": q_prompt,
+                            "question_type": q.get("question_type", "multiple_choice"),
+                            "difficulty": float(q_diff)
+                        })
+
+                        var_id += 1
+                        var_content = {
+                            "options": q.get("options", []),
+                            "correct_answer": q.get("correct_answer", ""),
+                            "explanation": q.get("explanation", ""),
+                            "hints": q.get("hints", []),
+                            "scaffold_steps": q.get("scaffold_steps", [])
+                        }
+                        variants_rows.append({
+                            "id": var_id,
+                            "question_id": q_id,
+                            "content": json.dumps(var_content),
+                            "sensory_adaptation": "standard"
+                        })
+
+    # Save to CSV files
+    pd.DataFrame(subjects_rows).to_csv(os.path.join(OUTPUT_DIR, "subjects.csv"), index=False)
+    pd.DataFrame(chapters_rows).to_csv(os.path.join(OUTPUT_DIR, "chapters.csv"), index=False)
+    pd.DataFrame(concepts_rows).to_csv(os.path.join(OUTPUT_DIR, "concepts.csv"), index=False)
+    pd.DataFrame(objectives_rows).to_csv(os.path.join(OUTPUT_DIR, "learning_objectives.csv"), index=False)
+    pd.DataFrame(questions_rows).to_csv(os.path.join(OUTPUT_DIR, "questions.csv"), index=False)
+    pd.DataFrame(variants_rows).to_csv(os.path.join(OUTPUT_DIR, "question_variants.csv"), index=False)
+
+    print(f"  [SAVED] subjects.csv ({len(subjects_rows)} rows)")
+    print(f"  [SAVED] chapters.csv ({len(chapters_rows)} rows)")
+    print(f"  [SAVED] concepts.csv ({len(concepts_rows)} rows)")
+    print(f"  [SAVED] learning_objectives.csv ({len(objectives_rows)} rows)")
+    print(f"  [SAVED] questions.csv ({len(questions_rows)} rows)")
+    print(f"  [SAVED] question_variants.csv ({len(variants_rows)} rows)")
+
 async def export_mongo_collections():
     print("\n=== Exporting MongoDB Collections to CSV ===")
     exported_files = []
     
-    # Seed MongoDB with tasks, badges, demo profiles and NCERT knowledge graph
+    await connect_to_mongo()
     try:
         await seed_database_content()
     except Exception as e:
@@ -57,9 +190,9 @@ async def export_mongo_collections():
     
     db = get_database()
     
-    # 1. Tasks
+    # 1. Tasks (Fetch all without low limit)
     tasks_cursor = db["tasks"].find({})
-    tasks_list = await tasks_cursor.to_list(length=200)
+    tasks_list = await tasks_cursor.to_list(length=1000)
     if not tasks_list:
         tasks_list = SEED_TASKS
     
@@ -69,6 +202,9 @@ async def export_mongo_collections():
             "id": str(t.get("_id", t.get("id", ""))),
             "title": t.get("title", ""),
             "subject": t.get("subject", ""),
+            "grade": t.get("grade", 1),
+            "standard": t.get("standard", ""),
+            "chapter": t.get("chapter", ""),
             "difficulty": t.get("difficulty", 1),
             "estimated_duration": t.get("estimated_duration", 3),
             "question": t.get("question", ""),
@@ -77,6 +213,7 @@ async def export_mongo_collections():
             "correct_answer": t.get("correct_answer", ""),
             "explanation": t.get("explanation", ""),
             "hints": json.dumps(t.get("hints", [])),
+            "scaffold_steps": json.dumps(t.get("scaffold_steps", [])),
             "supported_learning_modes": json.dumps(t.get("supported_learning_modes", [])),
             "theme_tags": json.dumps(t.get("theme_tags", [])),
             "icon_name": t.get("icon_name", "Sparkles")
@@ -89,9 +226,8 @@ async def export_mongo_collections():
 
     # 2. Baseline Support Profiles
     profiles_cursor = db["baseline_support_profiles"].find({})
-    profiles_list = await profiles_cursor.to_list(length=200)
+    profiles_list = await profiles_cursor.to_list(length=500)
     if not profiles_list:
-        # Create baseline support profiles for demo learners
         profiles_list = []
         for demo in DEMO_PROFILES:
             b_prof = compute_baseline_support_dimensions(
@@ -178,6 +314,7 @@ async def export_mongo_collections():
         exported_files.append(("learner_preferences", pref_csv, len(df_pref)))
         print(f"  [SAVED] learner_preferences.csv ({len(df_pref)} rows) -> {pref_csv}")
 
+    await close_mongo_connection()
     return exported_files
 
 def generate_neon_ddl():
@@ -286,6 +423,9 @@ CREATE TABLE IF NOT EXISTS curriculum_tasks (
     id VARCHAR(100) PRIMARY KEY,
     title VARCHAR(255),
     subject VARCHAR(100),
+    grade INTEGER,
+    standard VARCHAR(50),
+    chapter VARCHAR(255),
     difficulty INTEGER,
     estimated_duration INTEGER,
     question TEXT,
@@ -294,6 +434,7 @@ CREATE TABLE IF NOT EXISTS curriculum_tasks (
     correct_answer TEXT,
     explanation TEXT,
     hints JSONB,
+    scaffold_steps JSONB,
     supported_learning_modes JSONB,
     theme_tags JSONB,
     icon_name VARCHAR(100)
@@ -446,6 +587,7 @@ CREATE TABLE IF NOT EXISTS content_licenses (
 
 if __name__ == "__main__":
     pg_files = export_postgres_tables()
+    export_knowledge_graph_relational()
     m_files = asyncio.run(export_mongo_collections())
     generate_neon_ddl()
     print("\n==========================================================")

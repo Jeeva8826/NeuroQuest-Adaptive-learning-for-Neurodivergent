@@ -27,12 +27,12 @@ def _init_ncert_cache():
                         for con in top.get("concepts", []):
                             c_id = con.get("concept_id")
                             if c_id:
-                                CONCEPTS_BY_ID[c_id] = {**con, "subject": sub.get("subject_name"), "chapter": ch.get("title")}
+                                CONCEPTS_BY_ID[c_id] = {**con, "subject": sub.get("subject_name"), "chapter": ch.get("title"), "grade": ch.get("grade"), "standard": ch.get("standard")}
                             for q in con.get("questions", []):
                                 q_id = q.get("question_id")
                                 if q_id:
-                                    QUESTIONS_BY_ID[q_id] = {**q, "concept_id": c_id, "subject": sub.get("subject_name")}
-            logger.info(f"ScaffoldEngine indexed {len(CONCEPTS_BY_ID)} NCERT concepts & {len(QUESTIONS_BY_ID)} curriculum questions.")
+                                    QUESTIONS_BY_ID[q_id] = {**q, "concept_id": c_id, "subject": sub.get("subject_name"), "grade": ch.get("grade"), "standard": ch.get("standard")}
+            logger.info(f"ScaffoldEngine indexed {len(CONCEPTS_BY_ID)} NCERT concepts & {len(QUESTIONS_BY_ID)} curriculum questions across all standards.")
     except Exception as e:
         logger.warning(f"Could not index NCERT Knowledge Graph in ScaffoldEngine: {e}")
 

@@ -5,7 +5,7 @@ import {
   CheckCircle, ArrowRight, Info, AlertCircle, Compass
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { createStudent } from '../services/api';
+import { createStudent, getNCERTStandards } from '../services/api';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import AudioButton from '../components/common/AudioButton';
@@ -24,28 +24,40 @@ const INTEREST_OPTIONS = [
 ];
 
 const GRADE_OPTIONS = [
-  'Class 3', 'Class 4', 'Class 5',
-  'Class 6 (NCERT)', 'Class 7 (NCERT)', 'Class 8 (NCERT)',
-  'Class 9 (NCERT)', 'Class 10', 'Class 11', 'Class 12'
+  'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5',
+  'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'
 ];
 
 const StudentRegistrationPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const [standardsList, setStandardsList] = useState(GRADE_OPTIONS);
+
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
-    age: 12,
-    grade: 'Class 7 (NCERT)',
+    age: '',
+    grade: 'Class 6',
     school_level: 'Middle School',
     school_name: '',
     preferred_language: 'English',
-    interests: ['Space & Astronomy', 'Robotics & Coding', 'Puzzles & Logic'],
+    interests: [],
     learning_environment: 'Quiet Space with Visual Cues',
     guardian_consent: true,
     notes: ''
   });
+
+  React.useEffect(() => {
+    getNCERTStandards()
+      .then(res => {
+        if (res.data?.standards?.length) {
+          const filtered = res.data.standards.filter(s => !s.grade || (s.grade >= 1 && s.grade <= 10));
+          setStandardsList(filtered.map(s => s.standard_name || `Class ${s.grade}`));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -93,9 +105,13 @@ const StudentRegistrationPage = () => {
       const res = await createStudent(payload);
       const student = res.data;
 
+      // Extract integer grade number (1 to 10)
+      const gradeNum = parseInt(formData.grade.replace(/\D/g, ''), 10) || 6;
+
       // Persist active student context
       localStorage.setItem('neuroquest_active_student_id', student.id);
       localStorage.setItem('neuroquest_active_student_name', student.name);
+      localStorage.setItem('neuroquest_active_student_grade', gradeNum.toString());
 
       // Navigate to the 20-Question Baseline Screening wizard
       navigate(`/student-screening/${student.id}`);
@@ -200,8 +216,8 @@ const StudentRegistrationPage = () => {
                 required
                 value={formData.first_name}
                 onChange={e => setFormData({ ...formData, first_name: e.target.value })}
-                placeholder="e.g. Aarav or Maya"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                placeholder="Student first name"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               />
             </div>
 
@@ -213,8 +229,8 @@ const StudentRegistrationPage = () => {
                 type="text"
                 value={formData.last_name}
                 onChange={e => setFormData({ ...formData, last_name: e.target.value })}
-                placeholder="e.g. Sharma"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                placeholder="Student last name"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               />
             </div>
 
@@ -229,7 +245,8 @@ const StudentRegistrationPage = () => {
                 required
                 value={formData.age}
                 onChange={e => setFormData({ ...formData, age: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                placeholder="e.g. 11"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               />
             </div>
           </div>
@@ -243,13 +260,13 @@ const StudentRegistrationPage = () => {
               <select
                 value={formData.grade}
                 onChange={e => setFormData({ ...formData, grade: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-semibold transition-colors"
               >
-                {GRADE_OPTIONS.map(opt => (
+                {standardsList.map(opt => (
                   <option key={opt} value={opt}>{opt}</option>
                 ))}
               </select>
-              <span className="text-xs text-slate-400 mt-1 block">Class 6–8 tasks connect directly to NCERT Science & Math modules.</span>
+              <span className="text-xs text-slate-400 mt-1 block">Authentic NCERT curriculum tasks across Classes 1 to 10.</span>
             </div>
 
             <div>
@@ -259,11 +276,11 @@ const StudentRegistrationPage = () => {
               <select
                 value={formData.school_level}
                 onChange={e => setFormData({ ...formData, school_level: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               >
                 <option value="Middle School">Middle School (Classes 6 to 8)</option>
                 <option value="Primary School">Primary School (Classes 1 to 5)</option>
-                <option value="Secondary / High School">Secondary / High School (Classes 9 to 12)</option>
+                <option value="Secondary School">Secondary School (Classes 9 to 10)</option>
                 <option value="Inclusive / Specialized Program">Inclusive / Specialized Learning Center</option>
                 <option value="Homeschool / Independent">Homeschool / Independent Study</option>
               </select>
@@ -279,7 +296,7 @@ const StudentRegistrationPage = () => {
               <select
                 value={formData.preferred_language}
                 onChange={e => setFormData({ ...formData, preferred_language: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               >
                 <option value="English">English</option>
                 <option value="Hindi">Hindi (हिंदी)</option>
@@ -294,7 +311,7 @@ const StudentRegistrationPage = () => {
               <select
                 value={formData.learning_environment}
                 onChange={e => setFormData({ ...formData, learning_environment: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white text-sm"
+                className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm font-medium transition-colors"
               >
                 <option value="Quiet Space with Visual Cues">Quiet Space with Visual Cues</option>
                 <option value="Visual and Audio Dual Narration">Visual and Audio Dual Narration</option>

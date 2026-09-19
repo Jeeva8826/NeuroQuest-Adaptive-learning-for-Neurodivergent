@@ -10,18 +10,28 @@ def run_end_to_end_journey():
     print("================================================================================")
 
     # ---------------------------------------------------------
-    # Phase 1: Caretaker Login & Verification
+    # Phase 1: Caretaker Dynamic Registration & Verification
     # ---------------------------------------------------------
-    print("\n[STEP 1] Caretaker Login Handshake (Jeevananth)")
-    login_res = session.post(f"{BASE_URL}/api/auth/login", json={
-        "username": "jeevananth1234@gmail.com",
-        "password": "123"
+    import time
+    test_user_id = int(time.time())
+    caregiver_email = f"caregiver_{test_user_id}@example.com"
+    caregiver_username = f"parent_{test_user_id}"
+    print(f"\n[STEP 1] Caretaker Registration & Verification ({caregiver_email})")
+    
+    reg_res = session.post(f"{BASE_URL}/api/auth/register", json={
+        "email": caregiver_email,
+        "username": caregiver_username,
+        "password": "SecurePassword123!",
+        "full_name": "Test Caregiver Parent",
+        "role": "caregiver"
     })
-    assert login_res.status_code == 200, f"Login failed: {login_res.status_code} {login_res.text}"
-    auth_data = login_res.json()
+    assert reg_res.status_code == 200, f"Registration failed: {reg_res.text}"
+    auth_data = reg_res.json()
+
     token = auth_data.get("token") or auth_data.get("access_token")
+    assert token, f"Could not obtain token: {auth_data}"
     headers = {"Authorization": f"Bearer {token}"}
-    print(f"  [PASS] Caretaker authenticated successfully.")
+    print(f"  [PASS] New Caretaker registered & authenticated successfully.")
     print(f"  [PASS] Role: {auth_data.get('role')} (Guardian / Parent identity verified)")
     print(f"  [PASS] User ID: {auth_data.get('user_id')}")
 
@@ -149,7 +159,7 @@ def run_end_to_end_journey():
     # ---------------------------------------------------------
     print("\n[STEP 7] Caretaker Dashboard Students List")
     list_res = session.get(f"{BASE_URL}/api/students", headers=headers)
-    assert list_res.status_code == 200
+    assert list_res.status_code == 200, f"list_res failed: {list_res.status_code} {list_res.text}"
     students_list = list_res.json()
     my_student = next((s for s in students_list if s["id"] == student_id), None)
     assert my_student is not None
@@ -197,6 +207,43 @@ def run_end_to_end_journey():
     telem_data = telem_res.json()
     print(f"  [PASS] Real-time Telemetry Adaptation evaluated: State = {telem_data.get('state')}")
     print(f"  [PASS] Telemetry Adaptation Action: {telem_data.get('adaptation', {}).get('action')}")
+
+    # ---------------------------------------------------------
+    # Phase 9: Task Answer Evaluation (Wrong & Correct Handling)
+    # ---------------------------------------------------------
+    print("\n[STEP 9] Task Answer Evaluation (Wrong & Correct Handlers)")
+    if tasks:
+        sample_task = tasks[0]
+        correct_answer = sample_task["correct_answer"]
+        wrong_answer = next((opt for opt in sample_task["options"] if opt.strip().lower() != correct_answer.strip().lower()), "ClearlyWrongAnswerXYZ")
+
+        # 1. Submit Wrong Answer
+        wrong_submit_res = session.post(f"{BASE_URL}/api/session/{session_id}/submit", json={
+            "task_id": sample_task["id"],
+            "selected_answer": wrong_answer,
+            "time_taken_seconds": 15,
+            "hints_used": 1
+        }, headers=headers)
+        assert wrong_submit_res.status_code == 200, f"Submit failed: {wrong_submit_res.text}"
+        wrong_data = wrong_submit_res.json()
+        assert wrong_data["is_correct"] is False, f"Expected is_correct=False for wrong pick, got {wrong_data}"
+        assert "explanation" in wrong_data and wrong_data["explanation"], "Expected explanation in wrong submission feedback"
+        assert wrong_data["correct_answer"] == correct_answer, "Expected correct answer returned in response"
+        print(f"  [PASS] Wrong answer '{wrong_answer}' correctly identified as is_correct=False.")
+        print(f"  [PASS] Correct answer provided for learner review: '{wrong_data['correct_answer']}'")
+
+        # 2. Submit Correct Answer
+        correct_submit_res = session.post(f"{BASE_URL}/api/session/{session_id}/submit", json={
+            "task_id": sample_task["id"],
+            "selected_answer": correct_answer,
+            "time_taken_seconds": 12,
+            "hints_used": 0
+        }, headers=headers)
+        assert correct_submit_res.status_code == 200, f"Submit failed: {correct_submit_res.text}"
+        correct_data = correct_submit_res.json()
+        assert correct_data["is_correct"] is True, f"Expected is_correct=True for correct pick, got {correct_data}"
+        print(f"  [PASS] Correct answer '{correct_answer}' correctly identified as is_correct=True.")
+        print(f"  [PASS] Points rewarded: {correct_data['points_earned']} stars")
 
     print("\n================================================================================")
     print("ALL PHASES PASSED 100%! FULL CARETAKER -> STUDENT ONBOARDING FLOW IS COMPLETE!")
