@@ -21,6 +21,7 @@ import StudentProfileResultPage from './pages/StudentProfileResultPage';
 // Dashboards and Games
 import GamesContainer from './games/Games';
 import { LearnerDashboard, CaregiverDashboard, EducatorDashboard } from './components/dashboards/Dashboards';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -183,13 +184,15 @@ function AppRoutes() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <ThemeProvider>
-          <SensoryProvider>
-            <AppRoutes />
-          </SensoryProvider>
-        </ThemeProvider>
-      </AuthProvider>
+      <ErrorBoundary>
+        <AuthProvider>
+          <ThemeProvider>
+            <SensoryProvider>
+              <AppRoutes />
+            </SensoryProvider>
+          </ThemeProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </Router>
   );
 }

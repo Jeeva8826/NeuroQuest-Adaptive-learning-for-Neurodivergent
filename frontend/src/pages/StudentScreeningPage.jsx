@@ -214,6 +214,7 @@ const StudentScreeningPage = () => {
       </div>
     );
   }
+  const questions = schema?.questions || [];
   const currentQuestion = questions[currentIndex] || {};
   const totalQuestions = questions.length || 20;
   const progressPercent = Math.round(((currentIndex + 1) / totalQuestions) * 100);
