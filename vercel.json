@@ -5,6 +5,22 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/auth/:path*",
+      "destination": "https://neuroquest-adaptive-learning-for.onrender.com/auth/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://neuroquest-adaptive-learning-for.onrender.com/api/:path*"
+    },
+    {
+      "source": "/medical/:path*",
+      "destination": "https://neuroquest-adaptive-learning-for.onrender.com/medical/:path*"
+    },
+    {
+      "source": "/events",
+      "destination": "https://neuroquest-adaptive-learning-for.onrender.com/events"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
