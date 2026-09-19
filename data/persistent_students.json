@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-19T10:12:05.418219",
+  "last_updated": "2026-09-19T14:13:42.441416",
   "learners": [
     {
       "_id": "6aacc3ecbc22009c6597d1e9",
@@ -340,6 +340,7 @@
       "created_at": "2026-09-19 10:04:24.491000"
     },
     {
+      "_id": "6aae5ff5557728a21cbc9093",
       "caretaker_id": "6aae5ff5557728a21cbc9092",
       "first_name": "Divya",
       "last_name": "Rao",
@@ -358,8 +359,69 @@
       "preferred_communication": "Visual and spoken",
       "guardian_consent": true,
       "has_completed_screening": false,
-      "created_at": "2026-09-19 10:12:05.404000",
-      "_id": "6aae5ff5557728a21cbc9093"
+      "created_at": "2026-09-19 10:12:05.404000"
+    },
+    {
+      "_id": "6aae982f557728a21cbc909f",
+      "caretaker_id": "6aae982f557728a21cbc909e",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-19 14:11:59.515000",
+      "screening_completed_at": "2026-09-19 14:11:59.553000"
+    },
+    {
+      "sql_id": 1,
+      "caretaker_id": "1",
+      "first_name": "Aarav",
+      "last_name": "",
+      "name": "Aarav",
+      "age": 11,
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "has_completed_screening": false,
+      "created_at": "2026-09-19 10:54:47.987000",
+      "_id": "6aae98965a423a0cb0fa2092"
+    },
+    {
+      "sql_id": 2,
+      "caretaker_id": "1",
+      "first_name": "TestChild",
+      "last_name": "",
+      "name": "TestChild",
+      "age": 11,
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "has_completed_screening": false,
+      "created_at": "2026-09-19 13:46:29.543000",
+      "_id": "6aae98965a423a0cb0fa2093"
     }
   ],
   "questionnaire_drafts": [],

@@ -178,7 +178,7 @@
     {
       "method": "GET",
       "endpoint": "/api/tasks",
-      "purpose": "Fetch Curriculum Tasks Catalog (14 tasks loaded)",
+      "purpose": "Fetch Curriculum Tasks Catalog (50 tasks loaded)",
       "status": "PASS",
       "http_code": 200,
       "caller": "LearnerHomePage.jsx",
@@ -195,7 +195,7 @@
     },
     {
       "method": "GET",
-      "endpoint": "/api/tasks/6aacc3c6bc22009c6597d1d2",
+      "endpoint": "/api/tasks/6aae5fe2557728a21cbc8f2d",
       "purpose": "Fetch Task Details by Unique ID",
       "status": "PASS",
       "http_code": 200,
@@ -214,7 +214,7 @@
     {
       "method": "POST",
       "endpoint": "/api/session/start",
-      "purpose": "Initialize Learning Session (Session ID: 6aacc9a4...)",
+      "purpose": "Initialize Learning Session (Session ID: 6aae9857...)",
       "status": "PASS",
       "http_code": 200,
       "caller": "SessionPage.jsx",
@@ -303,7 +303,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/answer",
+      "endpoint": "/api/session/6aae9857557728a21cbc90ae/answer",
       "purpose": "Submit Incorrect Answer (Triggers Non-Punitive Feedback)",
       "status": "PASS",
       "http_code": 200,
@@ -312,7 +312,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/answer",
+      "endpoint": "/api/session/6aae9857557728a21cbc90ae/answer",
       "purpose": "Submit Correct Answer (Points & Mastery Progression)",
       "status": "PASS",
       "http_code": 200,
@@ -330,7 +330,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aacc9a4bc22009c6597d230/end",
+      "endpoint": "/api/session/6aae9857557728a21cbc90ae/end",
       "purpose": "Conclude Learning Session & Persist Summary",
       "status": "PASS",
       "http_code": 200,
@@ -402,7 +402,7 @@
     },
     {
       "method": "GET",
-      "endpoint": "/api/medical/questions/6aacc9a3bc22009c6597d22a",
+      "endpoint": "/api/medical/questions/6aae9857557728a21cbc90aa",
       "purpose": "Fetch ICMR Pediatric Questions",
       "status": "PASS",
       "http_code": 200,
