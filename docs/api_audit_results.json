@@ -1,6 +1,6 @@
 {
-  "total_tested": 53,
-  "pass": 53,
+  "total_tested": 60,
+  "pass": 60,
   "fail": 0,
   "blocked": 0,
   "endpoints": [
@@ -195,7 +195,7 @@
     },
     {
       "method": "GET",
-      "endpoint": "/api/tasks/6aae5fe2557728a21cbc8f2d",
+      "endpoint": "/api/tasks/6aaf79a1c9e01becb1087dc3",
       "purpose": "Fetch Task Details by Unique ID",
       "status": "PASS",
       "http_code": 200,
@@ -214,7 +214,7 @@
     {
       "method": "POST",
       "endpoint": "/api/session/start",
-      "purpose": "Initialize Learning Session (Session ID: 6aae9857...)",
+      "purpose": "Initialize Learning Session (Session ID: 6aaf79bb...)",
       "status": "PASS",
       "http_code": 200,
       "caller": "SessionPage.jsx",
@@ -236,6 +236,15 @@
       "status": "PASS",
       "http_code": 200,
       "caller": "ai_mentor.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/scaffold",
+      "purpose": "Scaffolding Ladder Level 0 Generation",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ScaffoldedHintBox.jsx",
       "error": ""
     },
     {
@@ -303,7 +312,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aae9857557728a21cbc90ae/answer",
+      "endpoint": "/api/session/6aaf79bbc9e01becb1087f2e/answer",
       "purpose": "Submit Incorrect Answer (Triggers Non-Punitive Feedback)",
       "status": "PASS",
       "http_code": 200,
@@ -312,7 +321,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aae9857557728a21cbc90ae/answer",
+      "endpoint": "/api/session/6aaf79bbc9e01becb1087f2e/answer",
       "purpose": "Submit Correct Answer (Points & Mastery Progression)",
       "status": "PASS",
       "http_code": 200,
@@ -330,7 +339,7 @@
     },
     {
       "method": "POST",
-      "endpoint": "/api/session/6aae9857557728a21cbc90ae/end",
+      "endpoint": "/api/session/6aaf79bbc9e01becb1087f2e/end",
       "purpose": "Conclude Learning Session & Persist Summary",
       "status": "PASS",
       "http_code": 200,
@@ -402,7 +411,7 @@
     },
     {
       "method": "GET",
-      "endpoint": "/api/medical/questions/6aae9857557728a21cbc90aa",
+      "endpoint": "/api/medical/questions/6aaf79bbc9e01becb1087f2a",
       "purpose": "Fetch ICMR Pediatric Questions",
       "status": "PASS",
       "http_code": 200,
@@ -480,6 +489,60 @@
       "http_code": 422,
       "caller": "Pydantic Validator",
       "error": "Unprocessable Content"
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/rag/status",
+      "purpose": "NCERT PGVector RAG Pipeline Status Probe",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "rag.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/rag/search",
+      "purpose": "Grounded NCERT Hybrid Search (Vector + Lexical)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "rag.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/rag/ask",
+      "purpose": "NCERT Grounded Q&A with Evidence Citations",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "rag.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/contextual-assist",
+      "purpose": "Contextual AI Assistant with Level-1 Hint Protection",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "ai_assist.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/evaluate-answer",
+      "purpose": "Structured Student Answer Evaluator (Correct)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "student_answer_evaluator.py",
+      "error": ""
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/ai/evaluate-answer",
+      "purpose": "Structured Student Answer Evaluator (Misconception/Divergence)",
+      "status": "PASS",
+      "http_code": 200,
+      "caller": "student_answer_evaluator.py",
+      "error": ""
     }
   ]
 }

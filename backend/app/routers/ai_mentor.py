@@ -27,6 +27,12 @@ class ScaffoldRequest(BaseModel):
     failed_attempts: Optional[int] = None
     hint_level: Optional[int] = None
     requested_level: Optional[int] = None
+    level: Optional[int] = None
+    task_context: Optional[Any] = None
+    error_type: Optional[str] = None
+
+    class Config:
+        extra = "allow"
 
 @router.post("/personalized-task")
 async def generate_personalized_task(
@@ -113,7 +119,7 @@ async def get_failure_scaffold(
         }
 
     attempts = req.attempt_count if req.attempt_count > 1 else (req.failed_attempts or req.attempt_count)
-    target_level = req.requested_level or req.hint_level
+    target_level = req.requested_level if req.requested_level is not None else (req.hint_level if req.hint_level is not None else req.level)
 
     scaffold_result = await scaffold_engine.get_scaffold_response(
         task=task_obj,

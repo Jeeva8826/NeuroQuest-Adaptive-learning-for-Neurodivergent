@@ -20,7 +20,8 @@ from app.routers import (
     medical as medical_router,
     ai_mentor as ai_mentor_router,
     ai_assist as ai_assist_router,
-    students as students_router
+    students as students_router,
+    rag as rag_router
 )
 
 # Relational SQLAlchemy API endpoints
@@ -79,6 +80,7 @@ app.include_router(caregiver_router.router)
 app.include_router(medical_router.router)
 app.include_router(ai_mentor_router.router)
 app.include_router(ai_assist_router.router)
+app.include_router(rag_router.router)
 
 # Attach Relational /api-less endpoints for compatibility
 app.include_router(api_auth.router)

@@ -40,17 +40,26 @@ _init_ncert_cache()
 
 class ScaffoldEngine:
     """
-    Manages low-stress, non-punitive failure scaffolding with a graduated 7-Level Ladder.
-    Grounded in NCERT curriculum knowledge graph and learner-selected interests.
+    Manages low-stress, non-punitive failure scaffolding with the 6-Level Architecture:
     
-    Level 1: Restate goal simply (in learner's interest domain)
-    Level 2: Highlight key concept / eliminate 1 wrong option
-    Level 3: Guiding question (Socratic nudge)
-    Level 4: Small worked example (analogous numbers/scenarios)
-    Level 5: Partial steps (fill-in-the-blank)
-    Level 6: Explain reasoning without giving away final answer
-    Level 7: Full solution with step-by-step breakdown (only when requested or max attempts exceeded)
+    - Level 0: Clarifying question (Orienting question to help understand what is being asked)
+    - Level 1: Hint (Gentle hint or subtle clue without leaking the answer)
+    - Level 2: Concept explanation (Core concept simplified with interest analogies & visual blocks)
+    - Level 3: Example (Parallel worked example with analogous numbers/context)
+    - Level 4: Step-by-step guidance (Structured reasoning & partial steps)
+    - Level 5: Full explanation (Complete solution breakdown, celebration, & concept mastery)
+
+    Connected directly with the contextual AI Assistant for safe, grounded learner guidance.
     """
+
+    LEVEL_DEFINITIONS = {
+        0: {"name": "Clarifying Question", "action": "clarifying_question", "representation": "standard"},
+        1: {"name": "Hint", "action": "hint", "representation": "standard"},
+        2: {"name": "Concept Explanation", "action": "change_representation", "representation": "visual_block"},
+        3: {"name": "Example", "action": "worked_example", "representation": "simplified"},
+        4: {"name": "Step-by-Step Guidance", "action": "partial_steps", "representation": "simplified"},
+        5: {"name": "Full Explanation", "action": "scaffold_and_reduce", "representation": "simplified"}
+    }
 
     def _find_concept_context(self, task: Dict[str, Any]) -> Dict[str, Any]:
         _init_ncert_cache()
@@ -66,7 +75,7 @@ class ScaffoldEngine:
                 return CONCEPTS_BY_ID[c_id]
 
         # Keyword match from question prompt
-        question_text = str(task.get("question", "")).lower()
+        question_text = str(task.get("question") or task.get("prompt", "")).lower()
         for cid, con in CONCEPTS_BY_ID.items():
             cname = con.get("concept_name", "").lower()
             if cname in question_text or any(word in question_text for word in cname.split() if len(word) > 4):
@@ -82,8 +91,8 @@ class ScaffoldEngine:
         requested_level: Optional[int] = None
     ) -> Dict[str, Any]:
         """
-        Generates a graduated 7-level scaffold step tailored to learner needs.
-        Preserves complete backwards compatibility with legacy tests.
+        Generates a 6-level graduated scaffold step (Levels 0 to 5) grounded in NCERT.
+        Preserves full backwards compatibility with tests and callers.
         """
         question = task.get("question") or task.get("prompt", "")
         correct_answer = str(task.get("correct_answer", ""))
@@ -95,13 +104,38 @@ class ScaffoldEngine:
         interests = learner_context.get("interests", ["space"])
         primary_interest = str(interests[0]).lower() if interests else "space"
 
-        # Determine scaffolding level (1 to 7)
+        # Determine level in the 6-Level Architecture (0 to 5)
+        output_scaffold_level = None
         if requested_level is not None:
-            level = max(1, min(7, int(requested_level)))
+            raw_lvl = int(requested_level)
+            # Map legacy levels 6 and 7 gracefully to step guidance & full solution
+            if raw_lvl >= 7:
+                level = 5
+                output_scaffold_level = raw_lvl
+            elif raw_lvl == 6:
+                level = 4
+                output_scaffold_level = 6
+            else:
+                level = max(0, min(5, raw_lvl))
+                output_scaffold_level = level
         else:
-            level = max(1, min(7, attempt_count))
+            if attempt_count <= 0:
+                level = 0
+            elif attempt_count == 1:
+                level = 1
+            elif attempt_count == 2:
+                level = 2
+            elif attempt_count == 3:
+                level = 3
+            elif attempt_count == 4:
+                level = 4
+            else:
+                level = 5
+            output_scaffold_level = level
 
         concept_data = self._find_concept_context(task)
+        concept_name = concept_data.get("concept_name", "Core Concept")
+        chapter_name = concept_data.get("chapter", "Curriculum Module")
         interest_analogies = concept_data.get("explanation", {}).get("interest_analogies", {})
         analogy_text = (
             interest_analogies.get(primary_interest)
@@ -112,186 +146,173 @@ class ScaffoldEngine:
         misconceptions = concept_data.get("misconceptions", [])
         misconception_truth = misconceptions[0].get("scientific_truth") if misconceptions else ""
 
-        # Non-punitive encouraging feedback messages
+        # Non-punitive encouraging feedback messages for all 6 levels
         feedback_messages = {
-            1: "Let's take a deep breath — here is a clear look at our goal!",
-            2: "Good exploration effort! Let's eliminate a distractor with a visual clue.",
-            3: "You are doing great! Let's think through this guiding question together.",
-            4: "Here is a quick parallel example to show how the pattern works!",
-            5: "Almost there! Let's solve the first half together.",
-            6: "Let's walk through the reasoning steps together — you've got this!",
-            7: "Wonderful perseverance! Here is the complete breakdown so you master it."
+            0: "Let's take a calm moment to clarify what the mission is asking!",
+            1: "Good exploration! Here is a gentle hint to spark your thinking.",
+            2: "Let's look at the big idea together with an engaging concept clue!",
+            3: "Here is a quick parallel example to show how the pattern works!",
+            4: "You're getting closer! Let's walk through the steps together.",
+            5: "Wonderful perseverance! Here is the complete breakdown for concept mastery."
         }
-        chosen_message = feedback_messages.get(level, "You're doing great — let's solve this together!")
+        chosen_message = feedback_messages.get(level, "You're doing great — let's explore this together!")
 
-        # 1. Level 1: Restate goal simply (in learner's interest domain)
-        if level == 1:
-            action = "hint" # legacy compatible
+        # Initialize slots
+        clarifying_question = None
+        hint_text = ""
+        concept_explanation = None
+        worked_example = None
+        partial_step = None
+        reasoning_walkthrough = None
+        full_solution = None
+        eliminated_options = []
+
+        # ==============================================================
+        # LEVEL 0: Clarifying Question
+        # ==============================================================
+        if level == 0:
+            action = "clarifying_question"
             next_representation = "standard"
+            step_title = "Level 0: Clarifying Question"
+
+            if scaffold_steps:
+                clarifying_question = f"Look at the question: {scaffold_steps[0]}"
+            elif concept_data.get("learning_objectives"):
+                clarifying_question = f"What is the main goal here? Are we looking for: {concept_data['learning_objectives'][0]}?"
+            else:
+                clarifying_question = f"What key property or relationship is '{question[:60]}...' asking us to notice?"
+
+            hint_text = f"Orienting Question: {clarifying_question}"
+            simplified_prompt = clarifying_question
+            suggested_answer = "Identify what the question is asking"
+
+        # ==============================================================
+        # LEVEL 1: Hint
+        # ==============================================================
+        elif level == 1:
+            action = "hint"
+            next_representation = "standard"
+            step_title = "Level 1: Hint"
+
             if hints:
                 hint_text = hints[0]
             elif analogy_text:
-                hint_text = f"Goal Restatement: {analogy_text}"
+                hint_text = f"Gentle Clue: {analogy_text}"
             else:
                 hint_text = await ai_mentor_service.generate_gentle_hint(question, correct_answer, learner_context, 1)
 
-            step_title = "Level 1: Goal Restatement"
-            simplified_prompt = f"Goal: Find the option that completes '{question[:60]}...' safely."
-            suggested_answer = "Focus on the main goal"
-            eliminated_options = []
-            guiding_question = None
-            worked_example = None
-            partial_step = None
-            reasoning_walkthrough = None
-            full_solution = None
+            simplified_prompt = f"Goal: Find the option that connects to: '{hint_text[:60]}...'"
+            suggested_answer = "Focus on the key clue"
 
-        # 2. Level 2: Highlight Concept & Eliminate 1 Wrong Option
+        # ==============================================================
+        # LEVEL 2: Concept Explanation (with Visual Block Mode & Distractor Cut)
+        # ==============================================================
         elif level == 2:
-            action = "change_representation" # legacy compatible
-            next_representation = "visual_block" # legacy test_phase3 expects "visual_block"
-            
-            # Find an option to eliminate
+            action = "change_representation"
+            next_representation = "visual_block"
+            step_title = "Level 2: Concept Explanation"
+
             distractors = [opt for opt in options if str(opt).strip().lower() != correct_answer.strip().lower()]
             eliminated = distractors[0] if distractors else "Option D"
             eliminated_options = [eliminated]
 
-            concept_name = concept_data.get("concept_name", "Core Concept")
-            hint_text = f"Visual Clue: Imagine grouping into blocks! Notice '{concept_name}'. Also, '{eliminated}' is not correct."
+            concept_std = concept_data.get("explanation", {}).get("standard")
+            concept_simp = concept_data.get("explanation", {}).get("simplified")
+            concept_explanation = concept_simp or concept_std or f"The concept '{concept_name}' describes how elements interact in {chapter_name}."
 
-            step_title = "Level 2: Concept Clue & Option Elimination"
-            simplified_prompt = f"Distractor Eliminated: '{eliminated}' is ruled out. Focus on remaining choices."
+            hint_text = f"Visual Clue: Imagine grouping into blocks! Notice '{concept_name}': {concept_explanation} Also, note '{eliminated}' is not correct."
+            simplified_prompt = f"Distractor Eliminated: '{eliminated}' is ruled out. Concept focus: {concept_name}."
             suggested_answer = f"Eliminated: {eliminated}"
-            guiding_question = None
-            worked_example = None
-            partial_step = None
-            reasoning_walkthrough = None
-            full_solution = None
 
-        # 3. Level 3: Guiding Socratic Question
+        # ==============================================================
+        # LEVEL 3: Example (Parallel Worked Example)
+        # ==============================================================
         elif level == 3:
-            action = "guiding_question"
-            next_representation = "visual_block"
-            
-            if scaffold_steps:
-                guiding_question = scaffold_steps[0]
-            elif concept_data.get("learning_objectives"):
-                guiding_question = f"Think about: {concept_data['learning_objectives'][0]}"
-            else:
-                guiding_question = f"What happens if we look at how '{correct_answer[:10]}...' relates to the question?"
-
-            hint_text = f"Socratic Nudge: {guiding_question}"
-            step_title = "Level 3: Guiding Socratic Question"
-            simplified_prompt = guiding_question
-            suggested_answer = "Reflect on this connection"
-            eliminated_options = []
-            worked_example = None
-            partial_step = None
-            reasoning_walkthrough = None
-            full_solution = None
-
-        # 4. Level 4: Small Worked Example with Analogous Numbers
-        elif level == 4:
             action = "worked_example"
             next_representation = "simplified"
+            step_title = "Level 3: Example"
 
             if "×" in question or "*" in question or "multiply" in question.lower() or "calculate" in question.lower():
-                worked_ex_prompt = "Parallel Example: Calculate 3 × 4"
-                worked_ex_ans = "12 (3 groups of 4)"
+                scenario = "Parallel Example: Calculate 3 × 4"
+                solution = "12 (3 equal groups of 4)"
             elif "nutrition" in question.lower() or "autotroph" in question.lower():
-                worked_ex_prompt = "Parallel Example: An apple tree uses sunlight to make its food."
-                worked_ex_ans = "The apple tree is an autotroph."
-            elif "stomata" in question.lower() or "leaf" in question.lower():
-                worked_ex_prompt = "Parallel Example: Fish have gills to breathe underwater."
-                worked_ex_ans = "Leaves have microscopic pores (stomata) to exchange gases."
+                scenario = "Parallel Example: A mango tree uses sunlight, water, and air to produce food."
+                solution = "The mango tree is an autotroph because it makes its own food."
+            elif "stomata" in question.lower() or "leaf" in question.lower() or "gas" in question.lower():
+                scenario = "Parallel Example: Animals have nostrils to breathe air."
+                solution = "Leaves have microscopic pores (stomata) through which carbon dioxide enters and oxygen exits."
+            elif "fraction" in question.lower() or "ratio" in question.lower():
+                scenario = "Parallel Example: Sharing 1 pizza equally among 4 friends."
+                solution = "Each friend gets 1/4 of the whole pizza."
             else:
-                worked_ex_prompt = "Parallel Example: Breaking a big problem into two simpler halves."
-                worked_ex_ans = "Solve Part 1, then combine with Part 2."
+                scenario = f"Parallel Example: Testing a similar case with {concept_name}."
+                solution = "Identify the defining feature, match with options."
 
             worked_example = {
-                "scenario": worked_ex_prompt,
-                "solution": worked_ex_ans
+                "scenario": scenario,
+                "solution": solution,
+                "takeaway": "Apply this identical pattern to solve the current question!"
             }
-            hint_text = f"Worked Example: {worked_ex_prompt} → Answer: {worked_ex_ans}."
-            step_title = "Level 4: Small Worked Example"
-            simplified_prompt = worked_ex_prompt
-            suggested_answer = worked_ex_ans
-            eliminated_options = []
-            guiding_question = None
-            partial_step = None
-            reasoning_walkthrough = None
-            full_solution = None
+            hint_text = f"Worked Example: {scenario} → Takeaway: {solution}"
+            simplified_prompt = scenario
+            suggested_answer = solution
 
-        # 5. Level 5: Partial Steps (Fill-in-the-blank)
-        elif level == 5:
+        # ==============================================================
+        # LEVEL 4: Step-by-Step Guidance (Partial Steps & Structured Reasoning)
+        # ==============================================================
+        elif level == 4:
             action = "partial_steps"
             next_representation = "simplified"
-
-            if scaffold_steps and len(scaffold_steps) > 1:
-                fill_prompt = f"Step 1 is ready: {scaffold_steps[0]}. Now complete: {scaffold_steps[1]}"
-            else:
-                fill_prompt = f"Fill in the blank: The key feature matching our target is [ ______ ]."
-
-            partial_step = {
-                "prompt": fill_prompt,
-                "clue": f"Relates closely to '{correct_answer}'"
-            }
-            hint_text = f"Partial Step: {fill_prompt}"
-            step_title = "Level 5: Partial Steps"
-            simplified_prompt = fill_prompt
-            suggested_answer = "Fill in the missing step"
-            eliminated_options = []
-            guiding_question = None
-            worked_example = None
-            reasoning_walkthrough = None
-            full_solution = None
-
-        # 6. Level 6: Step-by-Step Reasoning Without Giving Away Final Answer
-        elif level == 6:
-            action = "explain_reasoning"
-            next_representation = "simplified"
+            step_title = "Level 4: Step-by-Step Guidance"
 
             walkthrough = []
-            if scaffold_steps:
+            if scaffold_steps and len(scaffold_steps) >= 2:
                 walkthrough.extend(scaffold_steps)
+                fill_prompt = f"Step 1: {scaffold_steps[0]}. Next step: [ ______ ]"
             else:
-                walkthrough.append("Step 1: Identify what is given in the problem statement.")
+                walkthrough.append(f"Step 1: Identify what is given in the problem statement regarding '{concept_name}'.")
                 walkthrough.append("Step 2: Connect the given terms to their scientific/mathematical definition.")
                 if misconception_truth:
-                    walkthrough.append(f"Key Fact: {misconception_truth}")
-                walkthrough.append("Step 3: Select the option that aligns with this rule.")
+                    walkthrough.append(f"Key Principle: {misconception_truth}")
+                walkthrough.append("Step 3: Select the option that directly satisfies this principle.")
+                fill_prompt = f"Fill in the blank: The key feature matching '{concept_name}' is [ ______ ]."
 
             reasoning_walkthrough = walkthrough
-            hint_text = f"Reasoning: {' '.join(walkthrough[:2])}"
-            step_title = "Level 6: Step-by-Step Reasoning"
-            simplified_prompt = "Review the step-by-step logic above to choose your answer."
-            suggested_answer = "Apply this final step yourself"
-            eliminated_options = []
-            guiding_question = None
-            worked_example = None
-            partial_step = None
-            full_solution = None
+            partial_step = {
+                "prompt": fill_prompt,
+                "clue": f"Relates closely to '{correct_answer[:4]}...'"
+            }
+            hint_text = f"Step Guidance: {' '.join(walkthrough[:2])}"
+            simplified_prompt = fill_prompt
+            suggested_answer = "Fill in the missing step"
 
-        # 7. Level 7: Full Solution Breakdown (Preserving Agency)
-        else: # level >= 7
-            action = "scaffold_and_reduce" # legacy compatible
-            next_representation = "simplified" # legacy compatible
+        # ==============================================================
+        # LEVEL 5: Full Explanation (Complete Worked Breakdown)
+        # ==============================================================
+        else: # level >= 5
+            action = "scaffold_and_reduce"
+            next_representation = "simplified"
+            step_title = "Level 5: Full Explanation"
 
-            sol_explanation = explanation or f"The correct answer is {correct_answer} because it directly satisfies the curriculum objective."
-            hint_text = f"Simplified Example: If we take 1 group of {correct_answer}, the result is {correct_answer}!"
+            sol_explanation = explanation or (
+                f"The correct answer is '{correct_answer}'. In {chapter_name}, '{concept_name}' "
+                f"is defined by this foundational principle."
+            )
+            hint_text = f"Full Solution: '{correct_answer}' is the correct choice because {sol_explanation}"
 
             full_solution = {
                 "final_answer": correct_answer,
                 "explanation": sol_explanation,
-                "celebration": "You explored through all steps — learning takes curiosity and practice!"
+                "concept": concept_name,
+                "celebration": "Incredible effort! You explored all 6 scaffold levels and mastered this curriculum concept!"
             }
-            step_title = "Level 7: Complete Worked Solution"
-            simplified_prompt = f"Which of these matches {correct_answer}?" # legacy compatible
-            suggested_answer = correct_answer # legacy compatible
-            eliminated_options = []
-            guiding_question = None
-            worked_example = None
-            partial_step = None
-            reasoning_walkthrough = None
+            simplified_prompt = f"Which of these matches {correct_answer}?"
+            suggested_answer = correct_answer
+
+        if output_scaffold_level == 6:
+            step_title = "Level 6: Step-by-Step Guidance"
+        elif output_scaffold_level is not None and output_scaffold_level >= 7:
+            step_title = f"Level {output_scaffold_level}: Full Explanation"
 
         scaffold_step = {
             "step_title": step_title,
@@ -299,12 +320,28 @@ class ScaffoldEngine:
             "suggested_answer": suggested_answer
         }
 
+        # Contextual AI Assistant connection payload
+        contextual_assistant = {
+            "scaffold_level": level,
+            "level_name": step_title,
+            "concept_id": concept_data.get("concept_id"),
+            "concept_name": concept_name,
+            "chapter": chapter_name,
+            "suggested_prompt": (
+                f"I'm on Scaffold Level {level} for '{concept_name}'. Can you explain how this connects to {primary_interest}?"
+            ),
+            "safety_policy": (
+                "Never reveal the final answer before Level 5. Provide Socratic clues and conceptual analogies."
+            ),
+            "grounded_citation": f"NCERT {concept_data.get('standard', 'Curriculum')} - {chapter_name}"
+        }
+
         # Learner agency action choices
         agency_choices = ["Try independently now"]
-        if level < 7:
-            agency_choices.append(f"Request Level {level + 1} Hint")
+        if level < 5:
+            agency_choices.append(f"Request Level {level + 1} ({self.LEVEL_DEFINITIONS[level + 1]['name']})")
         if next_representation != "visual_block":
-            agency_choices.append("Switch to Visual Blocks")
+            agency_choices.append("Switch to Visual Diagrams")
         if next_representation != "simplified":
             agency_choices.append("Switch to Simplified Text")
 
@@ -315,20 +352,35 @@ class ScaffoldEngine:
             "hint": hint_text,
             "scaffold_step": scaffold_step,
             "should_modify_strategy": attempt_count >= 2,
-            # 7-Level Ladder Rich Metadata
-            "scaffold_level": level,
+            # 6-Level Architecture Fields
+            "scaffold_level": output_scaffold_level,
+            "architecture_level": level,
             "level_name": step_title,
             "ladder_progress": {
                 "current_level": level,
-                "max_levels": 7,
-                "can_advance": level < 7
+                "max_levels": 6,
+                "level_range": "Level 0 to Level 5",
+                "can_advance": level < 5,
+                "levels_roster": [
+                    "Level 0: Clarifying question",
+                    "Level 1: Hint",
+                    "Level 2: Concept explanation",
+                    "Level 3: Example",
+                    "Level 4: Step-by-step guidance",
+                    "Level 5: Full explanation"
+                ]
             },
-            "eliminated_options": eliminated_options,
-            "guiding_question": guiding_question,
+            "clarifying_question": clarifying_question,
+            "concept_explanation": concept_explanation,
             "worked_example": worked_example,
+            "example": worked_example,
             "partial_step": partial_step,
             "reasoning_walkthrough": reasoning_walkthrough,
+            "step_by_step_guidance": reasoning_walkthrough or ([partial_step["prompt"]] if partial_step else None),
             "full_solution": full_solution,
+            "full_explanation": full_solution,
+            "eliminated_options": eliminated_options,
+            "contextual_assistant": contextual_assistant,
             "learner_agency_choices": agency_choices
         }
 

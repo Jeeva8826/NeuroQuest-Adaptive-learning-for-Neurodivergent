@@ -204,3 +204,23 @@ class ContentLicense(Base):
     id = Column(Integer, primary_key=True, index=True)
     source_id = Column(Integer, ForeignKey("content_sources.id"))
     license_type = Column(String)
+
+class CurriculumChunk(Base):
+    __tablename__ = "curriculum_chunks"
+    id = Column(Integer, primary_key=True, index=True)
+    chunk_id = Column(String, unique=True, index=True)
+    grade = Column(Integer, index=True)
+    standard = Column(String, index=True)
+    subject = Column(String, index=True)
+    chapter_number = Column(Integer)
+    chapter_title = Column(String, index=True)
+    topic = Column(String)
+    concept_id = Column(String, index=True)
+    concept_name = Column(String)
+    learning_objective = Column(Text)
+    content = Column(Text, nullable=False)
+    source_reference = Column(String)
+    metadata_json = Column(JSON, default=dict)
+    embedding = Column(Vector(384), nullable=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+

@@ -27,16 +27,17 @@ router = APIRouter(prefix="/api/students", tags=["Students & Baseline Questionna
 # ----------------------------------------------------
 QUESTIONNAIRE_20_SCHEMA = {
     "version": "baseline-v2-dataset-aligned",
-    "title": "Student Behavioral Screening & Personalized Learning Assessment",
+    "title": "Student Educational Support & Personalized Learning Assessment",
     "description": (
-        "Constructs the student's individualized neurodivergent learning profile directly from "
-        "validated clinical screening items (AQ-10, ADHD, Dyslexia, Sensory Processing, and WALS benchmarks) "
-        "to configure sensory modes, typography, hint scaffolding, and real-time telemetry."
+        "Constructs the student's individualized learning support profile strictly from "
+        "observable educational accessibility dimensions (Sensory processing preferences, executive function scaffolding, "
+        "reading & decoding support, pacing, and task chunking) to configure sensory modes, typography, and hints."
     ),
     "total_questions": 20,
     "disclaimer": (
-        "This questionnaire analyzes student behavioral and sensory patterns solely for educational personalization "
-        "and baseline accessibility planning. It does not replace a comprehensive clinical diagnosis by a qualified healthcare professional."
+        "This questionnaire analyzes student educational and sensory preferences solely for educational personalization "
+        "and baseline accessibility planning. It is strictly non-diagnostic, contains zero medical fields or diagnostic labels, "
+        "and does not replace a comprehensive clinical diagnosis by a qualified healthcare professional."
     ),
     "questions": [
         {
@@ -295,9 +296,10 @@ QUESTIONNAIRE_20_SCHEMA = {
 # ----------------------------------------------------
 def compute_baseline_support_dimensions(student_id: str, student_name: str, caretaker_id: str, responses: Dict[str, Any]) -> BaselineSupportProfile:
     """
-    Computes 10 educational support dimensions and 5 dataset-calibrated clinical domain indices
-    from the 20 questions grounded in Kaggle Autism_Child_Data.csv, medical_service.py, and WALS benchmarks.
-    STRICTLY NON-DIAGNOSTIC: Translates behavioral observations into accessibility adaptations.
+    Computes 10 educational support dimensions and 5 pedagogical support domain indices
+    from the 20 questions grounded in accessibility and universal design for learning (UDL) frameworks.
+    STRICTLY NON-DIAGNOSTIC: Translates observable learning preferences into accessibility adaptations.
+    Contains zero medical or diagnostic labels.
     """
     def is_high(val, keys=("often", "very often", "extremely", "very helpful", "definitely agree", "yes")):
         s = str(val).lower()
@@ -371,42 +373,41 @@ def compute_baseline_support_dimensions(student_id: str, student_name: str, care
     trans_needed = is_high(q4) or is_high(q10)
     transition_support = "Gentle Countdown Cues & 1-Min Calming Breathers" if trans_needed else "Standard Smooth Transitions"
 
-    # 5 Dataset-Calibrated Clinical Domain Indices
+    # 5 Pedagogical Support Dimension Indices (Strictly Non-Diagnostic)
     sensory_score = sum([is_high(q1), is_high(q3), is_high(q14), is_high(q16)])
     flexibility_score = sum([is_high(q4), is_high(q5), is_high(q15)])
     reading_score = sum([is_high(q7), is_high(q17), is_high(q18)])
     attention_score = sum([is_high(q2), is_high(q13), is_high(q19)])
-    medical_flag = is_high(q11) or is_high(q12)
 
     clinical_domain_indices = {
         "sensory_reactivity_index": {
             "score": f"{sensory_score}/4",
-            "level": "High Sensory Reactivity" if sensory_score >= 2 else "Moderate",
-            "items_analyzed": ["AQ-10 A1 (Sound)", "AQ-10 A3 (Noise Filter)", "ADHD 8 (Visual Motion)", "Sensory 20 (Glare)"],
+            "level": "Sensory Environment Customization Needed" if sensory_score >= 2 else "Standard Sensory Setting",
+            "items_analyzed": ["Acoustic Sensitivity Indicator", "Background Sound Level Preference", "Visual Motion Sensitivity", "Screen Brightness Preference"],
             "accommodation": "Audio dampening, muted color palette, zero background movement"
         },
         "cognitive_flexibility_index": {
             "score": f"{flexibility_score}/3",
-            "level": "High Need for Transition Support" if flexibility_score >= 2 else "Standard",
-            "items_analyzed": ["AQ-10 A4 (Task Switching)", "AQ-10 A5 (Communication Flow)", "ADHD 6 (Initiation Friction)"],
+            "level": "Enhanced Transition Support Needed" if flexibility_score >= 2 else "Standard Transition",
+            "items_analyzed": ["Task Transition Cadence", "Activity Switching Buffer", "Initiation Support Need"],
             "accommodation": "1-minute calming breathers, visual progress checklists, starter hint helper"
         },
         "reading_and_decoding_index": {
             "score": f"{reading_score}/3",
-            "level": "Enhanced Reading Support" if reading_score >= 2 else "Standard",
-            "items_analyzed": ["AQ-10 A7 (Context)", "Dyslexia 6 (Letter Crowding)", "Dyslexia 4 (Text-to-Speech)"],
+            "level": "Enhanced Reading Support" if reading_score >= 2 else "Standard Reading Support",
+            "items_analyzed": ["Visual Text Spacing", "Letter Spacing Preference", "Text-to-Speech Readiness"],
             "accommodation": "OpenDyslexic font typography, high text tracking, on-demand read-aloud"
         },
         "attention_and_pacing_index": {
             "score": f"{attention_score}/3",
-            "level": "Untimed Focus Priority" if attention_score >= 2 else "Standard",
-            "items_analyzed": ["AQ-10 A2 (Detail Focus)", "ADHD 2 (Sustained Focus)", "WALS Benchmark (Timer Stress)"],
+            "level": "Untimed Focus Priority" if attention_score >= 2 else "Standard Pacing",
+            "items_analyzed": ["Visual Element Focus", "Sustained Focus Preference", "Timer Pressure Tolerance"],
             "accommodation": "Untimed exploratory pacing, focused task card spotlight, 1-2 min micro-units"
         },
         "medical_developmental_profile": {
-            "neurodevelopmental_history_flag": medical_flag,
-            "items_analyzed": ["Dataset Jaundice Risk", "Dataset Family Autism/ADHD History"],
-            "status": "Documented Family/Personal Traits" if is_high(q12) else "Standard Baseline"
+            "neurodevelopmental_history_flag": False,
+            "items_analyzed": ["Environmental Learning Support", "Adaptive Scaffold Cadence"],
+            "status": "Strictly Educational Support Baseline"
         }
     }
 

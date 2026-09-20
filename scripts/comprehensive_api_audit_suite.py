@@ -6,7 +6,36 @@ import urllib.request
 import urllib.error
 from typing import Dict, Any, Tuple
 
+import os
+import socket
+import threading
+
 BASE_URL = "http://127.0.0.1:8000"
+
+def _ensure_server_running():
+    try:
+        with socket.create_connection(("127.0.0.1", 8000), timeout=0.5):
+            return
+    except OSError:
+        pass
+    
+    print("[INIT] Starting in-process FastAPI backend on 127.0.0.1:8000 for automated testing...")
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    sys.path.insert(0, os.path.join(project_root, "backend"))
+    import uvicorn
+    from app.main import app
+    config = uvicorn.Config(app, host="127.0.0.1", port=8000, log_level="warning")
+    server = uvicorn.Server(config)
+    t = threading.Thread(target=server.run, daemon=True)
+    t.start()
+    for _ in range(30):
+        time.sleep(0.5)
+        try:
+            with socket.create_connection(("127.0.0.1", 8000), timeout=0.5):
+                print("[INIT] Live backend online and accepting requests!")
+                return
+        except OSError:
+            pass
 
 # Colors for terminal output
 GREEN = "\033[92m"
@@ -76,6 +105,7 @@ def make_request(method: str, path: str, data: Dict[str, Any] = None, token: str
         return 0, {}, str(e)
 
 def run_audit():
+    _ensure_server_running()
     print("=" * 80)
     print("NEUROQUEST FULL SPECTRUM API & BACKEND INTEGRATION AUDIT SUITE")
     print("=" * 80)
@@ -287,8 +317,8 @@ def run_audit():
     passed = (code == 200 and ("task" in body or "question" in body or "title" in body))
     record_test("POST", "/api/ai/personalized-task", "Generate AI Contextual Task via Agent Engine", passed, code, err, "ai_mentor.py")
 
-    # Test Grounded 7-Level Scaffolding Ladder (Levels 1 through 7)
-    for lvl in range(1, 8):
+    # Test Grounded 6-Level Scaffolding Architecture (Levels 0 to 5) & Legacy Compatibility (6 to 7)
+    for lvl in range(0, 8):
         scaffold_payload = {
             "task_id": task_id,
             "session_id": session_id,
@@ -461,6 +491,69 @@ def run_audit():
     }, token=token)
     passed = (code == 422)
     record_test("POST", "/api/telemetry/evaluate", "Malformed Payload Type Validation (HTTP 422)", passed, code, err, "Pydantic Validator")
+
+    # ----------------------------------------------------
+    # PHASE 12: NCERT PGVector RAG & Student Answer Evaluator
+    # ----------------------------------------------------
+    print(f"\n{CYAN}--- Testing NCERT PGVector RAG & Pedagogical Answer Evaluator ---{RESET}")
+    # 1. RAG Pipeline Status
+    code, body, err = make_request("GET", "/api/rag/status")
+    passed = (code == 200 and "pipeline" in body and body.get("status") == "operational")
+    record_test("GET", "/api/rag/status", "NCERT PGVector RAG Pipeline Status Probe", passed, code, err, "rag.py")
+
+    # 2. RAG Hybrid Search
+    code, body, err = make_request("POST", "/api/rag/search", {
+        "query": "photosynthesis autotrophic plants",
+        "grade": 7,
+        "subject": "Science",
+        "top_k": 3
+    })
+    passed = (code == 200 and len(body.get("results", [])) > 0 and "score" in body["results"][0])
+    record_test("POST", "/api/rag/search", "Grounded NCERT Hybrid Search (Vector + Lexical)", passed, code, err, "rag.py")
+
+    # 3. Grounded RAG Question Answering
+    code, body, err = make_request("POST", "/api/rag/ask", {
+        "question": "What is photosynthesis and how do green plants make food?",
+        "grade": 7,
+        "subject": "Science",
+        "learner_interests": ["space"]
+    })
+    passed = (code == 200 and body.get("grounded") is True and len(body.get("citations", [])) > 0)
+    record_test("POST", "/api/rag/ask", "NCERT Grounded Q&A with Evidence Citations", passed, code, err, "rag.py")
+
+    # 4. Contextual AI Assistant (6-Level Scaffolding Grounding)
+    code, body, err = make_request("POST", "/api/ai/contextual-assist", {
+        "user_message": "Can you give me a clue about photosynthesis without giving away the answer?",
+        "task": {
+            "question": "What gas do plants release during photosynthesis?",
+            "correct_answer": "Oxygen",
+            "concept_name": "Photosynthesis"
+        },
+        "scaffold_level": 1,
+        "learner_interests": ["space"]
+    })
+    passed = (code == 200 and "assistant_reply" in body and body.get("scaffold_level") == 1)
+    record_test("POST", "/api/ai/contextual-assist", "Contextual AI Assistant with Level-1 Hint Protection", passed, code, err, "ai_assist.py")
+
+    # 5. Student Answer Evaluator Endpoint
+    code, body, err = make_request("POST", "/api/ai/evaluate-answer", {
+        "question": "What gas do green plants release during photosynthesis?",
+        "student_answer": "Oxygen",
+        "correct_answer": "Oxygen",
+        "learner_interests": ["space"]
+    })
+    passed = (code == 200 and body.get("status") == "CORRECT" and "feedback" in body and "next_step" in body)
+    record_test("POST", "/api/ai/evaluate-answer", "Structured Student Answer Evaluator (Correct)", passed, code, err, "student_answer_evaluator.py")
+
+    # 6. Student Answer Evaluator Misconception / Divergent Detection
+    code, body, err = make_request("POST", "/api/ai/evaluate-answer", {
+        "question": "Are plants autotrophs or heterotrophs?",
+        "student_answer": "Plants are only theoretical with no real-world application",
+        "correct_answer": "Autotrophs",
+        "concept_id": "CON_MAT_G1_01"
+    })
+    passed = (code == 200 and "reason" in body and "correct_concept" in body)
+    record_test("POST", "/api/ai/evaluate-answer", "Structured Student Answer Evaluator (Misconception/Divergence)", passed, code, err, "student_answer_evaluator.py")
 
     # ----------------------------------------------------
     # SUMMARY REPORT

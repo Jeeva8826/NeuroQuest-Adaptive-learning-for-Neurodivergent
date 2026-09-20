@@ -12,6 +12,15 @@ const LEVEL_LABELS = [
   "7. Full Solution"
 ];
 
+const SIX_LEVEL_LABELS = [
+  "0. Clarify Q",
+  "1. Hint",
+  "2. Concept Clue",
+  "3. Example",
+  "4. Step Guide",
+  "5. Full Solution"
+];
+
 const ScaffoldedHintBox = ({ scaffoldData, onSelectRepresentation, onRequestNextLevel, onDismiss }) => {
   if (!scaffoldData) return null;
 
@@ -20,10 +29,12 @@ const ScaffoldedHintBox = ({ scaffoldData, onSelectRepresentation, onRequestNext
     hint,
     next_representation,
     scaffold_step,
-    scaffold_level = 1,
+    scaffold_level,
     level_name,
     ladder_progress,
     eliminated_options = [],
+    clarifying_question,
+    concept_explanation,
     guiding_question,
     worked_example,
     partial_step,
@@ -32,27 +43,35 @@ const ScaffoldedHintBox = ({ scaffoldData, onSelectRepresentation, onRequestNext
     learner_agency_choices = []
   } = scaffoldData;
 
-  const currentLevel = scaffold_level || (ladder_progress && ladder_progress.current_level) || 1;
-  const canAdvance = currentLevel < 7;
+  const is6Level = ladder_progress && ladder_progress.max_levels === 6;
+  const currentLevel = (scaffold_level !== undefined && scaffold_level !== null)
+    ? scaffold_level
+    : ((ladder_progress && ladder_progress.current_level !== undefined) ? ladder_progress.current_level : 1);
+  const maxLevels = is6Level ? 6 : 7;
+  const canAdvance = ladder_progress && ladder_progress.can_advance !== undefined
+    ? ladder_progress.can_advance
+    : (currentLevel < (is6Level ? 5 : 7));
+
+  const activeLabels = is6Level ? SIX_LEVEL_LABELS : LEVEL_LABELS;
 
   return (
     <div className="bg-amber-50/95 border border-amber-200 rounded-3xl p-6 space-y-4 animate-fadeIn shadow-sm text-slate-800">
-      {/* 7-Level Graduated Ladder Stepper Header */}
+      {/* Graduated Ladder Stepper Header */}
       <div className="bg-white/80 p-3 rounded-2xl border border-amber-200/80">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1.5 text-xs font-black text-amber-900 uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-            <span>7-Level Scaffolding Ladder (Never Leaks Solution Early)</span>
+            <span>{is6Level ? '6-Level NCERT Scaffolding Ladder' : '7-Level Scaffolding Ladder'} (Never Leaks Solution Early)</span>
           </div>
           <span className="text-[11px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
-            Level {currentLevel} of 7
+            Level {currentLevel} of {is6Level ? 5 : 7}
           </span>
         </div>
 
         {/* Level Stepper Bar */}
-        <div className="grid grid-cols-7 gap-1">
-          {LEVEL_LABELS.map((label, idx) => {
-            const lvlNum = idx + 1;
+        <div className={`grid ${is6Level ? 'grid-cols-6' : 'grid-cols-7'} gap-1`}>
+          {activeLabels.map((label, idx) => {
+            const lvlNum = is6Level ? idx : idx + 1;
             const isCompleted = lvlNum < currentLevel;
             const isCurrent = lvlNum === currentLevel;
             return (
@@ -97,6 +116,28 @@ const ScaffoldedHintBox = ({ scaffoldData, onSelectRepresentation, onRequestNext
       <div className="text-xs text-amber-900 font-medium bg-white/80 p-3.5 rounded-2xl border border-amber-200/70 leading-relaxed shadow-inner">
         {hint}
       </div>
+
+      {/* Level 0: Clarifying Orienting Question Card */}
+      {clarifying_question && (
+        <div className="bg-sky-50 border border-sky-200 rounded-2xl p-3.5 flex items-start gap-2.5">
+          <Compass className="w-4 h-4 text-sky-700 shrink-0 mt-0.5" />
+          <div className="text-xs">
+            <span className="font-bold text-sky-900 block mb-1">Level 0: Clarifying Question</span>
+            <p className="text-sky-800 italic font-medium">{clarifying_question}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Level 2: Concept Explanation Card */}
+      {concept_explanation && (
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3.5 space-y-1.5">
+          <div className="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+            <BookOpen className="w-3.5 h-3.5 text-blue-700" />
+            <span>Level 2: Concept Explanation</span>
+          </div>
+          <p className="text-xs text-blue-800 font-medium leading-relaxed">{concept_explanation}</p>
+        </div>
+      )}
 
       {/* Level 2: Eliminated Distractor Card */}
       {eliminated_options && eliminated_options.length > 0 && (
@@ -208,7 +249,7 @@ const ScaffoldedHintBox = ({ scaffoldData, onSelectRepresentation, onRequestNext
               onClick={() => onRequestNextLevel && onRequestNextLevel(currentLevel + 1)}
               className="px-3.5 py-1.5 rounded-xl bg-amber-500 text-amber-950 text-xs font-extrabold hover:bg-amber-400 transition-all flex items-center gap-1.5 shadow-sm"
             >
-              <span>Next Hint Level ({currentLevel + 1}/7)</span>
+              <span>Next Hint Level ({currentLevel + 1}/{is6Level ? 5 : 7})</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           )}

@@ -163,14 +163,39 @@ async def submit_answer(
         }
     )
 
+    from app.services.student_answer_evaluator import student_answer_evaluator
+    evaluation = student_answer_evaluator.evaluate_answer(
+        question=task.get("question") or task.get("prompt", ""),
+        student_answer=user_answer,
+        correct_answer=correct_answer,
+        options=task.get("options", []),
+        concept_id=task.get("concept_id"),
+        task_context=task,
+        learner_context={"interests": interests}
+    )
+
     return {
         "is_correct": is_correct,
         "points_earned": points,
         "correct_answer": task["correct_answer"],
         "explanation": task["explanation"],
         "feedback_message": feedback_msg,
-        "personalized_reward": reward_result
+        "personalized_reward": reward_result,
+        "evaluation": evaluation
     }
+
+@router.post("/evaluate-answer")
+async def evaluate_task_answer(eval_data: dict, current_user: dict = Depends(get_current_user)):
+    from app.services.student_answer_evaluator import student_answer_evaluator
+    return student_answer_evaluator.evaluate_answer(
+        question=eval_data.get("question", ""),
+        student_answer=eval_data.get("student_answer", ""),
+        correct_answer=eval_data.get("correct_answer", ""),
+        options=eval_data.get("options", []),
+        concept_id=eval_data.get("concept_id"),
+        task_context=eval_data.get("task_context", {}),
+        learner_context=eval_data.get("learner_context", {})
+    )
 
 @router.post("/{session_id}/end")
 async def end_session(session_id: str, current_user: dict = Depends(get_current_user)):

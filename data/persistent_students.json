@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-20T02:54:27.902492",
+  "last_updated": "2026-09-20T06:14:00.463986",
   "learners": [
     {
       "_id": "6aacc3ecbc22009c6597d1e9",
@@ -424,6 +424,7 @@
       "created_at": "2026-09-19 13:46:29.543000"
     },
     {
+      "_id": "6aaf4ae3ea52d87560008b29",
       "sql_id": 3,
       "caretaker_id": "1",
       "first_name": "Arya",
@@ -439,8 +440,69 @@
         "Science"
       ],
       "has_completed_screening": false,
-      "created_at": "2026-09-19 14:26:08.532000",
-      "_id": "6aaf4ae3ea52d87560008b29"
+      "created_at": "2026-09-19 14:26:08.532000"
+    },
+    {
+      "_id": "6aaf70ab5857551f9eb656c8",
+      "sql_id": 4,
+      "caretaker_id": "1",
+      "first_name": "jeeva",
+      "last_name": "c",
+      "name": "jeeva c",
+      "age": 11,
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "has_completed_screening": false,
+      "created_at": "2026-09-20 04:44:10.030000"
+    },
+    {
+      "_id": "6aaf70ab5857551f9eb656c9",
+      "sql_id": 6,
+      "caretaker_id": "1",
+      "first_name": "riya",
+      "last_name": "c",
+      "name": "riya c",
+      "age": 11,
+      "grade": "Class 6",
+      "school_level": "Middle School",
+      "preferred_language": "English",
+      "interests": [
+        "Space",
+        "Robotics",
+        "Science"
+      ],
+      "has_completed_screening": false,
+      "created_at": "2026-09-20 04:55:29.586000"
+    },
+    {
+      "_id": "6aaf73f0e39d4f1c439b95f9",
+      "caretaker_id": "6aaf73f0e39d4f1c439b95f8",
+      "first_name": "Aarav",
+      "last_name": "Sharma",
+      "name": "Aarav Sharma",
+      "age": 11,
+      "date_of_birth": null,
+      "grade": "Class 6 (NCERT)",
+      "school_level": "Middle School",
+      "school_name": "Kendriya Vidyalaya",
+      "preferred_language": "English",
+      "interests": [
+        "Space & Astronomy",
+        "Robotics & Coding",
+        "Dinosaurs & Prehistory"
+      ],
+      "learning_environment": "Quiet Space with Visual Cues",
+      "preferred_communication": "Visual and spoken",
+      "guardian_consent": true,
+      "has_completed_screening": true,
+      "created_at": "2026-09-20 05:49:36.782000",
+      "screening_completed_at": "2026-09-20 05:49:37.608000"
     }
   ],
   "questionnaire_drafts": [],

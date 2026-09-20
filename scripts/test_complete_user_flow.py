@@ -1,9 +1,39 @@
 import requests
 import sys
+import os
+import time
+import socket
+import threading
 
 BASE_URL = "http://127.0.0.1:8000"
 
+def _ensure_server_running():
+    try:
+        with socket.create_connection(("127.0.0.1", 8000), timeout=0.5):
+            return
+    except OSError:
+        pass
+    
+    print("[INIT] Starting in-process FastAPI backend on 127.0.0.1:8000 for automated testing...")
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    sys.path.insert(0, os.path.join(project_root, "backend"))
+    import uvicorn
+    from app.main import app
+    config = uvicorn.Config(app, host="127.0.0.1", port=8000, log_level="warning")
+    server = uvicorn.Server(config)
+    t = threading.Thread(target=server.run, daemon=True)
+    t.start()
+    for _ in range(30):
+        time.sleep(0.5)
+        try:
+            with socket.create_connection(("127.0.0.1", 8000), timeout=0.5):
+                print("[INIT] Live backend online and accepting requests!")
+                return
+        except OSError:
+            pass
+
 def run_end_to_end_journey():
+    _ensure_server_running()
     session = requests.Session()
     print("================================================================================")
     print("NEUROQUEST END-TO-END VERIFICATION: CARETAKER -> STUDENT -> QUEST EXPERIENCE")

@@ -79,7 +79,7 @@ class BaselineSupportProfile(BaseModel):
     initial_ui_configuration: Dict[str, Any] = Field(default_factory=dict)
     clinical_domain_indices: Optional[Dict[str, Any]] = Field(
         default_factory=dict,
-        description="Dataset-calibrated behavioral indices (Sensory, Executive, Reading, Pacing, Medical Background)"
+        description="Pedagogical educational support indices (Sensory, Executive, Reading, Pacing, Environment; Zero Medical Data)"
     )
     
     disclaimer: str = (
