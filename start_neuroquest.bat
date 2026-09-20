@@ -10,12 +10,12 @@ cd /d "%~dp0"
 echo [1/3] Starting FastAPI Backend Daemon on port 8000...
 start "NeuroQuest Backend (Port 8000)" cmd /k "cd /d "%~dp0backend" && python run.py"
 
-timeout /t 2 /nobreak >nul
+ping -n 3 127.0.0.1 >nul
 
 echo [2/3] Starting Vite React Frontend on port 5173...
 start "NeuroQuest Frontend (Port 5173)" cmd /k "cd /d "%~dp0frontend" && npm run dev"
 
-timeout /t 3 /nobreak >nul
+ping -n 4 127.0.0.1 >nul
 
 echo [3/3] Opening Web Browser to http://localhost:5173/ ...
 start http://localhost:5173/
